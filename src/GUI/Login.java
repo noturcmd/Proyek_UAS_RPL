@@ -161,12 +161,6 @@ public class Login extends javax.swing.JFrame {
 
     private void checkboxShowPasswordItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkboxShowPasswordItemStateChanged
         // TODO add your handling code here:
-//        if(this.checkboxShowPassword.isSelected()){
-//            this.inputPassword.setEchoChar((char)0);
-//        }else{
-//            this.inputPassword.setEchoChar('*');
-//        }
-
         if(inputPassword.getText().equals("Masukkan Password") && checkboxShowPassword.isSelected()){
             this.inputPassword.setEchoChar((char)0);
         }else if(!inputPassword.getText().equals("Masukkan Password") && checkboxShowPassword.isSelected()){
