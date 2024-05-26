@@ -62,6 +62,16 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText(":");
 
+        inputUsername.setText("Masukkan Username");
+        inputUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                inputUsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                inputUsernameFocusLost(evt);
+            }
+        });
+
         inputPassword.setText("Masukkan Password");
         inputPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -183,8 +193,26 @@ public class Login extends javax.swing.JFrame {
             if(inputPassword.getText().isBlank() && !this.checkboxShowPassword.isSelected()){
                 this.inputPassword.setEchoChar('*');
             }
+            if(inputPassword.getText().equals("Masukkan Password")){
+                this.inputPassword.setEchoChar((char)0);
+            }
         }
     }//GEN-LAST:event_inputPasswordFocusLost
+
+    private void inputUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputUsernameFocusGained
+        // TODO add your handling code here:
+        if(inputUsername.getText().equals("Masukkan Username")){
+            inputUsername.setText(""); // set password field to empty string
+            
+        }
+    }//GEN-LAST:event_inputUsernameFocusGained
+
+    private void inputUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputUsernameFocusLost
+        // TODO add your handling code here:
+        if(inputUsername.getText().equals("")){
+            inputUsername.setText("Masukkan Username");
+        }
+    }//GEN-LAST:event_inputUsernameFocusLost
 
     /**
      * @param args the command line arguments

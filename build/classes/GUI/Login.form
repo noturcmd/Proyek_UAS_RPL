@@ -140,6 +140,13 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="inputUsername">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Masukkan Username"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="inputUsernameFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="inputUsernameFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="inputPassword">
       <Properties>
