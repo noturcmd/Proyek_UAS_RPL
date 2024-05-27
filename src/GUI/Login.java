@@ -4,8 +4,11 @@
  */
 package GUI;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import ConnectionMySQL.ConnectionDB;
 import java.awt.Color;
+import java.sql.SQLException;
 
 /**
  *
@@ -62,7 +65,11 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText(":");
 
+        inputUsername.setBackground(new java.awt.Color(102, 204, 255));
+        inputUsername.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         inputUsername.setText("Masukkan Username");
+        inputUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        inputUsername.setMargin(new java.awt.Insets(10, 6, 2, 6));
         inputUsername.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 inputUsernameFocusGained(evt);
@@ -72,7 +79,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        inputPassword.setBackground(new java.awt.Color(102, 204, 255));
+        inputPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         inputPassword.setText("Masukkan Password");
+        inputPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
         inputPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 inputPasswordFocusGained(evt);
@@ -82,6 +92,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        tombolLogin.setBackground(new java.awt.Color(204, 204, 0));
         tombolLogin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tombolLogin.setText("Login");
         tombolLogin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,29 +113,37 @@ public class Login extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addGap(85, 85, 85)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
+                        .addGap(26, 26, 26)
                         .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tombolLogin)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputUsername)
-                            .addComponent(inputPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(checkboxShowPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tombolLogin)
+                                .addGap(215, 260, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkboxShowPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(46, 46, 46))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(inputUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(84, 84, 84)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(385, Short.MAX_VALUE)))
+                    .addContainerGap(431, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +154,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(inputUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
@@ -143,7 +162,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(checkboxShowPassword))
                 .addGap(18, 18, 18)
                 .addComponent(tombolLogin)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addGap(154, 154, 154))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(163, 163, 163)
@@ -156,6 +175,16 @@ public class Login extends javax.swing.JFrame {
 
     private void tombolLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tombolLoginMouseClicked
         // TODO add your handling code here:
+        try{
+            Statement st = this.koneksi.createStatement();
+            String query1 = String.format("select version() as result;");
+            ResultSet rs = st.executeQuery(query1);
+            while(rs.next()){
+                System.out.println(rs.getString("result"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
         
     }//GEN-LAST:event_tombolLoginMouseClicked
 
