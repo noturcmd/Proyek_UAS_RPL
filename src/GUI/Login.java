@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package GUI;
-
+import java.sql.Connection;
+import ConnectionMySQL.ConnectionDB;
 import java.awt.Color;
 
 /**
@@ -12,10 +13,9 @@ import java.awt.Color;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    Connection koneksi;
     public Login() {
+        this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
         this.setLocationRelativeTo(this);
         this.getContentPane().setBackground(new Color(102,204,255));
@@ -161,6 +161,7 @@ public class Login extends javax.swing.JFrame {
 
     private void checkboxShowPasswordItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkboxShowPasswordItemStateChanged
         // TODO add your handling code here:
+        
         if(inputPassword.getText().equals("Masukkan Password") && checkboxShowPassword.isSelected()){
             this.inputPassword.setEchoChar((char)0);
         }else if(!inputPassword.getText().equals("Masukkan Password") && checkboxShowPassword.isSelected()){
@@ -168,6 +169,8 @@ public class Login extends javax.swing.JFrame {
         }else if(!inputPassword.getText().equals("Masukkan Password") && !checkboxShowPassword.isSelected()){
             this.inputPassword.setEchoChar('*');
         }
+        
+        inputUsername.requestFocusInWindow();
     }//GEN-LAST:event_checkboxShowPasswordItemStateChanged
 
     private void inputPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputPasswordFocusGained
