@@ -14,7 +14,7 @@ public class ConnectionDB {
     private Connection connection;
 
     // Informasi koneksi database
-    private String jdbcURL = "jdbc:mysql://localhost:3306/kosputraungu";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/warungkostungu";
     private String username = "root";
     private String password = "";
 

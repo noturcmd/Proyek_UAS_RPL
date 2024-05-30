@@ -199,7 +199,7 @@ public class Login extends javax.swing.JFrame {
             this.inputPassword.setEchoChar('*');
         }
         
-        inputUsername.requestFocusInWindow();
+        inputUsername.requestFocus();
     }//GEN-LAST:event_checkboxShowPasswordItemStateChanged
 
     private void inputPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputPasswordFocusGained
