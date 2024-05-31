@@ -184,9 +184,11 @@ public class Login extends javax.swing.JFrame {
             String query1 = String.format("select * from daftar_akun where username = '%s' and password = '%s';", this.inputUsername.getText(), this.inputPassword.getText());
             ResultSet rs = st.executeQuery(query1);
             while(rs.next()){
-                System.out.println(rs.getString("id"));
-                System.out.println(rs.getString("username"));
-                System.out.println(rs.getString("status"));
+                if(rs.getString("status").equals("admin")){
+                    
+                }else{
+                    
+                }
             }
         }catch(SQLException e){
             e.printStackTrace();
