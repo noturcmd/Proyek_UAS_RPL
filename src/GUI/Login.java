@@ -48,7 +48,7 @@ public class Login extends javax.swing.JFrame {
         setTitle("Menu Login");
         setBackground(new java.awt.Color(102, 204, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(680, 480));
+        setPreferredSize(new java.awt.Dimension(559, 389));
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 1, 36)); // NOI18N
         jLabel1.setText("LOGIN");
