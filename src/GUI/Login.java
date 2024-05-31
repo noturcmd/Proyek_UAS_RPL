@@ -181,12 +181,12 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             Statement st = this.koneksi.createStatement();
-            String query1 = String.format("select * from akun_admin where username = '%s' and password = '%s';", this.inputUsername.getText(), this.inputPassword.getText());
+            String query1 = String.format("select * from daftar_akun where username = '%s' and password = '%s';", this.inputUsername.getText(), this.inputPassword.getText());
             ResultSet rs = st.executeQuery(query1);
             while(rs.next()){
                 System.out.println(rs.getString("id"));
                 System.out.println(rs.getString("username"));
-                System.out.println(rs.getString("daftar_akun"));
+                System.out.println(rs.getString("status"));
             }
         }catch(SQLException e){
             e.printStackTrace();
