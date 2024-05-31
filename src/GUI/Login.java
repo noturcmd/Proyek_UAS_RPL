@@ -100,6 +100,11 @@ public class Login extends javax.swing.JFrame {
                 tombolLoginMouseClicked(evt);
             }
         });
+        tombolLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolLoginActionPerformed(evt);
+            }
+        });
 
         checkboxShowPassword.setText("Show Pass");
         checkboxShowPassword.addItemListener(new java.awt.event.ItemListener() {
@@ -176,10 +181,12 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             Statement st = this.koneksi.createStatement();
-            String query1 = String.format("select version() as result;");
+            String query1 = String.format("select * from akun_admin where username = '%s' and password = '%s';", this.inputUsername.getText(), this.inputPassword.getText());
             ResultSet rs = st.executeQuery(query1);
             while(rs.next()){
-                System.out.println(rs.getString("result"));
+                System.out.println(rs.getString("id"));
+                System.out.println(rs.getString("username"));
+                System.out.println(rs.getString("daftar_akun"));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -238,6 +245,10 @@ public class Login extends javax.swing.JFrame {
             inputUsername.setText("Masukkan Username");
         }
     }//GEN-LAST:event_inputUsernameFocusLost
+
+    private void tombolLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tombolLoginActionPerformed
 
     /**
      * @param args the command line arguments
