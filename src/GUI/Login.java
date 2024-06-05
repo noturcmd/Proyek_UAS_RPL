@@ -94,6 +94,11 @@ public class login extends javax.swing.JFrame {
                 inputPasswordFocusLost(evt);
             }
         });
+        inputPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputPasswordActionPerformed(evt);
+            }
+        });
 
         tombolLogin.setBackground(new java.awt.Color(204, 204, 0));
         tombolLogin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -113,6 +118,11 @@ public class login extends javax.swing.JFrame {
         checkboxShowPassword.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 checkboxShowPasswordItemStateChanged(evt);
+            }
+        });
+        checkboxShowPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxShowPasswordActionPerformed(evt);
             }
         });
 
@@ -253,6 +263,14 @@ public class login extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_inputUsernameFocusGained
+
+    private void inputPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputPasswordActionPerformed
+
+    private void checkboxShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxShowPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkboxShowPasswordActionPerformed
 
     /**
      * @param args the command line arguments
