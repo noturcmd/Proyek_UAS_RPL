@@ -50,7 +50,7 @@ public class SignIn extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        inputUsername.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        inputUsername.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         inputUsername.setForeground(new java.awt.Color(125, 0, 124));
         inputUsername.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         inputUsername.setText("Masukkan Username");
@@ -68,9 +68,9 @@ public class SignIn extends javax.swing.JFrame {
                 inputUsernameActionPerformed(evt);
             }
         });
-        getContentPane().add(inputUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 263, 170, -1));
+        getContentPane().add(inputUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 530, 290, -1));
 
-        inputPassword.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        inputPassword.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
         inputPassword.setForeground(new java.awt.Color(125, 0, 124));
         inputPassword.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         inputPassword.setText("Masukkan Password");
@@ -88,9 +88,9 @@ public class SignIn extends javax.swing.JFrame {
                 inputPasswordActionPerformed(evt);
             }
         });
-        getContentPane().add(inputPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 170, -1));
+        getContentPane().add(inputPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 625, 260, -1));
 
-        checkboxShowPassword.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        checkboxShowPassword.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
         checkboxShowPassword.setForeground(new java.awt.Color(125, 0, 124));
         checkboxShowPassword.setText("Show Password");
         checkboxShowPassword.setBorder(null);
@@ -104,10 +104,11 @@ public class SignIn extends javax.swing.JFrame {
                 checkboxShowPasswordActionPerformed(evt);
             }
         });
-        getContentPane().add(checkboxShowPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
+        getContentPane().add(checkboxShowPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 680, -1, -1));
 
         signInBtn.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        signInBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Username (4).png"))); // NOI18N
+        signInBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sign button.png"))); // NOI18N
+        signInBtn.setAlignmentY(0.0F);
         signInBtn.setBorder(null);
         signInBtn.setBorderPainted(false);
         signInBtn.setContentAreaFilled(false);
@@ -121,9 +122,9 @@ public class SignIn extends javax.swing.JFrame {
                 signInBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(signInBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
+        getContentPane().add(signInBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 770, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Username (6).png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/SignIn.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
