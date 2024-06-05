@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Coding/Java/Sini/Proyek_UAS_RPL/src/GUI/Login.java</file>
-            <file>file:/E:/Coding/Java/Sini/Proyek_UAS_RPL/src/ConnectionMySQL/ConnectionDB.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/img/bg1.png</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/img/bg2.jpeg</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeAdmin.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeUser.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/scrol.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/Login.java</file>
         </group>
     </open-files>
 </project-private>

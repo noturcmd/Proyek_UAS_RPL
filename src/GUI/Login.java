@@ -17,6 +17,9 @@ import java.sql.SQLException;
 public class Login extends javax.swing.JFrame {
 
     Connection koneksi;
+    HomeUser hmus = new HomeUser();
+    HomeAdmin hmad = new HomeAdmin();
+    
     public Login() {
         this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
@@ -48,7 +51,6 @@ public class Login extends javax.swing.JFrame {
         setTitle("Menu Login");
         setBackground(new java.awt.Color(102, 204, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(559, 489));
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 1, 36)); // NOI18N
         jLabel1.setText("LOGIN");
@@ -99,6 +101,11 @@ public class Login extends javax.swing.JFrame {
         tombolLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tombolLoginMouseClicked(evt);
+            }
+        });
+        tombolLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolLoginActionPerformed(evt);
             }
         });
 
@@ -192,9 +199,12 @@ public class Login extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(query1);
             while(rs.next()){
                 if(rs.getString("status").equals("admin")){
-
+                    this.hmad.setVisible(true);
+                    this.dispose();
                 }else{
-
+                    System.out.println(rs.getString("status"));
+                    this.hmus.setVisible(true);
+                    this.dispose();
                 }
             }
         }catch(SQLException e){
@@ -239,6 +249,10 @@ public class Login extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_inputUsernameFocusGained
+
+    private void tombolLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tombolLoginActionPerformed
 
     /**
      * @param args the command line arguments
