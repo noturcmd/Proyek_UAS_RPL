@@ -11,12 +11,12 @@ import javax.swing.JScrollBar;
  *
  * @author ACER
  */
-public class HomeUser extends javax.swing.JFrame {
+public class HomeUserCamilan extends javax.swing.JFrame {
 
     /**
      * Creates new form HomeUser
      */
-    public HomeUser() {
+    public HomeUserCamilan() {
         initComponents();
         this.setVisible(false);
         this.setLocationRelativeTo(this);
@@ -36,7 +36,6 @@ public class HomeUser extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
@@ -53,9 +52,6 @@ public class HomeUser extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("jLabel2");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, -1, 20));
-
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
         jToggleButton1.setAlignmentY(0.0F);
         jToggleButton1.setAutoscrolls(true);
@@ -67,7 +63,7 @@ public class HomeUser extends javax.swing.JFrame {
         });
         jPanel2.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, -1, -1));
 
-        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png"))); // NOI18N
+        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum w.png"))); // NOI18N
         jToggleButton2.setAlignmentY(0.0F);
         jToggleButton2.setAutoscrolls(true);
         jToggleButton2.setBorder(null);
@@ -78,7 +74,7 @@ public class HomeUser extends javax.swing.JFrame {
         });
         jPanel2.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 140, -1, -1));
 
-        jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png"))); // NOI18N
+        jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png"))); // NOI18N
         jToggleButton3.setAlignmentY(0.0F);
         jToggleButton3.setAutoscrolls(true);
         jToggleButton3.setBorder(null);
@@ -168,20 +164,23 @@ public class HomeUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeUserCamilan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeUserCamilan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeUserCamilan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeUserCamilan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeUser().setVisible(true);
+                new HomeUserCamilan().setVisible(true);
             }
         });
     }
@@ -189,7 +188,6 @@ public class HomeUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField inputUsername;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;

@@ -50,7 +50,7 @@ public class SignIn extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        inputUsername.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        inputUsername.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         inputUsername.setForeground(new java.awt.Color(125, 0, 124));
         inputUsername.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         inputUsername.setText("Masukkan Username");
