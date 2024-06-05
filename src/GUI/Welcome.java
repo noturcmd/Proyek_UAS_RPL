@@ -45,7 +45,7 @@ public class Welcome extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
          dispose();
-         new Login().setVisible(true);
+         new SignIn().setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
