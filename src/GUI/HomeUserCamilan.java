@@ -52,7 +52,7 @@ public class HomeUserCamilan extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/camil w.png"))); // NOI18N
         jToggleButton1.setAlignmentY(0.0F);
         jToggleButton1.setAutoscrolls(true);
         jToggleButton1.setBorder(null);
@@ -63,7 +63,7 @@ public class HomeUserCamilan extends javax.swing.JFrame {
         });
         jPanel2.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, -1, -1));
 
-        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum w.png"))); // NOI18N
+        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png"))); // NOI18N
         jToggleButton2.setAlignmentY(0.0F);
         jToggleButton2.setAutoscrolls(true);
         jToggleButton2.setBorder(null);

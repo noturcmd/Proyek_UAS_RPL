@@ -12,6 +12,7 @@ import javax.swing.JScrollBar;
  * @author ACER
  */
 public class HomeUser extends javax.swing.JFrame {
+    DetailMakanan dmkn = new DetailMakanan();
 
     /**
      * Creates new form HomeUser
@@ -23,6 +24,8 @@ public class HomeUser extends javax.swing.JFrame {
         JScrollBar verScrol = this.jScrollPane1.getVerticalScrollBar();
         verScrol.setUnitIncrement(20);
         verScrol.setBlockIncrement(50);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setResizable(false);
     }
 
     /**
@@ -36,11 +39,11 @@ public class HomeUser extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
-        inputUsername = new javax.swing.JTextField();
+        searchMkn = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,8 +56,13 @@ public class HomeUser extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("jLabel2");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, -1, 20));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, -1, -1));
 
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
         jToggleButton1.setAlignmentY(0.0F);
@@ -89,27 +97,35 @@ public class HomeUser extends javax.swing.JFrame {
         });
         jPanel2.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
-        inputUsername.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        inputUsername.setForeground(new java.awt.Color(125, 0, 124));
-        inputUsername.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        inputUsername.setText("Search");
-        inputUsername.setBorder(null);
-        inputUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+        searchMkn.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        searchMkn.setForeground(new java.awt.Color(125, 0, 124));
+        searchMkn.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        searchMkn.setText("Search");
+        searchMkn.setBorder(null);
+        searchMkn.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                inputUsernameFocusGained(evt);
+                searchMknFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                inputUsernameFocusLost(evt);
+                searchMknFocusLost(evt);
             }
         });
-        inputUsername.addActionListener(new java.awt.event.ActionListener() {
+        searchMkn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputUsernameActionPerformed(evt);
+                searchMknActionPerformed(evt);
             }
         });
-        jPanel2.add(inputUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 170, -1));
+        searchMkn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchMknKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchMknKeyTyped(evt);
+            }
+        });
+        jPanel2.add(searchMkn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 170, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Nasi +.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Nasi + (1).png"))); // NOI18N
         jLabel1.setAlignmentY(0.0F);
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -120,24 +136,24 @@ public class HomeUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void inputUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputUsernameFocusGained
+    private void searchMknFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchMknFocusGained
         // TODO add your handling code here:
-        if(inputUsername.getText().equals("Masukkan Username")){
-            inputUsername.setText(""); // set password field to empty string
+        if(searchMkn.getText().equals("Search")){
+            searchMkn.setText(""); // set password field to empty string
 
         }
-    }//GEN-LAST:event_inputUsernameFocusGained
+    }//GEN-LAST:event_searchMknFocusGained
 
-    private void inputUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputUsernameFocusLost
+    private void searchMknFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchMknFocusLost
         // TODO add your handling code here:
-        if(inputUsername.getText().equals("")){
-            inputUsername.setText("Masukkan Username");
+        if(searchMkn.getText().equals("")){
+            searchMkn.setText("Search");
         }
-    }//GEN-LAST:event_inputUsernameFocusLost
+    }//GEN-LAST:event_searchMknFocusLost
 
-    private void inputUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputUsernameActionPerformed
+    private void searchMknActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMknActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_inputUsernameActionPerformed
+    }//GEN-LAST:event_searchMknActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
@@ -150,6 +166,22 @@ public class HomeUser extends javax.swing.JFrame {
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        this.dmkn.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void searchMknKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchMknKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_searchMknKeyPressed
+
+    private void searchMknKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchMknKeyTyped
+        // TODO add your handling code here:
+        System.out.println(this.searchMkn.getText());
+    }//GEN-LAST:event_searchMknKeyTyped
 
     /**
      * @param args the command line arguments
@@ -187,13 +219,13 @@ public class HomeUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField inputUsername;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JTextField searchMkn;
     // End of variables declaration//GEN-END:variables
 }
