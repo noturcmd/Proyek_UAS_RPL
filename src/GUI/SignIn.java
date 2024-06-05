@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import ConnectionMySQL.ConnectionDB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ public class SignIn extends javax.swing.JFrame {
      * Creates new form SignIn
      */
     public SignIn() {
+        this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
         this.signInBtn.setBorderPainted(false);
         inputPassword.setEchoChar((char)0);
@@ -141,8 +143,25 @@ public class SignIn extends javax.swing.JFrame {
 
     private void signInBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInBtnActionPerformed
         // TODO add your handling code here:
-        dispose();
-        new HomeUser().setVisible(true);
+        try{
+            Statement st = this.koneksi.createStatement();
+            String query1 = String.format("select * from daftar_akun where username = '%s' and password = '%s';", this.inputUsername.getText(), this.inputPassword.getText());
+            ResultSet rs = st.executeQuery(query1);
+            while(rs.next()){
+                if(rs.getString("status").equals("admin")){
+                    System.out.println("admin");
+                    this.hmad.setVisible(true);
+                    this.dispose();
+                }else if(rs.getString("status").equals("kamar")){
+                    System.out.println("kamar");
+                    this.hmus.setVisible(true);
+                    this.dispose();
+                }
+                
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_signInBtnActionPerformed
 
     private void inputUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputUsernameFocusGained
@@ -196,23 +215,7 @@ public class SignIn extends javax.swing.JFrame {
 
     private void signInBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signInBtnMouseClicked
         // TODO add your handling code here:
-        try{
-            Statement st = this.koneksi.createStatement();
-            String query1 = String.format("select * from daftar_akun where username = '%s' and password = '%s';", this.inputUsername.getText(), this.inputPassword.getText());
-            ResultSet rs = st.executeQuery(query1);
-            while(rs.next()){
-                if(rs.getString("status").equals("admin")){
-                    this.hmad.setVisible(true);
-                    this.dispose();
-                }else{
-                    System.out.println(rs.getString("status"));
-                    this.hmus.setVisible(true);
-                    this.dispose();
-                }
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
+        
     }//GEN-LAST:event_signInBtnMouseClicked
 
     /**
