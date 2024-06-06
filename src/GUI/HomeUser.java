@@ -48,18 +48,34 @@ public class HomeUser extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        jButton9 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -81,6 +97,18 @@ public class HomeUser extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
+        jButton1.setAlignmentY(0.0F);
+        jButton1.setBorder(null);
+        jButton1.setContentAreaFilled(false);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, -1, -1));
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
+        jButton5.setAlignmentY(0.0F);
+        jButton5.setBorder(null);
+        jButton5.setContentAreaFilled(false);
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
+
         jLabel8.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Rp. 10000");
@@ -88,7 +116,7 @@ public class HomeUser extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(125, 0, 124));
-        jLabel7.setText("Paket 1");
+        jLabel7.setText("Sayap Geprek");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 240, 40));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Geprek.png"))); // NOI18N
@@ -104,7 +132,29 @@ public class HomeUser extends javax.swing.JFrame {
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Telur (2).png"))); // NOI18N
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
+        jButton12.setAlignmentY(0.0F);
+        jButton12.setBorder(null);
+        jButton12.setContentAreaFilled(false);
+        jPanel5.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, -1, -1));
+
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
+        jButton13.setAlignmentY(0.0F);
+        jButton13.setBorder(null);
+        jButton13.setContentAreaFilled(false);
+        jPanel5.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(125, 0, 124));
+        jLabel16.setText("Indomie");
+        jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 240, 40));
+
+        jLabel15.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Rp. 8000");
+        jPanel5.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 240, 40));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Telur.png"))); // NOI18N
         jLabel4.setText("Nasi Goreng");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -117,14 +167,26 @@ public class HomeUser extends javax.swing.JFrame {
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
+        jButton6.setAlignmentY(0.0F);
+        jButton6.setBorder(null);
+        jButton6.setContentAreaFilled(false);
+        jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
+        jButton7.setAlignmentY(0.0F);
+        jButton7.setBorder(null);
+        jButton7.setContentAreaFilled(false);
+        jPanel6.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, -1, -1));
+
         jLabel9.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Rp. 10000");
+        jLabel9.setText("Rp. 8000");
         jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 240, 40));
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(125, 0, 124));
-        jLabel10.setText("Paket 1");
+        jLabel10.setText("Nasi Telur");
         jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 240, 40));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Telur.png"))); // NOI18N
@@ -140,6 +202,28 @@ public class HomeUser extends javax.swing.JFrame {
 
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
+        jButton10.setAlignmentY(0.0F);
+        jButton10.setBorder(null);
+        jButton10.setContentAreaFilled(false);
+        jPanel7.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
+
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
+        jButton11.setAlignmentY(0.0F);
+        jButton11.setBorder(null);
+        jButton11.setContentAreaFilled(false);
+        jPanel7.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Rp. 10000");
+        jPanel7.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 240, 40));
+
+        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(125, 0, 124));
+        jLabel14.setText("Indomie Telur");
+        jPanel7.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 240, 40));
+
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Indome Telur.png"))); // NOI18N
         jLabel6.setText("Nasi Goreng");
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -152,6 +236,28 @@ public class HomeUser extends javax.swing.JFrame {
         jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1560, 420, 320));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
+        jButton9.setAlignmentY(0.0F);
+        jButton9.setBorder(null);
+        jButton9.setContentAreaFilled(false);
+        jPanel4.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
+
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
+        jButton8.setAlignmentY(0.0F);
+        jButton8.setBorder(null);
+        jButton8.setContentAreaFilled(false);
+        jPanel4.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Rp. 10000");
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 240, 40));
+
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(125, 0, 124));
+        jLabel12.setText("Nasi Goreng");
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 240, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Nasi Goreng.png"))); // NOI18N
         jLabel2.setText("Nasi Goreng");
@@ -231,7 +337,7 @@ public class HomeUser extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel2);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 2400));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 960));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -338,11 +444,27 @@ public class HomeUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
