@@ -29,13 +29,30 @@ public class DetailMakanan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        gambarMenu = new javax.swing.JLabel();
+        deskripsi = new javax.swing.JLabel();
+        namaPaket = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Username (9).png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        gambarMenu.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        gambarMenu.setForeground(new java.awt.Color(204, 255, 0));
+        gambarMenu.setText("PAKET");
+        getContentPane().add(gambarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 260, 340));
+
+        deskripsi.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        deskripsi.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(deskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 540, 260, 20));
+
+        namaPaket.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        namaPaket.setForeground(new java.awt.Color(255, 255, 255));
+        namaPaket.setText("PAKET");
+        getContentPane().add(namaPaket, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 260, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Username.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 960));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -76,6 +93,9 @@ public class DetailMakanan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel deskripsi;
+    private javax.swing.JLabel gambarMenu;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel namaPaket;
     // End of variables declaration//GEN-END:variables
 }

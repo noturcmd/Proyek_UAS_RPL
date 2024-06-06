@@ -4,9 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/Welcome.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeUserCamilan.java</file>
             <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeAdmin.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeUserMinuman.java</file>
             <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeUser.java</file>
             <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/SignIn.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/DetailMakanan.java</file>
             <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/Login.java</file>
         </group>
     </open-files>

@@ -4,8 +4,13 @@
  */
 package GUI;
 
+import ConnectionMySQL.ConnectionDB;
 import java.awt.Color;
 import javax.swing.JScrollBar;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -13,11 +18,14 @@ import javax.swing.JScrollBar;
  */
 public class HomeUser extends javax.swing.JFrame {
     DetailMakanan dmkn = new DetailMakanan();
+    Connection koneksi;
+    String namaMenu = null;
 
     /**
      * Creates new form HomeUser
      */
     public HomeUser() {
+        this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
         this.setVisible(false);
         this.setLocationRelativeTo(this);
@@ -40,6 +48,7 @@ public class HomeUser extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -63,6 +72,16 @@ public class HomeUser extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Desain tanpa judul (15).png"))); // NOI18N
+        jLabel2.setText("Nasi Goreng");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 320));
+
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 420, 320));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -190,6 +209,15 @@ public class HomeUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        try {
+                System.out.println(jLabel2.getText());
+        } catch (Exception e) {
+            
+        } 
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -230,6 +258,7 @@ public class HomeUser extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
