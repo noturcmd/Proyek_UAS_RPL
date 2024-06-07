@@ -17,9 +17,10 @@ import java.sql.Statement;
  * @author ACER
  */
 public class HomeUser extends javax.swing.JFrame {
-    DetailMakanan dmkn = new DetailMakanan();
-    Connection koneksi;
-    String namaMenu = null;
+    private DetailMakanan dmkn = new DetailMakanan();
+    private Connection koneksi;
+    private String namaMenu = null;
+    private String kamar = null;
 
     /**
      * Creates new form HomeUser
@@ -35,6 +36,15 @@ public class HomeUser extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
     }
+    
+    public void setKamar(String kamar){
+        this.kamar = kamar;
+        this.nomorKamar.setText(this.kamar);
+    }
+    
+    public String getKamar(){
+        return this.kamar;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,12 +57,13 @@ public class HomeUser extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
+        nomorKamar = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        detailMenu = new javax.swing.JButton();
+        tambahPesanan = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        gambar = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
@@ -95,19 +106,23 @@ public class HomeUser extends javax.swing.JFrame {
         jPanel2.setRequestFocusEnabled(false);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        nomorKamar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        nomorKamar.setText("jLabel17");
+        jPanel2.add(nomorKamar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, -1));
+
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
-        jButton1.setAlignmentY(0.0F);
-        jButton1.setBorder(null);
-        jButton1.setContentAreaFilled(false);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, -1, -1));
+        detailMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
+        detailMenu.setAlignmentY(0.0F);
+        detailMenu.setBorder(null);
+        detailMenu.setContentAreaFilled(false);
+        jPanel1.add(detailMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, -1, -1));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
-        jButton5.setAlignmentY(0.0F);
-        jButton5.setBorder(null);
-        jButton5.setContentAreaFilled(false);
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
+        tambahPesanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
+        tambahPesanan.setAlignmentY(0.0F);
+        tambahPesanan.setBorder(null);
+        tambahPesanan.setContentAreaFilled(false);
+        jPanel1.add(tambahPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -119,14 +134,14 @@ public class HomeUser extends javax.swing.JFrame {
         jLabel7.setText("Sayap Geprek");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 240, 40));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Geprek.png"))); // NOI18N
-        jLabel3.setText("Nasi Goreng");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        gambar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Geprek.png"))); // NOI18N
+        gambar.setText("Nasi Goreng");
+        gambar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                gambarMouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 320));
+        jPanel1.add(gambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 320));
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 420, 320));
 
@@ -392,9 +407,9 @@ public class HomeUser extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_jLabel2MouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void gambarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gambarMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_gambarMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
@@ -444,7 +459,8 @@ public class HomeUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton detailMenu;
+    private javax.swing.JLabel gambar;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
@@ -452,7 +468,6 @@ public class HomeUser extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -466,7 +481,6 @@ public class HomeUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -480,6 +494,8 @@ public class HomeUser extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nomorKamar;
     private javax.swing.JTextField searchMkn;
+    private javax.swing.JButton tambahPesanan;
     // End of variables declaration//GEN-END:variables
 }

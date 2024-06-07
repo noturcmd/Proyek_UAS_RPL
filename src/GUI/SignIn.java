@@ -27,6 +27,8 @@ public class SignIn extends javax.swing.JFrame {
         initComponents();
         this.signInBtn.setBorderPainted(false);
         inputPassword.setEchoChar((char)0);
+        this.setLocationRelativeTo(this);
+        this.setResizable(false);
     }
 
     /**
@@ -156,6 +158,7 @@ public class SignIn extends javax.swing.JFrame {
                 }else if(rs.getString("status").equals("kamar")){
                     System.out.println("kamar");
                     this.hmus.setVisible(true);
+                    this.hmus.setKamar(rs.getString("username"));
                     this.dispose();
                 }
                 
