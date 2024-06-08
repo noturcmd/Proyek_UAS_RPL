@@ -187,16 +187,23 @@ try{
                 JOptionPane.showMessageDialog(this, "Mohon tidak mengosongkan username!");
             }else{
                 st = koneksi.createStatement();
-                String query = String.format("select * from daftar_akun where username=\"%s\" and password=\"%s\";", this.inputUsername.getText(), this.inputPassword.getText());
+                String query = String.format("select * from daftar_akun where username=\"%s\";", this.inputUsername.getText());
                 ResultSet rs = st.executeQuery(query);
                 if(rs.next() == true){
-                    if(rs.getString("status").equals("admin")){
+                    st = koneksi.createStatement();
+                    String query10 = String.format("select * from daftar_akun where username=\"%s\";", this.inputUsername.getText());
+                    ResultSet rs10 = st.executeQuery(query10);
+                    if(rs10.next() == true && this.inputPassword.getText().equals(rs10.getString("password"))){
+                        if(rs.getString("status").equals("admin")){
                             this.hmad.setVisible(true);
                         }else if(rs.getString("status").equals("kamar")){
                             this.hmus.setVisible(true);
                             hmus.setKamar(rs.getString("username").toUpperCase());
                         }
                         dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Password salah!!");
+                    }
                 }else{
                     JOptionPane.showMessageDialog(this, "Akun tidak tersedia!");
                 }
