@@ -158,7 +158,7 @@ public class SignIn extends javax.swing.JFrame {
                 }else if(rs.getString("status").equals("kamar")){
                     System.out.println("kamar");
                     this.hmus.setVisible(true);
-                    this.hmus.setKamar(rs.getString("username"));
+//                    this.hmus.setKamar(rs.getString("username"));
                     this.dispose();
                 }
                 

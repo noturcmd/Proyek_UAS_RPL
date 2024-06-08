@@ -45,6 +45,49 @@ public class HomeUser extends javax.swing.JFrame {
     public String getKamar(){
         return this.kamar;
     }
+    
+    private void fetchDataFromDatabase() {
+        try {
+            Statement statement = koneksi.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM menu");
+            
+            while(resultSet.next()) {
+                byte[] imageData = resultSet.getBytes("gambar");
+                ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 400, 300));
+                JLabel imageLabel = new JLabel(imageIcon);
+                JButton detailButton = new JButton("Detail");
+                detailButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Handle detail button action
+                    }
+                });
+
+                JPanel itemPanel = new JPanel();
+                itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
+                itemPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add vertical spacing
+                itemPanel.add(imageLabel);
+                itemPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical spacing
+                itemPanel.add(detailButton);
+
+                panelMakanan.add(itemPanel);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Image scaleImage(byte[] imageData, int width, int height) {
+        try {
+            Image image = ImageIO.read(new ByteArrayInputStream(imageData));
+            return image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
