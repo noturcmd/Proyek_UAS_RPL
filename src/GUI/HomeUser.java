@@ -6,11 +6,18 @@ package GUI;
 
 import ConnectionMySQL.ConnectionDB;
 import java.awt.Color;
-import javax.swing.JScrollBar;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -56,12 +63,6 @@ public class HomeUser extends javax.swing.JFrame {
                 ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 400, 300));
                 JLabel imageLabel = new JLabel(imageIcon);
                 JButton detailButton = new JButton("Detail");
-                detailButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        // Handle detail button action
-                    }
-                });
 
                 JPanel itemPanel = new JPanel();
                 itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
@@ -70,7 +71,7 @@ public class HomeUser extends javax.swing.JFrame {
                 itemPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical spacing
                 itemPanel.add(detailButton);
 
-                panelMakanan.add(itemPanel);
+                this.jPanel1.add(itemPanel);
             }
             resultSet.close();
             statement.close();
