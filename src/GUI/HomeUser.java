@@ -42,6 +42,7 @@ public class HomeUser extends javax.swing.JFrame {
         verScrol.setBlockIncrement(50);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
+        fetchDataFromDatabase();
     }
     
     public void setKamar(String kamar){
@@ -56,22 +57,13 @@ public class HomeUser extends javax.swing.JFrame {
     private void fetchDataFromDatabase() {
         try {
             Statement statement = koneksi.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM menu");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM menu where nama='Nasi Goreng';");
             
             while(resultSet.next()) {
+                System.out.println(resultSet.getString("nama"));
                 byte[] imageData = resultSet.getBytes("gambar");
-                ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 400, 300));
-                JLabel imageLabel = new JLabel(imageIcon);
-                JButton detailButton = new JButton("Detail");
-
-                JPanel itemPanel = new JPanel();
-                itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
-                itemPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add vertical spacing
-                itemPanel.add(imageLabel);
-                itemPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add vertical spacing
-                itemPanel.add(detailButton);
-
-                this.jPanel1.add(itemPanel);
+                ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
+                this.gambar.setIcon(imageIcon);
             }
             resultSet.close();
             statement.close();
@@ -178,8 +170,6 @@ public class HomeUser extends javax.swing.JFrame {
         jLabel7.setText("Sayap Geprek");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 240, 40));
 
-        gambar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Geprek.png"))); // NOI18N
-        gambar.setText("Nasi Goreng");
         gambar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 gambarMouseClicked(evt);
