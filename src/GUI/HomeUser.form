@@ -112,7 +112,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="hargaMakanan">
+                <Component class="javax.swing.JLabel" name="jLabel8">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="24" style="1"/>
@@ -128,7 +128,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="namaMakanan">
+                <Component class="javax.swing.JLabel" name="jLabel7">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="SansSerif" size="30" style="1"/>
@@ -145,6 +145,12 @@
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JLabel" name="gambar">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/img/Geprek.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Nasi Goreng"/>
+                  </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="gambarMouseClicked"/>
                   </Events>

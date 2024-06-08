@@ -64,8 +64,8 @@ public class HomeUser extends javax.swing.JFrame {
                 byte[] imageData = resultSet.getBytes("gambar");
                 ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
                 this.gambar.setIcon(imageIcon);
-                this.hargaMakanan.setText(resultSet.getString("harga"));
-                this.namaMakanan.setText(resultSet.getString("nama"));
+                this.jLabel8.setText(resultSet.getString("harga"));
+                this.jLabel7.setText(resultSet.getString("nama"));
             }
             resultSet.close();
             statement.close();
@@ -99,8 +99,8 @@ public class HomeUser extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         detailMenu = new javax.swing.JButton();
         tambahPesanan = new javax.swing.JButton();
-        hargaMakanan = new javax.swing.JLabel();
-        namaMakanan = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         gambar = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton12 = new javax.swing.JButton();
@@ -162,16 +162,18 @@ public class HomeUser extends javax.swing.JFrame {
         tambahPesanan.setContentAreaFilled(false);
         jPanel1.add(tambahPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
 
-        hargaMakanan.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        hargaMakanan.setForeground(new java.awt.Color(255, 255, 255));
-        hargaMakanan.setText("Rp. 10000");
-        jPanel1.add(hargaMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 240, 40));
+        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Rp. 10000");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 240, 40));
 
-        namaMakanan.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
-        namaMakanan.setForeground(new java.awt.Color(125, 0, 124));
-        namaMakanan.setText("Sayap Geprek");
-        jPanel1.add(namaMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 240, 40));
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(125, 0, 124));
+        jLabel7.setText("Sayap Geprek");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 240, 40));
 
+        gambar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Geprek.png"))); // NOI18N
+        gambar.setText("Nasi Goreng");
         gambar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 gambarMouseClicked(evt);
@@ -437,15 +439,15 @@ public class HomeUser extends javax.swing.JFrame {
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
         try {
-                System.out.println(jLabel2.getText());
+            System.out.println(jLabel2.getText());
         } catch (Exception e) {
-            
-        } 
+
+        }
     }//GEN-LAST:event_jLabel2MouseClicked
 
-    private void gambarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gambarMouseClicked
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_gambarMouseClicked
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
@@ -455,9 +457,9 @@ public class HomeUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    private void gambarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gambarMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel6MouseClicked
+    }//GEN-LAST:event_gambarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -500,7 +502,6 @@ public class HomeUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton detailMenu;
     private javax.swing.JLabel gambar;
-    private javax.swing.JLabel hargaMakanan;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
@@ -524,6 +525,8 @@ public class HomeUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -532,7 +535,6 @@ public class HomeUser extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel namaMakanan;
     private javax.swing.JLabel nomorKamar;
     private javax.swing.JTextField searchMkn;
     private javax.swing.JButton tambahPesanan;
