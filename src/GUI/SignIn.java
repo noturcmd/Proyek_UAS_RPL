@@ -150,35 +150,9 @@ public class SignIn extends javax.swing.JFrame {
 
     private void signInBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInBtnActionPerformed
         // TODO add your handling code here:
-//        try{
-//            Statement st = this.koneksi.createStatement();
-//            String query1 = String.format("select * from daftar_akun where username = '%s' and password = '%s';", this.inputUsername.getText(), this.inputPassword.getText());
-//            ResultSet rs = st.executeQuery(query1);
-//            if(rs.next()){
-////                if(rs.getString("status").equals("admin")){
-////                    System.out.println("admin");
-////                    this.hmad.setVisible(true);
-////                    this.dispose();
-////                }else if(rs.getString("status").equals("kamar")){
-////                    System.out.println("kamar");
-////                    this.hmus.setVisible(true);
-////                    this.hmus.setKamar(rs.getString("username"));
-////                    this.dispose();
-////                }else{
-////                    
-////                }
-//                   if(rs.getString("status").equals("admin")){
-//                       
-//                   }
-//                    
-//            }else{
-//                JOptionPane.showMessageDialog(this, "Akun tidak tersedia!");
-//            }
-//        }catch(SQLException e){
-//            e.printStackTrace();
-//        }
 
-try{
+
+        try{
             if(this.inputPassword.getText().equals("Masukkan Password") && this.inputUsername.getText().equals("Masukkan Username")){
                 JOptionPane.showMessageDialog(this, "Mohon tidak mengosongkan username dan password!");
             }else if (!this.inputUsername.getText().equals("Masukkan Username") && this.inputPassword.getText().equals("Masukkan Password")) {
