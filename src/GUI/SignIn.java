@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.TimeUnit;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +20,8 @@ public class SignIn extends javax.swing.JFrame {
     Connection koneksi;
     HomeUser hmus = new HomeUser();
     HomeAdmin hmad = new HomeAdmin();
+    Statement st = null;
+    ResultSet rs = null;
 
     /**
      * Creates new form SignIn
@@ -146,22 +150,56 @@ public class SignIn extends javax.swing.JFrame {
 
     private void signInBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInBtnActionPerformed
         // TODO add your handling code here:
-        try{
-            Statement st = this.koneksi.createStatement();
-            String query1 = String.format("select * from daftar_akun where username = '%s' and password = '%s';", this.inputUsername.getText(), this.inputPassword.getText());
-            ResultSet rs = st.executeQuery(query1);
-            while(rs.next()){
-                if(rs.getString("status").equals("admin")){
-                    System.out.println("admin");
-                    this.hmad.setVisible(true);
-                    this.dispose();
-                }else if(rs.getString("status").equals("kamar")){
-                    System.out.println("kamar");
-                    this.hmus.setVisible(true);
-//                    this.hmus.setKamar(rs.getString("username"));
-                    this.dispose();
+//        try{
+//            Statement st = this.koneksi.createStatement();
+//            String query1 = String.format("select * from daftar_akun where username = '%s' and password = '%s';", this.inputUsername.getText(), this.inputPassword.getText());
+//            ResultSet rs = st.executeQuery(query1);
+//            if(rs.next()){
+////                if(rs.getString("status").equals("admin")){
+////                    System.out.println("admin");
+////                    this.hmad.setVisible(true);
+////                    this.dispose();
+////                }else if(rs.getString("status").equals("kamar")){
+////                    System.out.println("kamar");
+////                    this.hmus.setVisible(true);
+////                    this.hmus.setKamar(rs.getString("username"));
+////                    this.dispose();
+////                }else{
+////                    
+////                }
+//                   if(rs.getString("status").equals("admin")){
+//                       
+//                   }
+//                    
+//            }else{
+//                JOptionPane.showMessageDialog(this, "Akun tidak tersedia!");
+//            }
+//        }catch(SQLException e){
+//            e.printStackTrace();
+//        }
+
+try{
+            if(this.inputPassword.getText().equals("Masukkan Password") && this.inputUsername.getText().equals("Masukkan Username")){
+                JOptionPane.showMessageDialog(this, "Mohon tidak mengosongkan username dan password!");
+            }else if (!this.inputUsername.getText().equals("Masukkan Username") && this.inputPassword.getText().equals("Masukkan Password")) {
+                JOptionPane.showMessageDialog(this, "Mohon tidak mengosongkan password!");
+            }else if (this.inputUsername.getText().equals("Masukkan Username") && !this.inputPassword.getText().equals("Masukkan Password")) {
+                JOptionPane.showMessageDialog(this, "Mohon tidak mengosongkan username!");
+            }else{
+                st = koneksi.createStatement();
+                String query = String.format("select * from daftar_akun where username=\"%s\" and password=\"%s\";", this.inputUsername.getText(), this.inputPassword.getText());
+                ResultSet rs = st.executeQuery(query);
+                if(rs.next() == true){
+                    if(rs.getString("status").equals("admin")){
+                            this.hmad.setVisible(true);
+                        }else if(rs.getString("status").equals("kamar")){
+                            this.hmus.setVisible(true);
+                            hmus.setKamar(rs.getString("username").toUpperCase());
+                        }
+                        dispose();
+                }else{
+                    JOptionPane.showMessageDialog(this, "Akun tidak tersedia!");
                 }
-                
             }
         }catch(SQLException e){
             e.printStackTrace();
