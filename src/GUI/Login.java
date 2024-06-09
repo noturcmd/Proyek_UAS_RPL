@@ -4,17 +4,31 @@
  */
 package GUI;
 
+import ConnectionMySQL.ConnectionDB;
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ACER
  */
 public class Login extends javax.swing.JFrame {
+    Connection koneksi;
+    HomeUserMakanan hmus = new HomeUserMakanan();
+    HomeAdmin hmad = new HomeAdmin();
+    Statement st = null;
+    ResultSet rs = null;
 
     /**
      * Creates new form Login
      */
     public Login() {
+        this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
+        this.signInBtn.setBorderPainted(false);
+        inputPassword.setEchoChar((char)0);
+        this.setLocationRelativeTo(this);
+        this.setResizable(false);
     }
 
     /**
@@ -26,54 +40,174 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        signInBtn = new javax.swing.JToggleButton();
+        checkboxShowPassword = new javax.swing.JCheckBox();
+        inputUsername = new javax.swing.JTextField();
+        inputPassword = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sign button.png"))); // NOI18N
-        jToggleButton1.setToolTipText("");
-        jToggleButton1.setBorder(null);
-        jToggleButton1.setContentAreaFilled(false);
-        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 780, -1, -1));
-
-        jCheckBox1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(125, 0, 124));
-        jCheckBox1.setText("Show Password");
-        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 670, -1, -1));
-
-        jTextField1.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(125, 0, 124));
-        jTextField1.setText("Masukkan Username");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        signInBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sign button.png"))); // NOI18N
+        signInBtn.setToolTipText("");
+        signInBtn.setBorder(null);
+        signInBtn.setContentAreaFilled(false);
+        signInBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                signInBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 440, -1, -1));
+        getContentPane().add(signInBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 780, -1, -1));
 
-        jPasswordField1.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(125, 0, 124));
-        jPasswordField1.setText("Masukan Password");
-        jPasswordField1.setBorder(null);
-        jPasswordField1.setVerifyInputWhenFocusTarget(false);
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 575, -1, -1));
+        checkboxShowPassword.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        checkboxShowPassword.setForeground(new java.awt.Color(125, 0, 124));
+        checkboxShowPassword.setText("Show Password");
+        checkboxShowPassword.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                checkboxShowPasswordItemStateChanged(evt);
+            }
+        });
+        getContentPane().add(checkboxShowPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 670, -1, -1));
+
+        inputUsername.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
+        inputUsername.setForeground(new java.awt.Color(125, 0, 124));
+        inputUsername.setText("Masukkan Username");
+        inputUsername.setBorder(null);
+        inputUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                inputUsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                inputUsernameFocusLost(evt);
+            }
+        });
+        inputUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputUsernameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(inputUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 440, 690, -1));
+
+        inputPassword.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
+        inputPassword.setForeground(new java.awt.Color(125, 0, 124));
+        inputPassword.setText("Masukkan Password");
+        inputPassword.setBorder(null);
+        inputPassword.setVerifyInputWhenFocusTarget(false);
+        inputPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                inputPasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                inputPasswordFocusLost(evt);
+            }
+        });
+        inputPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputPasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(inputPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 575, 700, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg login.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void inputUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputUsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_inputUsernameActionPerformed
+
+    private void signInBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInBtnActionPerformed
+        // TODO add your handling code here:
+        try{
+            if(this.inputPassword.getText().equals("Masukkan Password") && this.inputUsername.getText().equals("Masukkan Username")){
+                JOptionPane.showMessageDialog(this, "Mohon tidak mengosongkan username dan password!");
+            }else if (!this.inputUsername.getText().equals("Masukkan Username") && this.inputPassword.getText().equals("Masukkan Password")) {
+                JOptionPane.showMessageDialog(this, "Mohon tidak mengosongkan password!");
+            }else if (this.inputUsername.getText().equals("Masukkan Username") && !this.inputPassword.getText().equals("Masukkan Password")) {
+                JOptionPane.showMessageDialog(this, "Mohon tidak mengosongkan username!");
+            }else{
+                st = koneksi.createStatement();
+                String query = String.format("select * from daftar_akun where username=\"%s\";", this.inputUsername.getText());
+                ResultSet rs = st.executeQuery(query);
+                if(rs.next() == true){
+                    st = koneksi.createStatement();
+                    String query10 = String.format("select * from daftar_akun where username=\"%s\";", this.inputUsername.getText());
+                    ResultSet rs10 = st.executeQuery(query10);
+                    if(rs10.next() == true && this.inputPassword.getText().equals(rs10.getString("password"))){
+                        if(rs.getString("status").equals("admin")){
+                            this.hmad.setVisible(true);
+                        }else if(rs.getString("status").equals("kamar")){
+                            this.hmus.setVisible(true);
+                            hmus.setNomorKamar(rs.getString("username").toUpperCase());
+                        }
+                        dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Password salah!!");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Akun tidak tersedia!");
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_signInBtnActionPerformed
+
+    private void inputPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputPasswordActionPerformed
+
+    private void inputPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputPasswordFocusGained
+        // TODO add your handling code here:
+        if(inputPassword.getText().equals("Masukkan Password")){
+            inputPassword.setText("");
+            if(inputPassword.getText().isBlank() && !this.checkboxShowPassword.isSelected()){
+                this.inputPassword.setEchoChar('*');
+            }
+        }
+    }//GEN-LAST:event_inputPasswordFocusGained
+
+    private void inputPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputPasswordFocusLost
+        // TODO add your handling code here:
+        if(inputPassword.getText().equals("")){
+            inputPassword.setText("Masukkan Password");
+            if(inputPassword.getText().isBlank() && !this.checkboxShowPassword.isSelected()){
+                this.inputPassword.setEchoChar('*');
+            }
+            if(inputPassword.getText().equals("Masukkan Password")){
+                this.inputPassword.setEchoChar((char)0);
+            }
+        }
+    }//GEN-LAST:event_inputPasswordFocusLost
+
+    private void inputUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputUsernameFocusGained
+        // TODO add your handling code here:
+        if(inputUsername.getText().equals("Masukkan Username")){
+            inputUsername.setText(""); // set password field to empty string
+
+        }
+    }//GEN-LAST:event_inputUsernameFocusGained
+
+    private void inputUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputUsernameFocusLost
+        // TODO add your handling code here:
+        if(inputUsername.getText().equals("")){
+            inputUsername.setText("Masukkan Username");
+        }
+    }//GEN-LAST:event_inputUsernameFocusLost
+
+    private void checkboxShowPasswordItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_checkboxShowPasswordItemStateChanged
+        // TODO add your handling code here:
+        if(inputPassword.getText().equals("Masukkan Password") && checkboxShowPassword.isSelected()){
+            this.inputPassword.setEchoChar((char)0);
+        }else if(!inputPassword.getText().equals("Masukkan Password") && checkboxShowPassword.isSelected()){
+            this.inputPassword.setEchoChar((char)0);
+        }else if(!inputPassword.getText().equals("Masukkan Password") && !checkboxShowPassword.isSelected()){
+            this.inputPassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_checkboxShowPasswordItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -111,10 +245,10 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox checkboxShowPassword;
+    private javax.swing.JPasswordField inputPassword;
+    private javax.swing.JTextField inputUsername;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton signInBtn;
     // End of variables declaration//GEN-END:variables
 }
