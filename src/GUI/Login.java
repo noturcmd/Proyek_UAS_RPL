@@ -39,7 +39,7 @@ public class Login extends javax.swing.JFrame {
         jToggleButton1.setToolTipText("");
         jToggleButton1.setBorder(null);
         jToggleButton1.setContentAreaFilled(false);
-        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 880, -1, -1));
+        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 780, -1, -1));
 
         jCheckBox1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jCheckBox1.setForeground(new java.awt.Color(125, 0, 124));
