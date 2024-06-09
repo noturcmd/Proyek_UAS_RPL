@@ -3,12 +3,29 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< Updated upstream
             <file>file:/E:/Coding/Java/Sini/Proyek_UAS_RPL/src/GUI/SignIn.java</file>
             <file>file:/E:/Coding/Java/Sini/Proyek_UAS_RPL/src/GUI/Test.java</file>
             <file>file:/E:/Coding/Java/Sini/Proyek_UAS_RPL/src/GUI/HomeUser.java</file>
             <file>file:/E:/Coding/Java/Sini/Proyek_UAS_RPL/src/GUI/HomeAdmin.java</file>
             <file>file:/E:/Coding/Java/Sini/Proyek_UAS_RPL/src/GUI/DatabaseConnection.java</file>
             <file>file:/E:/Coding/Java/Sini/Proyek_UAS_RPL/src/GUI/TesGambar.java</file>
+=======
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/ConnectionMySQL/ConnectionDB.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeUserMinuman.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/DatabaseConnection.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/TesGambar.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeUser.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/Welcome.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/Tes.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/img/BG%20Home.png</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeUser2.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeUserCamilan.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/HomeAdmin.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/SignIn.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/DetailMakanan.java</file>
+            <file>file:/D:/Proyek_UAS_RPL/Proyek_UAS_RPL/src/GUI/Test.java</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>
