@@ -49,7 +49,6 @@ public class TesGambar extends javax.swing.JFrame {
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(4, 4));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(540, 2400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
