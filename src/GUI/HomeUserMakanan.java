@@ -9,6 +9,7 @@ package GUI;
  * @author ACER
  */
 public class HomeUserMakanan extends javax.swing.JFrame {
+    private String kamar = null;
 
     /**
      * Creates new form HomeUserMakanan
@@ -16,6 +17,16 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     public HomeUserMakanan() {
         initComponents();
     }
+    
+    String getNomorKamar(){
+        return this.kamar;
+    }
+    
+    void setNomorKamar(String kamar){
+        this.kamar = kamar;
+        this.nomorKamar.setText(this.kamar);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,7 +62,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        nomorKamar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -242,12 +253,12 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 580, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("KAMAR");
-        jLabel1.setAlignmentY(0.0F);
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 320, -1));
+        nomorKamar.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
+        nomorKamar.setForeground(new java.awt.Color(255, 255, 255));
+        nomorKamar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nomorKamar.setText("KAMAR");
+        nomorKamar.setAlignmentY(0.0F);
+        getContentPane().add(nomorKamar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 320, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg home user makanan.png"))); // NOI18N
         jLabel2.setText("jLabel2");
@@ -349,7 +360,6 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -363,5 +373,6 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel nomorKamar;
     // End of variables declaration//GEN-END:variables
 }

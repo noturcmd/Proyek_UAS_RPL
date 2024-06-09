@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class SignIn extends javax.swing.JFrame {
     Connection koneksi;
-    HomeUser hmus = new HomeUser();
+    HomeUserMakanan hmus = new HomeUserMakanan();
     HomeAdmin hmad = new HomeAdmin();
     Statement st = null;
     ResultSet rs = null;
@@ -172,7 +172,7 @@ public class SignIn extends javax.swing.JFrame {
                             this.hmad.setVisible(true);
                         }else if(rs.getString("status").equals("kamar")){
                             this.hmus.setVisible(true);
-                            hmus.setKamar(rs.getString("username").toUpperCase());
+                            hmus.setNomorKamar(rs.getString("username").toUpperCase());
                         }
                         dispose();
                     }else{
