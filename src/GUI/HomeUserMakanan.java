@@ -4,8 +4,12 @@
  */
 package GUI;
 import ConnectionMySQL.ConnectionDB;
+import java.awt.Image;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 /**
  *
@@ -17,10 +21,12 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     Statement st = null;
     ResultSet rs = null;
     
-    ArrayList<String> listNamaMakanan = new ArrayList<String>();
-    ArrayList<String> listHargaMakanan = new ArrayList<String>();
-    ArrayList<String> listGambarMakanan = new ArrayList<String>();
-    ArrayList<ImageIcon> listNamaMakanan = new ArrayList<String>();
+    int curIndex = 4;
+    int maxIndex;
+    
+    String[] listNamaMakanan = new String[]{};
+    String[] listHargaMakanan = new String[]{};
+    ImageIcon[] listGambarMakanan = new ImageIcon[]{};
 
     /**
      * Creates new form HomeUserMakanan
@@ -28,6 +34,9 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     public HomeUserMakanan() {
         this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
+        showMenu();
+        showData();
+        
     }
     
     String getNomorKamar(){
@@ -39,22 +48,73 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         this.nomorKamar.setText(this.kamar);
     }
     
+    private void prev() {
+        this.curIndex--;
+        if (this.curIndex < 0) {
+            this.curIndex = this.maxIndex - 1;
+        }
+
+        showData();
+    }
+
+    private void next() {
+        this.curIndex++;
+        if (this.curIndex >= this.maxIndex) {
+            this.curIndex = 0;
+        }
+        showData();
+    }
+    
+    void showData(){
+        
+    }
+    
+    
+    
     
     void showMenu(){
         try {
-            st = koneksi.createStatement();
-            String query = String.format("select * from menu where jenis = \"Makanan\";");
-            ResultSet rs = st.executeQuery(query);
-            while(rs.next()){
-                byte[] imageData = resultSet.getBytes("gambar");
-                ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
-                this.listGambarMakanan.add(imageIcon);
+            this.st = this.koneksi.createStatement();
+            String query = String.format("select * from menu;");
+            this.rs = st.executeQuery(query);
+            int rowCount = 0;
+            while (rs.next()) {
+                rowCount++;
             }
-            this.gbr1.setIcon(this.listGambarMakanan.get(0));
+            
+            this.maxIndex = rowCount;
+            
+            this.listGambarMakanan = new ImageIcon[rowCount];
+            this.listNamaMakanan = new String[rowCount];
+            this.listHargaMakanan = new String[rowCount];
+            
+            this.st = this.koneksi.createStatement();
+            String query2 = String.format("select * from menu;");
+            this.rs = st.executeQuery(query2);
+            int i = 0;
+            while(rs.next()){
+                byte[] imageData = rs.getBytes("gambar");
+                ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
+                this.listGambarMakanan[i] = imageIcon;
+                this.listNamaMakanan[i] = rs.getString("nama");
+                i++;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
+    private Image scaleImage(byte[] imageData, int width, int height) {
+        try {
+            Image image = ImageIO.read(new ByteArrayInputStream(imageData));
+            return image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     
 
     /**
@@ -66,24 +126,26 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        next = new javax.swing.JButton();
+        pre = new javax.swing.JButton();
         gbr1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
+        nmMKn2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         gbr2 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        nmMKn1 = new javax.swing.JLabel();
         gbr4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        nmMKn4 = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        nmMKn3 = new javax.swing.JLabel();
         gbr3 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -96,6 +158,22 @@ public class HomeUserMakanan extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        next.setText(">");
+        next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextActionPerformed(evt);
+            }
+        });
+        getContentPane().add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(1850, 600, 50, 60));
+
+        pre.setText("<");
+        pre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                preActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pre, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 590, 50, 60));
 
         gbr1.setText("jLabel5");
         getContentPane().add(gbr1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 306, 180, 200));
@@ -111,12 +189,12 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jButton7.setContentAreaFilled(false);
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 470, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setText("MAKANAN");
-        jLabel12.setAlignmentY(0.0F);
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 290, 290, -1));
+        nmMKn2.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        nmMKn2.setForeground(new java.awt.Color(255, 255, 255));
+        nmMKn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        nmMKn2.setText("MAKANAN");
+        nmMKn2.setAlignmentY(0.0F);
+        getContentPane().add(nmMKn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 290, 290, 100));
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -146,12 +224,12 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         });
         getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(1580, 470, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("MAKANAN");
-        jLabel4.setAlignmentY(0.0F);
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 290, 290, -1));
+        nmMKn1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        nmMKn1.setForeground(new java.awt.Color(255, 255, 255));
+        nmMKn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        nmMKn1.setText("MAKANAN");
+        nmMKn1.setAlignmentY(0.0F);
+        getContentPane().add(nmMKn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 290, 290, 90));
 
         gbr4.setText("jLabel5");
         getContentPane().add(gbr4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1370, 750, 180, 200));
@@ -163,12 +241,12 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jLabel10.setAlignmentY(0.0F);
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 850, 210, -1));
 
-        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setText("MAKANAN");
-        jLabel11.setAlignmentY(0.0F);
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 740, 290, -1));
+        nmMKn4.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        nmMKn4.setForeground(new java.awt.Color(255, 255, 255));
+        nmMKn4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        nmMKn4.setText("MAKANAN");
+        nmMKn4.setAlignmentY(0.0F);
+        getContentPane().add(nmMKn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1560, 740, 290, 100));
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
         jButton10.setContentAreaFilled(false);
@@ -213,12 +291,12 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jLabel6.setAlignmentY(0.0F);
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 850, 210, -1));
 
-        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("MAKANAN");
-        jLabel7.setAlignmentY(0.0F);
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 740, 290, -1));
+        nmMKn3.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        nmMKn3.setForeground(new java.awt.Color(255, 255, 255));
+        nmMKn3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        nmMKn3.setText("MAKANAN");
+        nmMKn3.setAlignmentY(0.0F);
+        getContentPane().add(nmMKn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 740, 290, 110));
 
         gbr3.setText("jLabel5");
         getContentPane().add(gbr3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 750, 180, 200));
@@ -340,6 +418,16 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
 
+    private void preActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preActionPerformed
+        // TODO add your handling code here:
+        this.prev();
+    }//GEN-LAST:event_preActionPerformed
+
+    private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
+        // TODO add your handling code here:
+        this.next();
+    }//GEN-LAST:event_nextActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -394,14 +482,16 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JButton next;
+    private javax.swing.JLabel nmMKn1;
+    private javax.swing.JLabel nmMKn2;
+    private javax.swing.JLabel nmMKn3;
+    private javax.swing.JLabel nmMKn4;
     private javax.swing.JLabel nomorKamar;
+    private javax.swing.JButton pre;
     // End of variables declaration//GEN-END:variables
 }
