@@ -198,7 +198,7 @@ public class HomeUserMinuman extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 680, -1, -1));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png"))); // NOI18N
         jButton2.setToolTipText("");
         jButton2.setAlignmentY(0.0F);
         jButton2.setContentAreaFilled(false);
@@ -231,7 +231,7 @@ public class HomeUserMinuman extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 780, -1, -1));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum w.png"))); // NOI18N
         jButton5.setToolTipText("");
         jButton5.setAlignmentY(0.0F);
         jButton5.setContentAreaFilled(false);

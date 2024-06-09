@@ -334,7 +334,7 @@
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/cemil b.png"/>
+          <Image iconType="3" name="/img/camil w.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="alignmentY" type="float" value="0.0"/>
@@ -352,7 +352,7 @@
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/makan w.png"/>
+          <Image iconType="3" name="/img/makan b.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="alignmentY" type="float" value="0.0"/>

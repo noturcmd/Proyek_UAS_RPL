@@ -187,7 +187,7 @@ public class HomeUserCamilan extends javax.swing.JFrame {
         jButton6.setContentAreaFilled(false);
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 470, -1, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/camil w.png"))); // NOI18N
         jButton1.setToolTipText("");
         jButton1.setAlignmentY(0.0F);
         jButton1.setContentAreaFilled(false);
@@ -198,7 +198,7 @@ public class HomeUserCamilan extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 680, -1, -1));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png"))); // NOI18N
         jButton2.setToolTipText("");
         jButton2.setAlignmentY(0.0F);
         jButton2.setContentAreaFilled(false);
