@@ -21,7 +21,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     Statement st = null;
     ResultSet rs = null;
     
-    int curIndex = 4;
+    int curIndex = 0;
     int maxIndex;
     
     String[] listNamaMakanan = new String[]{};
@@ -36,7 +36,6 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         initComponents();
         showMenu();
         showData();
-        
     }
     
     String getNomorKamar(){
@@ -49,23 +48,70 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     }
     
     private void prev() {
-        this.curIndex--;
+        this.curIndex -= 4;
         if (this.curIndex < 0) {
-            this.curIndex = this.maxIndex - 1;
+            this.curIndex = 0;
         }
-
+        showMenu();
         showData();
     }
 
     private void next() {
-        this.curIndex++;
-        if (this.curIndex >= this.maxIndex) {
+        this.curIndex += 4;
+        showData();
+        if (this.listGambarMakanan.length < 4) {
             this.curIndex = 0;
         }
+        showMenu();
         showData();
     }
     
     void showData(){
+        if(this.maxIndex == 1){
+            System.out.println("1");
+            this.gbr1.setIcon(this.listGambarMakanan[0]);
+            this.gbr2.setVisible(false);
+            this.gbr3.setVisible(false);
+            this.gbr4.setVisible(false);
+            
+            this.nmMKn1.setText(this.listNamaMakanan[0]);
+            this.nmMKn2.setVisible(false);
+            this.nmMKn3.setVisible(false);
+            this.nmMKn4.setVisible(false);
+        }else if(this.maxIndex == 2){
+            System.out.println("2");
+            this.gbr1.setIcon(this.listGambarMakanan[0]);
+            this.gbr2.setIcon(this.listGambarMakanan[1]);
+            this.gbr3.setVisible(false);
+            this.gbr4.setVisible(false);
+            
+            this.nmMKn1.setText(this.listNamaMakanan[0]);
+            this.nmMKn2.setText(this.listNamaMakanan[1]);
+            this.nmMKn3.setVisible(false);
+            this.nmMKn4.setVisible(false);
+        }else if(this.maxIndex == 3){
+            System.out.println("3");
+            this.gbr1.setIcon(this.listGambarMakanan[0]);
+            this.gbr2.setIcon(this.listGambarMakanan[1]);
+            this.gbr3.setIcon(this.listGambarMakanan[2]);
+            this.gbr4.setVisible(false);
+            
+            this.nmMKn1.setText(this.listNamaMakanan[0]);
+            this.nmMKn2.setText(this.listNamaMakanan[1]);
+            this.nmMKn3.setText(this.listNamaMakanan[2]);
+            this.nmMKn4.setVisible(false);
+        }else if(this.maxIndex == 4){
+            System.out.println("4");
+            this.gbr1.setIcon(this.listGambarMakanan[0]);
+            this.gbr2.setIcon(this.listGambarMakanan[1]);
+            this.gbr3.setIcon(this.listGambarMakanan[2]);
+            this.gbr4.setIcon(this.listGambarMakanan[3]);
+            
+            this.nmMKn1.setText(this.listNamaMakanan[0]);
+            this.nmMKn2.setText(this.listNamaMakanan[1]);
+            this.nmMKn3.setText(this.listNamaMakanan[2]);
+            this.nmMKn4.setText(this.listNamaMakanan[3]);
+        }
         
     }
     
@@ -75,7 +121,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     void showMenu(){
         try {
             this.st = this.koneksi.createStatement();
-            String query = String.format("select * from menu;");
+            String query = String.format("select * from menu limit 0,4;");
             this.rs = st.executeQuery(query);
             int rowCount = 0;
             while (rs.next()) {
@@ -88,18 +134,24 @@ public class HomeUserMakanan extends javax.swing.JFrame {
             this.listNamaMakanan = new String[rowCount];
             this.listHargaMakanan = new String[rowCount];
             
-            this.st = this.koneksi.createStatement();
-            String query2 = String.format("select * from menu;");
-            this.rs = st.executeQuery(query2);
+            Statement st2 = this.koneksi.createStatement();
+            String query2 = String.format("select * from menu limit %s,4;", this.curIndex);
+            System.out.println(query2);
+            ResultSet rs2 = st2.executeQuery(query2);
             int i = 0;
-            while(rs.next()){
-                byte[] imageData = rs.getBytes("gambar");
+            while(rs2.next()){
+                byte[] imageData = rs2.getBytes("gambar");
                 ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
                 this.listGambarMakanan[i] = imageIcon;
-                this.listNamaMakanan[i] = rs.getString("nama");
+                this.listNamaMakanan[i] = rs2.getString("nama");
                 i++;
             }
-
+            
+            System.out.println("Size : " + this.listGambarMakanan.length);
+//this.gbr1.setIcon(this.listGambarMakanan[0]);
+//            this.gbr2.setIcon(this.listGambarMakanan[1]);
+//            this.gbr3.setIcon(this.listGambarMakanan[2]);
+//            this.gbr4.setIcon(this.listGambarMakanan[3]);
         } catch (SQLException e) {
             e.printStackTrace();
         }
