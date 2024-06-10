@@ -26,6 +26,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     ArrayList<ImageIcon> imageList = new ArrayList<>();
     HomeUserMinuman hmus = null;
     HomeUserCamilan hmus2 = null;
+    ArrayList<String> daftarKeranjang = new ArrayList<>();
 
     /**
      * Creates new form HomeUserMakanan
@@ -33,12 +34,13 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     public HomeUserMakanan() {
         this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
-        getData();
+        getData("Makanan");
         this.gbr1.setIcon(this.imageList.get(0));
         this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
         this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
         this.tabelTabel.setBackground(new Color(255, 255, 255));
         this.setVisible(false);
+        this.panelKeranjang.setVisible(false);
     }
     
     String getNomorKamar(){
@@ -52,30 +54,27 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     
 
     
-    
-
-
-
-
-
-    
-    
-    
-    void getData(){
+    void getData(String param){
         this.imageList.clear();
         tabelMenu = (DefaultTableModel) this.tabelTabel.getModel();
+        tabelMenu.setRowCount(0);
         try {
             this.st = this.koneksi.createStatement();
-            String query = String.format("select * from menu where jenis = \"Makanan\"");
+            String query = String.format("select * from menu where jenis = \"%s\"", param);
             System.out.println("query : " + query);
             this.rs = st.executeQuery(query);
             while(rs.next()){
                 tabelMenu.addRow(new Object[]{rs.getString("nama"),rs.getString("harga"),rs.getString("status"),rs.getString("deskripsi")});
                 byte[] imageData = rs.getBytes("gambar");
-                ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
-                this.imageList.add(imageIcon);
+                if(imageData != null){
+                    ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
+                    this.imageList.add(imageIcon);
+                }else{
+                    this.imageList.add(null);
+                }
             }
-            
+        
+        this.tabelTabel.setRowHeight(40);
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,18 +103,19 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelKeranjang = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelTabel = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
+        nmMKn1 = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
         gbr1 = new javax.swing.JLabel();
         hrg1 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        nmMKn1 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
         menuCamilan = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        menuMakanan = new javax.swing.JButton();
+        riwayat = new javax.swing.JButton();
+        keranjang = new javax.swing.JButton();
         menuMinuman = new javax.swing.JButton();
         nomorKamar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -123,8 +123,9 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 710, 540, 290));
+        panelKeranjang.setBackground(new java.awt.Color(255, 51, 0));
+        panelKeranjang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelKeranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(1670, 1030, 230, 30));
 
         tabelTabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,37 +153,75 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelTabel);
         if (tabelTabel.getColumnModel().getColumnCount() > 0) {
             tabelTabel.getColumnModel().getColumn(0).setResizable(false);
+            tabelTabel.getColumnModel().getColumn(0).setHeaderValue("Nama");
             tabelTabel.getColumnModel().getColumn(1).setResizable(false);
+            tabelTabel.getColumnModel().getColumn(1).setHeaderValue("Harga");
             tabelTabel.getColumnModel().getColumn(2).setResizable(false);
+            tabelTabel.getColumnModel().getColumn(2).setHeaderValue("Status");
             tabelTabel.getColumnModel().getColumn(3).setResizable(false);
+            tabelTabel.getColumnModel().getColumn(3).setHeaderValue("Deskripsi");
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 210, 670, 850));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 600, 1190, 420));
 
-        gbr1.setText("jLabel5");
-        getContentPane().add(gbr1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 306, 180, 200));
+        jPanel1.setBackground(new java.awt.Color(204, 0, 204));
 
-        hrg1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
-        hrg1.setForeground(new java.awt.Color(255, 255, 255));
-        hrg1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        hrg1.setText("HARGA");
-        hrg1.setAlignmentY(0.0F);
-        getContentPane().add(hrg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 400, 210, -1));
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
-        jButton7.setContentAreaFilled(false);
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 470, -1, -1));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
+        jButton8.setContentAreaFilled(false);
 
         nmMKn1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         nmMKn1.setForeground(new java.awt.Color(255, 255, 255));
         nmMKn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         nmMKn1.setText("MAKANAN");
         nmMKn1.setAlignmentY(0.0F);
-        getContentPane().add(nmMKn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 290, 290, 90));
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
-        jButton6.setContentAreaFilled(false);
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 470, -1, -1));
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
+        jButton9.setContentAreaFilled(false);
+
+        gbr1.setText("jLabel5");
+
+        hrg1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        hrg1.setForeground(new java.awt.Color(255, 255, 255));
+        hrg1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        hrg1.setText("HARGA");
+        hrg1.setAlignmentY(0.0F);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(144, Short.MAX_VALUE)
+                .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nmMKn1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton8))
+                    .addComponent(hrg1))
+                .addGap(555, 555, 555))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nmMKn1)
+                .addGap(18, 18, 18)
+                .addComponent(hrg1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton9)
+                    .addComponent(jButton8))
+                .addGap(65, 65, 65))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, 1180, 290));
 
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
         menuCamilan.setToolTipText("");
@@ -195,38 +234,38 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         });
         getContentPane().add(menuCamilan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 680, -1, -1));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png"))); // NOI18N
-        jButton2.setToolTipText("");
-        jButton2.setAlignmentY(0.0F);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png"))); // NOI18N
+        menuMakanan.setToolTipText("");
+        menuMakanan.setAlignmentY(0.0F);
+        menuMakanan.setContentAreaFilled(false);
+        menuMakanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                menuMakananActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, -1, -1));
+        getContentPane().add(menuMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, -1, -1));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png"))); // NOI18N
-        jButton3.setToolTipText("");
-        jButton3.setAlignmentY(0.0F);
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png"))); // NOI18N
+        riwayat.setToolTipText("");
+        riwayat.setAlignmentY(0.0F);
+        riwayat.setContentAreaFilled(false);
+        riwayat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                riwayatActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 880, -1, -1));
+        getContentPane().add(riwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 880, -1, -1));
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png"))); // NOI18N
-        jButton4.setToolTipText("");
-        jButton4.setAlignmentY(0.0F);
-        jButton4.setContentAreaFilled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png"))); // NOI18N
+        keranjang.setToolTipText("");
+        keranjang.setAlignmentY(0.0F);
+        keranjang.setContentAreaFilled(false);
+        keranjang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                keranjangActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 780, -1, -1));
+        getContentPane().add(keranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 780, -1, -1));
 
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png"))); // NOI18N
         menuMinuman.setToolTipText("");
@@ -255,30 +294,71 @@ public class HomeUserMakanan extends javax.swing.JFrame {
 
     private void menuCamilanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCamilanActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        this.hmus2 = new HomeUserCamilan();
-        this.hmus2.setVisible(true);
-        this.hmus2.setNomorKamar(kamar);
+        menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
+        menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
+        menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/camil w.png")));
+        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
+        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        this.getData("Cemilan");
+        this.gbr1.setIcon(this.imageList.get(0));
+        this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
+        this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
+        this.panelKeranjang.setVisible(false);
+        this.jPanel1.setVisible(true);
+        this.jScrollPane1.setVisible(true);
     }//GEN-LAST:event_menuCamilanActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void menuMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMakananActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png")));
+        menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
+        menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
+        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
+        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        this.getData("Makanan");
+        this.gbr1.setIcon(this.imageList.get(0));
+        this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
+        this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
+        this.panelKeranjang.setVisible(false);
+        this.jPanel1.setVisible(true);
+        this.jScrollPane1.setVisible(true);
+    }//GEN-LAST:event_menuMakananActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void riwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riwayatActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_riwayatActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void keranjangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keranjangActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
+        menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
+        menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
+        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang w.png")));
+        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        this.panelKeranjang.setVisible(true);
+        this.jPanel1.setVisible(false);
+        this.jScrollPane1.setVisible(false);
+        
+    }//GEN-LAST:event_keranjangActionPerformed
 
     private void menuMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMinumanActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        this.hmus = new HomeUserMinuman();
-        this.hmus.setVisible(true);
-        this.hmus.setNomorKamar(kamar);
+//        this.dispose();
+//        this.hmus = new HomeUserMinuman();
+//        this.hmus.setVisible(true);
+//        this.hmus.setNomorKamar(kamar);
+        menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
+        menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum w.png")));
+        menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
+        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
+        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        this.getData("Minuman");
+        this.gbr1.setIcon(this.imageList.get(0));
+        this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
+        this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
+        this.panelKeranjang.setVisible(false);
+        this.jPanel1.setVisible(true);
+        this.jScrollPane1.setVisible(true);
     }//GEN-LAST:event_menuMinumanActionPerformed
 
     private void tabelTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelTabelMouseClicked
@@ -327,18 +407,19 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel gbr1;
     private javax.swing.JLabel hrg1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton keranjang;
     private javax.swing.JButton menuCamilan;
+    private javax.swing.JButton menuMakanan;
     private javax.swing.JButton menuMinuman;
     private javax.swing.JLabel nmMKn1;
     private javax.swing.JLabel nomorKamar;
+    private javax.swing.JPanel panelKeranjang;
+    private javax.swing.JButton riwayat;
     private javax.swing.JTable tabelTabel;
     // End of variables declaration//GEN-END:variables
 }
