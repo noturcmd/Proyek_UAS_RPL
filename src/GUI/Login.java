@@ -58,7 +58,7 @@ public class Login extends javax.swing.JFrame {
                 signInBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(signInBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 780, -1, -1));
+        getContentPane().add(signInBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 800, -1, -1));
 
         checkboxShowPassword.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         checkboxShowPassword.setForeground(new java.awt.Color(125, 0, 124));
