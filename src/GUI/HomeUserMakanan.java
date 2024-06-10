@@ -4,6 +4,7 @@
  */
 package GUI;
 import ConnectionMySQL.ConnectionDB;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,13 +23,8 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     Statement st = null;
     ResultSet rs = null;
     DefaultTableModel tabelMenu = null;
-    
-    int jumlahData = 0;
-    int index = 0;
-    
-    String[] listNamaMakanan = new String[]{};
-    String[] listHargaMakanan = new String[]{};
-    ImageIcon[] listGambarMakanan = new ImageIcon[]{};
+    ArrayList<ImageIcon> imageList = new ArrayList<>();
+    HomeUserMinuman hmus = null;
 
     /**
      * Creates new form HomeUserMakanan
@@ -37,7 +33,11 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
         getData();
-        
+        this.gbr1.setIcon(this.imageList.get(0));
+        this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
+        this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
+        this.tabelTabel.setBackground(new Color(255, 255, 255));
+        this.setVisible(false);
     }
     
     String getNomorKamar(){
@@ -61,18 +61,21 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     
     
     void getData(){
+        this.imageList.clear();
         tabelMenu = (DefaultTableModel) this.tabelTabel.getModel();
         try {
             this.st = this.koneksi.createStatement();
-            String query = String.format("select * from menu where jenis = \"Makanan\"", this.index);
+            String query = String.format("select * from menu where jenis = \"Makanan\"");
             System.out.println("query : " + query);
             this.rs = st.executeQuery(query);
             while(rs.next()){
                 tabelMenu.addRow(new Object[]{rs.getString("nama"),rs.getString("harga"),rs.getString("status"),rs.getString("deskripsi")});
+                byte[] imageData = rs.getBytes("gambar");
+                ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
+                this.imageList.add(imageIcon);
             }
-//            this.listGambarMakanan = new ImageIcon[this.jumlahData];
-//        this.listNamaMakanan = new String[this.jumlahData];
-//        this.listHargaMakanan = new String[this.jumlahData];
+            
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,13 +90,6 @@ public class HomeUserMakanan extends javax.swing.JFrame {
             return null;
         }
     }
-    
-    private void clearData() {
-    // Setiap elemen array diatur menjadi null
-    this.listGambarMakanan = new ImageIcon[4];
-    this.listNamaMakanan = new String[4];
-    this.listHargaMakanan = new String[4];
-}
     
     
     
@@ -119,7 +115,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        menuMinuman = new javax.swing.JButton();
         nomorKamar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -145,7 +141,13 @@ public class HomeUserMakanan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabelTabel.setGridColor(new java.awt.Color(255, 255, 255));
         tabelTabel.getTableHeader().setReorderingAllowed(false);
+        tabelTabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelTabelMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelTabel);
         if (tabelTabel.getColumnModel().getColumnCount() > 0) {
             tabelTabel.getColumnModel().getColumn(0).setResizable(false);
@@ -154,7 +156,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
             tabelTabel.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 250, 600, 780));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 210, 670, 850));
 
         gbr1.setText("jLabel5");
         getContentPane().add(gbr1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 306, 180, 200));
@@ -225,16 +227,16 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 780, -1, -1));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png"))); // NOI18N
-        jButton5.setToolTipText("");
-        jButton5.setAlignmentY(0.0F);
-        jButton5.setContentAreaFilled(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png"))); // NOI18N
+        menuMinuman.setToolTipText("");
+        menuMinuman.setAlignmentY(0.0F);
+        menuMinuman.setContentAreaFilled(false);
+        menuMinuman.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                menuMinumanActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 580, -1, -1));
+        getContentPane().add(menuMinuman, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 580, -1, -1));
 
         nomorKamar.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
         nomorKamar.setForeground(new java.awt.Color(255, 255, 255));
@@ -266,9 +268,20 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void menuMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMinumanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        this.dispose();
+        this.hmus = new HomeUserMinuman();
+        this.hmus.setVisible(true);
+    }//GEN-LAST:event_menuMinumanActionPerformed
+
+    private void tabelTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelTabelMouseClicked
+        // TODO add your handling code here:
+        int row = tabelTabel.getSelectedRow();
+        this.gbr1.setIcon(this.imageList.get(row));
+        this.hrg1.setText(tabelTabel.getValueAt(row, 1).toString());
+        this.nmMKn1.setText(tabelTabel.getValueAt(row, 0).toString());
+    }//GEN-LAST:event_tabelTabelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -312,12 +325,12 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton menuMinuman;
     private javax.swing.JLabel nmMKn1;
     private javax.swing.JLabel nomorKamar;
     private javax.swing.JTable tabelTabel;
