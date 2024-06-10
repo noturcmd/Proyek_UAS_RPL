@@ -177,6 +177,11 @@ public class HomeUserMakanan extends javax.swing.JFrame {
 
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
         jButton9.setContentAreaFilled(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         gbr1.setText("jLabel5");
 
@@ -368,6 +373,11 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         this.hrg1.setText(tabelTabel.getValueAt(row, 1).toString());
         this.nmMKn1.setText(tabelTabel.getValueAt(row, 0).toString());
     }//GEN-LAST:event_tabelTabelMouseClicked
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        this.
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
