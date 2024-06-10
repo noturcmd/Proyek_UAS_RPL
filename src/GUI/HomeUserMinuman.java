@@ -258,14 +258,16 @@ public class HomeUserMinuman extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         this.hmus2 = new HomeUserCamilan();
-        this.hmus.setVisible(true);
+        this.hmus2.setVisible(true);
+        this.hmus2.setNomorKamar(kamar);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        hmus = new HomeUserMakanan();
+        this.hmus = new HomeUserMakanan();
         this.hmus.setVisible(true);
+        this.hmus.setNomorKamar(kamar);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

@@ -263,6 +263,7 @@ public class HomeUserCamilan extends javax.swing.JFrame {
         this.dispose();
         hmus = new HomeUserMakanan();
         this.hmus.setVisible(true);
+        this.hmus.setNomorKamar(kamar);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -275,6 +276,10 @@ public class HomeUserCamilan extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        hmus2 = new HomeUserMinuman();
+        this.hmus2.setVisible(true);
+        this.hmus2.setNomorKamar(kamar);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void tabelTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelTabelMouseClicked

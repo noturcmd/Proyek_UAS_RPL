@@ -25,6 +25,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     DefaultTableModel tabelMenu = null;
     ArrayList<ImageIcon> imageList = new ArrayList<>();
     HomeUserMinuman hmus = null;
+    HomeUserCamilan hmus2 = null;
 
     /**
      * Creates new form HomeUserMakanan
@@ -111,7 +112,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         nmMKn1 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        menuCamilan = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -183,16 +184,16 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jButton6.setContentAreaFilled(false);
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 470, -1, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
-        jButton1.setToolTipText("");
-        jButton1.setAlignmentY(0.0F);
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
+        menuCamilan.setToolTipText("");
+        menuCamilan.setAlignmentY(0.0F);
+        menuCamilan.setContentAreaFilled(false);
+        menuCamilan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                menuCamilanActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 680, -1, -1));
+        getContentPane().add(menuCamilan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 680, -1, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png"))); // NOI18N
         jButton2.setToolTipText("");
@@ -252,9 +253,13 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void menuCamilanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCamilanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.dispose();
+        this.hmus2 = new HomeUserCamilan();
+        this.hmus2.setVisible(true);
+        this.hmus2.setNomorKamar(kamar);
+    }//GEN-LAST:event_menuCamilanActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -273,6 +278,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         this.dispose();
         this.hmus = new HomeUserMinuman();
         this.hmus.setVisible(true);
+        this.hmus.setNomorKamar(kamar);
     }//GEN-LAST:event_menuMinumanActionPerformed
 
     private void tabelTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelTabelMouseClicked
@@ -321,7 +327,6 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel gbr1;
     private javax.swing.JLabel hrg1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -330,6 +335,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton menuCamilan;
     private javax.swing.JButton menuMinuman;
     private javax.swing.JLabel nmMKn1;
     private javax.swing.JLabel nomorKamar;
