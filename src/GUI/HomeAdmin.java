@@ -36,7 +36,7 @@ public class HomeAdmin extends javax.swing.JFrame {
     DefaultTableModel tabelMenu = null;
     ArrayList<ImageIcon> imageList = new ArrayList<>();
     ArrayList<String> daftarKeranjang = new ArrayList<>();
-    String panelAktif;
+    String panelAktif = "Makanan";
     ImageIcon imageIcon = null;
     File f = null;
     File f2 = null;
@@ -135,6 +135,7 @@ private void updateMenu() {
             this.f2 = new File(namaFileTidakTersedia.getText());
             fis = new FileInputStream(this.f2);
             pstmt.setBinaryStream(6, fis, (int) f2.length());
+            pstmt.setString(7, ubahNama.getText());
         }else if(this.f != null && this.f2 == null){
             System.out.println("Gambar 1");
             this.f = new File(namaFile.getText());
@@ -142,6 +143,7 @@ private void updateMenu() {
             pstmt.setBinaryStream(5, fis, (int) f.length());
             pstmt.setString(6, ubahNama.getText());
         }else if(this.f == null && this.f2 == null){
+            System.out.println("Gambar kosong");
             pstmt.setString(5, ubahNama.getText());
         }
         
@@ -507,6 +509,7 @@ private void updateMenu() {
        if(!this.ubahNama.getText().isEmpty() && !this.ubahHarga.getText().isEmpty() && !this.ubahDeskripsi.getText().isEmpty() && !this.ubahStatus.getText().isEmpty()){
            this.updateMenu();
            this.getData(this.panelAktif);
+           this.lihatGambar1.setIcon(null);
        }else{
            JOptionPane.showMessageDialog(this, "Kolom dan gambar tidak boleh kosong!");
        }
@@ -528,11 +531,11 @@ try {
     if(rs.next()){
         byte[] imgIc = null;
         ImageIcon imgIcon = null;
-        if(rs.getString("status").equals("Tidak Tersedia")){
+        if(rs.getString("status").equals("Tidak Tersedia".toLowerCase())){
                     imgIc = rs.getBytes("gambar_dis");
                     imgIcon = new ImageIcon(scaleImage(imgIc, 420, 320));
                     lihatGambar1.setIcon(imgIcon);
-                }else if(rs.getString("status").equals("Tersedia")){
+                }else if(rs.getString("status").equals("Tersedia".toLowerCase())){
                     imgIc = rs.getBytes("gambar");
                     imgIcon = new ImageIcon(scaleImage(imgIc, 420, 320));
                     lihatGambar1.setIcon(imgIcon);
