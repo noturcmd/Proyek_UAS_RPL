@@ -34,6 +34,8 @@ public class HomeAdmin extends javax.swing.JFrame {
     Statement st = null;
     ResultSet rs = null;
     DefaultTableModel tabelMenu = null;
+    DefaultTableModel tabelEditUser = null;
+    DefaultTableModel tabelEditAdmin = null;
     ArrayList<ImageIcon> imageList = new ArrayList<>();
     ArrayList<String> daftarKeranjang = new ArrayList<>();
     String panelAktif = "Makanan";
@@ -41,11 +43,14 @@ public class HomeAdmin extends javax.swing.JFrame {
     File f = null;
     File f2 = null;
     
+    Integer barisUntukHapus = null;
+    
     
     public HomeAdmin() {
         this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
         getData("Makanan");
+        this.jPanel1.setVisible(false);
     }
     
     void getData(String param){
@@ -235,6 +240,42 @@ private void updateMenu() {
                 JOptionPane.showMessageDialog(this, "An error occurred while reading the file.");
             }
         }
+        
+        void showUser(){
+            this.tabelEditUser = (DefaultTableModel) this.tabelUser.getModel();
+            this.tabelEditUser.setRowCount(0);
+            try {
+                this.st = this.koneksi.createStatement();
+                String query = String.format("select * from daftar_akun where status = \"kamar\";");
+                System.out.println("query : " + query);
+                this.rs = st.executeQuery(query);
+                while(rs.next()){
+                    this.tabelEditUser.addRow(new Object[]{rs.getString("id"), rs.getString("username"), rs.getString("password")});
+                }
+                
+                this.tabelUser.setRowHeight(40);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        void showAdmin(){
+            this.tabelEditAdmin = (DefaultTableModel) this.tabelAdmin.getModel();
+            this.tabelEditAdmin.setRowCount(0);
+            try {
+                this.st = this.koneksi.createStatement();
+                String query = String.format("select * from daftar_akun where status = \"admin\";");
+                System.out.println("query : " + query);
+                this.rs = st.executeQuery(query);
+                while(rs.next()){
+                    this.tabelEditAdmin.addRow(new Object[]{rs.getString("id"), rs.getString("username"), rs.getString("password")});
+                }
+                
+                this.tabelAdmin.setRowHeight(40);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
 
 
 
@@ -247,6 +288,11 @@ private void updateMenu() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelUser = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelAdmin = new javax.swing.JTable();
         tombolLogout = new javax.swing.JButton();
         tombolHapusMenu = new javax.swing.JButton();
         ubahJenis = new javax.swing.JTextField();
@@ -264,7 +310,7 @@ private void updateMenu() {
         menuCamilan = new javax.swing.JButton();
         menuMinuman = new javax.swing.JButton();
         menuMakanan = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        tombolHapus = new javax.swing.JButton();
         tombolUbahMenu = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelMenuAdmin = new javax.swing.JTable();
@@ -279,6 +325,84 @@ private void updateMenu() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tabelUser.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        tabelUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Username", "Password"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelUser.setAlignmentX(0.0F);
+        tabelUser.setAlignmentY(0.0F);
+        tabelUser.setGridColor(new java.awt.Color(204, 0, 204));
+        tabelUser.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tabelUser.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        tabelUser.setShowGrid(true);
+        tabelUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelUserMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelUser);
+        if (tabelUser.getColumnModel().getColumnCount() > 0) {
+            tabelUser.getColumnModel().getColumn(0).setResizable(false);
+            tabelUser.getColumnModel().getColumn(1).setResizable(false);
+            tabelUser.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 1140, 300));
+
+        tabelAdmin.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        tabelAdmin.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Username", "Password"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelAdmin.setAlignmentX(0.0F);
+        tabelAdmin.setAlignmentY(0.0F);
+        tabelAdmin.setGridColor(new java.awt.Color(204, 0, 204));
+        tabelAdmin.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tabelAdmin.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        tabelAdmin.setShowGrid(true);
+        tabelAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelAdminMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tabelAdmin);
+        if (tabelAdmin.getColumnModel().getColumnCount() > 0) {
+            tabelAdmin.getColumnModel().getColumn(0).setResizable(false);
+            tabelAdmin.getColumnModel().getColumn(1).setResizable(false);
+            tabelAdmin.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 1140, 300));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, 1200, 950));
 
         tombolLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tombolLogout.setText("Logout");
@@ -404,14 +528,14 @@ private void updateMenu() {
         });
         getContentPane().add(menuMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, -1, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh.png"))); // NOI18N
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        tombolHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh.png"))); // NOI18N
+        tombolHapus.setContentAreaFilled(false);
+        tombolHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                tombolHapusActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 990, -1, -1));
+        getContentPane().add(tombolHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 990, -1, -1));
 
         tombolUbahMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ubah.png"))); // NOI18N
         tombolUbahMenu.setContentAreaFilled(false);
@@ -456,6 +580,7 @@ private void updateMenu() {
             tabelMenuAdmin.getColumnModel().getColumn(1).setResizable(false);
             tabelMenuAdmin.getColumnModel().getColumn(2).setResizable(false);
             tabelMenuAdmin.getColumnModel().getColumn(3).setResizable(false);
+            tabelMenuAdmin.getColumnModel().getColumn(3).setHeaderValue("Deskripsi");
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 300, 690, 300));
@@ -534,6 +659,21 @@ private void updateMenu() {
 
     private void riwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riwayatActionPerformed
         // TODO add your handling code here:
+        menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
+        menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
+        menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
+        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
+        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan w.png")));
+        this.jScrollPane1.setVisible(false);
+        this.ubahNama.setText("");
+        this.ubahHarga.setText("");
+        this.ubahStatus.setText("");
+        this.ubahDeskripsi.setText("");
+        this.ubahJenis.setText("");
+        this.jPanel1.setVisible(true);
+        showUser();
+        showAdmin();
+        
     }//GEN-LAST:event_riwayatActionPerformed
 
     private void keranjangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keranjangActionPerformed
@@ -563,6 +703,7 @@ private void updateMenu() {
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
+        this.jPanel1.setVisible(false);
     }//GEN-LAST:event_menuCamilanActionPerformed
 
     private void menuMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMinumanActionPerformed
@@ -582,6 +723,7 @@ private void updateMenu() {
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
+        this.jPanel1.setVisible(false);
     }//GEN-LAST:event_menuMinumanActionPerformed
 
     private void menuMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMakananActionPerformed
@@ -599,15 +741,41 @@ private void updateMenu() {
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
+        this.jPanel1.setVisible(false);
     }//GEN-LAST:event_menuMakananActionPerformed
 
     private void ubahDeskripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahDeskripsiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ubahDeskripsiActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void tombolHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHapusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        try {
+            
+            if(!this.ubahNama.getText().isEmpty()){
+                this.st = this.koneksi.createStatement();
+                String query = String.format("select * from menu where nama = \"%s\"", this.ubahNama.getText());
+                System.out.println("query : " + query);
+                this.rs = st.executeQuery(query);
+                if(rs.next()){
+                    query = String.format("delete from menu where nama = \"%s\"", this.ubahNama.getText());
+                    System.out.println("query : " + query);
+                    st.executeUpdate(query);
+                    JOptionPane.showMessageDialog(this, "Menu berhasil dihapus!");
+                    this.getData(this.panelAktif);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Data tidak bisa dihapus! Pastikan menghapus data yang terdaftar di database!");
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Kolom nama tidak boleh kosong!");
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_tombolHapusActionPerformed
 
     private void tombolTambahMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahMenuActionPerformed
         // TODO add your handling code here:
@@ -639,17 +807,17 @@ private void updateMenu() {
            this.getData(this.panelAktif);
            this.lihatGambar1.setIcon(null);
        }else{
-           JOptionPane.showMessageDialog(this, "Kolom dan gambar tidak boleh kosong!");
+           JOptionPane.showMessageDialog(this, "Kolom tidak boleh kosong!");
        }
     }//GEN-LAST:event_tombolUbahMenuActionPerformed
 
     private void tabelMenuAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMenuAdminMouseClicked
         // TODO add your handling code here:
-        int row = this.tabelMenuAdmin.getSelectedRow();
-this.ubahNama.setText((String) this.tabelMenuAdmin.getValueAt(row, 0));
-this.ubahHarga.setText((String) this.tabelMenuAdmin.getValueAt(row, 1));
-this.ubahStatus.setText((String) this.tabelMenuAdmin.getValueAt(row, 2));
-this.ubahDeskripsi.setText((String) this.tabelMenuAdmin.getValueAt(row, 3));
+        this.barisUntukHapus = this.tabelMenuAdmin.getSelectedRow();
+this.ubahNama.setText((String) this.tabelMenuAdmin.getValueAt(barisUntukHapus, 0));
+this.ubahHarga.setText((String) this.tabelMenuAdmin.getValueAt(barisUntukHapus, 1));
+this.ubahStatus.setText((String) this.tabelMenuAdmin.getValueAt(barisUntukHapus, 2));
+this.ubahDeskripsi.setText((String) this.tabelMenuAdmin.getValueAt(barisUntukHapus, 3));
 this.ubahJenis.setText(this.panelAktif);
 
 try {
@@ -745,6 +913,12 @@ try {
 
     private void tombolHapusMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHapusMenuActionPerformed
         // TODO add your handling code here:
+        getData(this.panelAktif);
+        this.ubahNama.setText("");
+        this.ubahHarga.setText("");
+        this.ubahStatus.setText("");
+        this.ubahDeskripsi.setText("");
+        this.ubahJenis.setText("");
     }//GEN-LAST:event_tombolHapusMenuActionPerformed
 
     private void tombolLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolLogoutActionPerformed
@@ -753,6 +927,14 @@ try {
         logout.setVisible(true);
         dispose();
     }//GEN-LAST:event_tombolLogoutActionPerformed
+
+    private void tabelUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelUserMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelUserMouseClicked
+
+    private void tabelAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelAdminMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelAdminMouseClicked
 
     /**
      * @param args the command line arguments
@@ -832,14 +1014,16 @@ class CustomTableModel extends AbstractTableModel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton keranjang;
     private javax.swing.JLabel lihatGambar1;
     private javax.swing.JButton menuCamilan;
@@ -849,7 +1033,10 @@ class CustomTableModel extends AbstractTableModel {
     private javax.swing.JTextField namaFileTidakTersedia;
     private javax.swing.JLabel nomorKamar;
     private javax.swing.JButton riwayat;
+    private javax.swing.JTable tabelAdmin;
     private javax.swing.JTable tabelMenuAdmin;
+    private javax.swing.JTable tabelUser;
+    private javax.swing.JButton tombolHapus;
     private javax.swing.JButton tombolHapusMenu;
     private javax.swing.JButton tombolLogout;
     private javax.swing.JButton tombolTambahMenu;
