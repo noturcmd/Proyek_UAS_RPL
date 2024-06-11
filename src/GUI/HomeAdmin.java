@@ -247,6 +247,7 @@ private void updateMenu() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tombolLogout = new javax.swing.JButton();
         tombolHapusMenu = new javax.swing.JButton();
         ubahJenis = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -278,6 +279,15 @@ private void updateMenu() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tombolLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tombolLogout.setText("Logout");
+        tombolLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolLogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1010, 100, 40));
 
         tombolHapusMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh.png"))); // NOI18N
         tombolHapusMenu.setContentAreaFilled(false);
@@ -737,6 +747,13 @@ try {
         // TODO add your handling code here:
     }//GEN-LAST:event_tombolHapusMenuActionPerformed
 
+    private void tombolLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolLogoutActionPerformed
+        // TODO add your handling code here:
+        Login logout = new Login();
+        logout.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_tombolLogoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -834,6 +851,7 @@ class CustomTableModel extends AbstractTableModel {
     private javax.swing.JButton riwayat;
     private javax.swing.JTable tabelMenuAdmin;
     private javax.swing.JButton tombolHapusMenu;
+    private javax.swing.JButton tombolLogout;
     private javax.swing.JButton tombolTambahMenu;
     private javax.swing.JButton tombolUbahGambar;
     private javax.swing.JButton tombolUbahGambarTidakTersedia;

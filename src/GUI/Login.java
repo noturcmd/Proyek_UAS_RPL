@@ -28,7 +28,6 @@ public class Login extends javax.swing.JFrame {
         this.signInBtn.setBorderPainted(false);
         inputPassword.setEchoChar((char)0);
         this.setLocationRelativeTo(this);
-        this.setResizable(false);
     }
 
     

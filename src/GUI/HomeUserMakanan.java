@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -23,9 +24,16 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     Statement st = null;
     ResultSet rs = null;
     DefaultTableModel tabelMenu = null;
+    DefaultTableModel tabelUntukKeranjang = null;
     ArrayList<ImageIcon> imageList = new ArrayList<>();
     ArrayList<String> daftarKeranjang = new ArrayList<>();
     int row;
+    
+    int total = 0;
+    
+    Integer row2 = null;
+    
+    int addKurang = 0;
 
     /**
      * Creates new form HomeUserMakanan
@@ -107,15 +115,24 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tombolLogout = new javax.swing.JButton();
         panelKeranjang = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelKeranjang = new javax.swing.JTable();
+        tombolKurangiMakanan = new javax.swing.JButton();
+        tombolAddMakanan = new javax.swing.JButton();
+        jumlah = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        totalHarga = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelTabel = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         nmMKn1 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
+        tombolTambahPesanan = new javax.swing.JButton();
         gbr1 = new javax.swing.JLabel();
         hrg1 = new javax.swing.JLabel();
+        jumlahPesanan = new javax.swing.JLabel();
         menuCamilan = new javax.swing.JButton();
         menuMakanan = new javax.swing.JButton();
         riwayat = new javax.swing.JButton();
@@ -127,9 +144,87 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tombolLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tombolLogout.setText("Logout");
+        tombolLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolLogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1010, 100, 40));
+
         panelKeranjang.setBackground(new java.awt.Color(255, 51, 0));
         panelKeranjang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(panelKeranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(1670, 1030, 230, 30));
+
+        tabelKeranjang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nama", "Harga", "Jumlah", "Kamar"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelKeranjang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelKeranjangMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tabelKeranjangMouseEntered(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelKeranjang);
+        if (tabelKeranjang.getColumnModel().getColumnCount() > 0) {
+            tabelKeranjang.getColumnModel().getColumn(0).setResizable(false);
+            tabelKeranjang.getColumnModel().getColumn(1).setResizable(false);
+            tabelKeranjang.getColumnModel().getColumn(2).setResizable(false);
+            tabelKeranjang.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        panelKeranjang.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 760, 420));
+
+        tombolKurangiMakanan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tombolKurangiMakanan.setText("<");
+        tombolKurangiMakanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolKurangiMakananActionPerformed(evt);
+            }
+        });
+        panelKeranjang.add(tombolKurangiMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, 40, -1));
+
+        tombolAddMakanan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tombolAddMakanan.setText(">");
+        tombolAddMakanan.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tombolAddMakananItemStateChanged(evt);
+            }
+        });
+        tombolAddMakanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolAddMakananActionPerformed(evt);
+            }
+        });
+        panelKeranjang.add(tombolAddMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 520, 40, -1));
+
+        jumlah.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jumlah.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelKeranjang.add(jumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 70, 30));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Total Harga :");
+        panelKeranjang.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 70, 120, -1));
+
+        totalHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        panelKeranjang.add(totalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 190, 30));
+
+        getContentPane().add(panelKeranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 220, 1230, 840));
 
         tabelTabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -179,11 +274,11 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         nmMKn1.setText("MAKANAN");
         nmMKn1.setAlignmentY(0.0F);
 
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
-        jButton9.setContentAreaFilled(false);
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        tombolTambahPesanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
+        tombolTambahPesanan.setContentAreaFilled(false);
+        tombolTambahPesanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                tombolTambahPesananActionPerformed(evt);
             }
         });
 
@@ -199,7 +294,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -207,15 +302,17 @@ public class HomeUserMakanan extends javax.swing.JFrame {
                     .addComponent(nmMKn1)
                     .addComponent(hrg1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton9)
+                        .addComponent(tombolTambahPesanan)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton8)))
-                .addGap(1121, 1121, 1121))
+                        .addComponent(jButton8)
+                        .addGap(29, 29, 29)
+                        .addComponent(jumlahPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(995, 995, 995))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -223,10 +320,11 @@ public class HomeUserMakanan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(hrg1)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton9, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tombolTambahPesanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jumlahPesanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, 1190, 290));
@@ -377,10 +475,94 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         this.nmMKn1.setText(tabelTabel.getValueAt(row, 0).toString());
     }//GEN-LAST:event_tabelTabelMouseClicked
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void tombolTambahPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahPesananActionPerformed
         // TODO add your handling code here:
+        this.tabelUntukKeranjang = (DefaultTableModel) this.tabelKeranjang.getModel();
+
+        this.tabelUntukKeranjang.addRow(new Object[]{this.nmMKn1.getText(), this.hrg1.getText(), 1, this.getNomorKamar()});
+        this.total = 0;
+        for (int i = 0; i < tabelUntukKeranjang.getRowCount(); i++) {
+                int jumlah = (Integer) this.tabelUntukKeranjang.getValueAt(i, 2);
+                int harga = Integer.valueOf(this.tabelUntukKeranjang.getValueAt(i, 1).toString());
+                total += jumlah * harga;
+            }
+        this.totalHarga.setText(String.valueOf(total));
+    }//GEN-LAST:event_tombolTambahPesananActionPerformed
+
+    private void tombolLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolLogoutActionPerformed
+        // TODO add your handling code here:
+        Login logout = new Login();
+        logout.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_tombolLogoutActionPerformed
+
+    private void tombolKurangiMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolKurangiMakananActionPerformed
+        // TODO add your handling code here:
+        if(this.row2 != null){
+        if(this.addKurang < 0){
+            JOptionPane.showMessageDialog(this, "Jumlah minimal 0");
+        }else{
+            --addKurang;
+            this.jumlah.setText(String.valueOf(addKurang));
+            this.tabelUntukKeranjang.setValueAt(addKurang, row2, 2);
+            
+            int total = 0;
+            for (int i = 0; i < tabelUntukKeranjang.getRowCount(); i++) {
+                int jumlah = (Integer) this.tabelUntukKeranjang.getValueAt(i, 2);
+                int harga = Integer.valueOf(this.tabelUntukKeranjang.getValueAt(i, 1).toString());
+                total += jumlah * harga;
+            }
+            
+            this.totalHarga.setText(String.valueOf(total));
+        }
         
-    }//GEN-LAST:event_jButton9ActionPerformed
+    } else {
+        JOptionPane.showMessageDialog(this, "Pilih menu dahulu!");
+    }
+        
+    }//GEN-LAST:event_tombolKurangiMakananActionPerformed
+
+    private void tabelKeranjangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelKeranjangMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelKeranjangMouseEntered
+
+    private void tabelKeranjangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelKeranjangMouseClicked
+        // TODO add your handling code here:
+        this.row2 = tabelKeranjang.getSelectedRow();
+        this.jumlah.setText(String.valueOf(tabelKeranjang.getValueAt(row, 2)));
+        this.addKurang = Integer.valueOf(this.jumlah.getText());
+    }//GEN-LAST:event_tabelKeranjangMouseClicked
+
+    private void tombolAddMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolAddMakananActionPerformed
+        // TODO add your handling code here:
+        if(this.row2 != null){
+        if(this.addKurang < 0){
+            JOptionPane.showMessageDialog(this, "Jumlah minimal 0");
+        }else{
+            ++addKurang;
+            this.jumlah.setText(String.valueOf(addKurang));
+            this.tabelUntukKeranjang.setValueAt(addKurang, row2, 2);
+            
+            int total = 0;
+            for (int i = 0; i < tabelUntukKeranjang.getRowCount(); i++) {
+                int jumlah = (Integer) this.tabelUntukKeranjang.getValueAt(i, 2);
+                int harga = Integer.valueOf(this.tabelUntukKeranjang.getValueAt(i, 1).toString());
+                total += jumlah * harga;
+            }
+            
+            this.totalHarga.setText(String.valueOf(total));
+        }
+        
+    } else {
+        JOptionPane.showMessageDialog(this, "Pilih menu dahulu!");
+    }
+        
+        
+    }//GEN-LAST:event_tombolAddMakananActionPerformed
+
+    private void tombolAddMakananItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tombolAddMakananItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tombolAddMakananItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -421,10 +603,13 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private javax.swing.JLabel gbr1;
     private javax.swing.JLabel hrg1;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel jumlah;
+    private javax.swing.JLabel jumlahPesanan;
     private javax.swing.JButton keranjang;
     private javax.swing.JButton menuCamilan;
     private javax.swing.JButton menuMakanan;
@@ -433,6 +618,12 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private javax.swing.JLabel nomorKamar;
     private javax.swing.JPanel panelKeranjang;
     private javax.swing.JButton riwayat;
+    private javax.swing.JTable tabelKeranjang;
     private javax.swing.JTable tabelTabel;
+    private javax.swing.JButton tombolAddMakanan;
+    private javax.swing.JButton tombolKurangiMakanan;
+    private javax.swing.JButton tombolLogout;
+    private javax.swing.JButton tombolTambahPesanan;
+    private javax.swing.JLabel totalHarga;
     // End of variables declaration//GEN-END:variables
 }
