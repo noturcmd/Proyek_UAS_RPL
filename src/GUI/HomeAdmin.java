@@ -63,7 +63,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
         getData("Makanan");
-        this.jPanel1.setVisible(false);
+        this.panelDataUser.setVisible(false);
         this.panelPesanandanRiwayat.setVisible(false);
         this.idAkun.setEditable(false);
         try {
@@ -474,18 +474,7 @@ private void updateMenu() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelPesanandanRiwayat = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tabelPesanan = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tabelRiwayat = new javax.swing.JTable();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        idPesanan = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        tblUbahPesanan = new javax.swing.JButton();
-        editStatusPesanan = new javax.swing.JComboBox<>();
-        jPanel1 = new javax.swing.JPanel();
+        panelDataUser = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelUser = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -498,14 +487,29 @@ private void updateMenu() {
         jLabel10 = new javax.swing.JLabel();
         passwordAkun = new javax.swing.JTextField();
         tblUbahAdmin = new javax.swing.JButton();
+        panelPesanandanRiwayat = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelPesanan = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabelRiwayat = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        idPesanan = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        tblUbahPesanan = new javax.swing.JButton();
+        editStatusPesanan = new javax.swing.JComboBox<>();
         tombolLogout = new javax.swing.JButton();
-        tombolHapusMenu = new javax.swing.JButton();
         ubahJenis = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        lihatGambar1 = new javax.swing.JLabel();
-        namaFileTidakTersedia = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
         tombolUbahGambarTidakTersedia = new javax.swing.JButton();
+        namaFileTidakTersedia = new javax.swing.JTextField();
         tombolUbahGambar = new javax.swing.JButton();
+        tombolHapusMenu = new javax.swing.JButton();
+        tombolHapus = new javax.swing.JButton();
+        tombolUbahMenu = new javax.swing.JButton();
+        tombolTambahMenu = new javax.swing.JButton();
+        lihatGambar1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -515,8 +519,6 @@ private void updateMenu() {
         menuCamilan = new javax.swing.JButton();
         menuMinuman = new javax.swing.JButton();
         menuMakanan = new javax.swing.JButton();
-        tombolHapus = new javax.swing.JButton();
-        tombolUbahMenu = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelMenuAdmin = new javax.swing.JTable();
         ubahDeskripsi = new javax.swing.JTextField();
@@ -524,13 +526,121 @@ private void updateMenu() {
         ubahNama = new javax.swing.JTextField();
         namaFile = new javax.swing.JTextField();
         ubahHarga = new javax.swing.JTextField();
-        tombolTambahMenu = new javax.swing.JButton();
         usernameAdmin = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        panelDataUser.setBackground(new java.awt.Color(255, 255, 255));
+        panelDataUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tabelUser.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        tabelUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Username", "Password"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelUser.setAlignmentX(0.0F);
+        tabelUser.setAlignmentY(0.0F);
+        tabelUser.setGridColor(new java.awt.Color(204, 0, 204));
+        tabelUser.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tabelUser.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        tabelUser.setShowGrid(true);
+        tabelUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelUserMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelUser);
+        if (tabelUser.getColumnModel().getColumnCount() > 0) {
+            tabelUser.getColumnModel().getColumn(0).setResizable(false);
+            tabelUser.getColumnModel().getColumn(1).setResizable(false);
+            tabelUser.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        panelDataUser.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 1140, 300));
+
+        tabelAdmin.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        tabelAdmin.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Username", "Password"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelAdmin.setAlignmentX(0.0F);
+        tabelAdmin.setAlignmentY(0.0F);
+        tabelAdmin.setGridColor(new java.awt.Color(204, 0, 204));
+        tabelAdmin.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tabelAdmin.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        tabelAdmin.setShowGrid(true);
+        tabelAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelAdminMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tabelAdmin);
+        if (tabelAdmin.getColumnModel().getColumnCount() > 0) {
+            tabelAdmin.getColumnModel().getColumn(0).setResizable(false);
+            tabelAdmin.getColumnModel().getColumn(1).setResizable(false);
+            tabelAdmin.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        panelDataUser.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 1140, 300));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Data User dan Admin");
+        panelDataUser.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
+
+        jLabel8.setText("ID : ");
+        panelDataUser.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, 50, 30));
+        panelDataUser.add(idAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, 140, 30));
+
+        jLabel9.setText("Nama  :");
+        panelDataUser.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, 50, 30));
+        panelDataUser.add(namaAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 520, 140, 30));
+
+        jLabel10.setText("Password :");
+        panelDataUser.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, 70, 30));
+        panelDataUser.add(passwordAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 520, 140, 30));
+
+        tblUbahAdmin.setBackground(new java.awt.Color(125, 0, 124));
+        tblUbahAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        tblUbahAdmin.setText("Ubah");
+        tblUbahAdmin.setToolTipText("");
+        tblUbahAdmin.setAlignmentY(0.0F);
+        tblUbahAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tblUbahAdminActionPerformed(evt);
+            }
+        });
+        panelDataUser.add(tblUbahAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 520, 170, 30));
+
+        getContentPane().add(panelDataUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 1200, 950));
+
+        panelPesanandanRiwayat.setBackground(new java.awt.Color(255, 255, 255));
         panelPesanandanRiwayat.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabelPesanan.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -631,7 +741,8 @@ private void updateMenu() {
         jLabel13.setText("Status :");
         panelPesanandanRiwayat.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, 50, 30));
 
-        tblUbahPesanan.setBackground(new java.awt.Color(255, 255, 0));
+        tblUbahPesanan.setBackground(new java.awt.Color(125, 0, 124));
+        tblUbahPesanan.setForeground(new java.awt.Color(255, 255, 255));
         tblUbahPesanan.setText("Ubah");
         tblUbahPesanan.setToolTipText("");
         tblUbahPesanan.setAlignmentY(0.0F);
@@ -640,118 +751,12 @@ private void updateMenu() {
                 tblUbahPesananActionPerformed(evt);
             }
         });
-        panelPesanandanRiwayat.add(tblUbahPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 530, 170, 30));
+        panelPesanandanRiwayat.add(tblUbahPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 520, 170, 30));
 
         editStatusPesanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "dikirim", "diproses", "selesai" }));
         panelPesanandanRiwayat.add(editStatusPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 130, -1));
 
-        getContentPane().add(panelPesanandanRiwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 1200, 970));
-
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tabelUser.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        tabelUser.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Username", "Password"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelUser.setAlignmentX(0.0F);
-        tabelUser.setAlignmentY(0.0F);
-        tabelUser.setGridColor(new java.awt.Color(204, 0, 204));
-        tabelUser.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        tabelUser.setSelectionForeground(new java.awt.Color(51, 51, 51));
-        tabelUser.setShowGrid(true);
-        tabelUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelUserMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tabelUser);
-        if (tabelUser.getColumnModel().getColumnCount() > 0) {
-            tabelUser.getColumnModel().getColumn(0).setResizable(false);
-            tabelUser.getColumnModel().getColumn(1).setResizable(false);
-            tabelUser.getColumnModel().getColumn(2).setResizable(false);
-        }
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 1140, 300));
-
-        tabelAdmin.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        tabelAdmin.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Username", "Password"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelAdmin.setAlignmentX(0.0F);
-        tabelAdmin.setAlignmentY(0.0F);
-        tabelAdmin.setGridColor(new java.awt.Color(204, 0, 204));
-        tabelAdmin.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        tabelAdmin.setSelectionForeground(new java.awt.Color(51, 51, 51));
-        tabelAdmin.setShowGrid(true);
-        tabelAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelAdminMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(tabelAdmin);
-        if (tabelAdmin.getColumnModel().getColumnCount() > 0) {
-            tabelAdmin.getColumnModel().getColumn(0).setResizable(false);
-            tabelAdmin.getColumnModel().getColumn(1).setResizable(false);
-            tabelAdmin.getColumnModel().getColumn(2).setResizable(false);
-        }
-
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 1140, 300));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Data User dan Admin");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
-
-        jLabel8.setText("ID : ");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, 50, 30));
-        jPanel1.add(idAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, 140, 30));
-
-        jLabel9.setText("Nama  :");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, 50, 30));
-        jPanel1.add(namaAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 520, 140, 30));
-
-        jLabel10.setText("Password :");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, 70, 30));
-        jPanel1.add(passwordAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 520, 140, 30));
-
-        tblUbahAdmin.setBackground(new java.awt.Color(255, 255, 0));
-        tblUbahAdmin.setText("Ubah");
-        tblUbahAdmin.setToolTipText("");
-        tblUbahAdmin.setAlignmentY(0.0F);
-        tblUbahAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tblUbahAdminActionPerformed(evt);
-            }
-        });
-        jPanel1.add(tblUbahAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 490, 170, 30));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 1200, 970));
+        getContentPane().add(panelPesanandanRiwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 1200, 950));
 
         tombolLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tombolLogout.setText("Logout");
@@ -761,15 +766,6 @@ private void updateMenu() {
             }
         });
         getContentPane().add(tombolLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1010, 100, 40));
-
-        tombolHapusMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh.png"))); // NOI18N
-        tombolHapusMenu.setContentAreaFilled(false);
-        tombolHapusMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolHapusMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(tombolHapusMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 990, -1, -1));
 
         ubahJenis.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahJenis.setBorder(null);
@@ -781,30 +777,75 @@ private void updateMenu() {
         getContentPane().add(ubahJenis, new org.netbeans.lib.awtextra.AbsoluteConstraints(1590, 660, 200, 40));
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel6.setText("Jenis : ");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 660, 80, 40));
-        getContentPane().add(lihatGambar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 660, 430, 310));
+        jLabel6.setText("Gambar : ");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 770, 80, 40));
+
+        jLabel14.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jLabel14.setText("Jenis : ");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 660, 80, 40));
+
+        tombolUbahGambarTidakTersedia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tidaktersediabutton.png"))); // NOI18N
+        tombolUbahGambarTidakTersedia.setBorder(null);
+        tombolUbahGambarTidakTersedia.setContentAreaFilled(false);
+        tombolUbahGambarTidakTersedia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolUbahGambarTidakTersediaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolUbahGambarTidakTersedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1590, 810, -1, 60));
 
         namaFileTidakTersedia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         namaFileTidakTersedia.setToolTipText("");
         namaFileTidakTersedia.setBorder(null);
         getContentPane().add(namaFileTidakTersedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 830, 210, 40));
 
-        tombolUbahGambarTidakTersedia.setText("Tidak Tersedia");
-        tombolUbahGambarTidakTersedia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolUbahGambarTidakTersediaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(tombolUbahGambarTidakTersedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1670, 840, 120, 30));
-
-        tombolUbahGambar.setText("Tersedia");
+        tombolUbahGambar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tersediabutton.png"))); // NOI18N
+        tombolUbahGambar.setBorder(null);
+        tombolUbahGambar.setContentAreaFilled(false);
         tombolUbahGambar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tombolUbahGambarActionPerformed(evt);
             }
         });
-        getContentPane().add(tombolUbahGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1670, 770, 130, 30));
+        getContentPane().add(tombolUbahGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1680, 730, 160, 60));
+
+        tombolHapusMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh.png"))); // NOI18N
+        tombolHapusMenu.setContentAreaFilled(false);
+        tombolHapusMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolHapusMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolHapusMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 880, -1, 60));
+
+        tombolHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hapus.png"))); // NOI18N
+        tombolHapus.setBorder(null);
+        tombolHapus.setContentAreaFilled(false);
+        tombolHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolHapusActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 880, -1, -1));
+
+        tombolUbahMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ubah.png"))); // NOI18N
+        tombolUbahMenu.setContentAreaFilled(false);
+        tombolUbahMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolUbahMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolUbahMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 880, -1, 60));
+
+        tombolTambahMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambahadmin.png"))); // NOI18N
+        tombolTambahMenu.setContentAreaFilled(false);
+        tombolTambahMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolTambahMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolTambahMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 880, -1, 60));
+        getContentPane().add(lihatGambar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 660, 430, 310));
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel5.setText("Deskripsi  :");
@@ -877,24 +918,6 @@ private void updateMenu() {
         });
         getContentPane().add(menuMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, -1, -1));
 
-        tombolHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh.png"))); // NOI18N
-        tombolHapus.setContentAreaFilled(false);
-        tombolHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolHapusActionPerformed(evt);
-            }
-        });
-        getContentPane().add(tombolHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 990, -1, -1));
-
-        tombolUbahMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ubah.png"))); // NOI18N
-        tombolUbahMenu.setContentAreaFilled(false);
-        tombolUbahMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolUbahMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(tombolUbahMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 900, -1, -1));
-
         tabelMenuAdmin.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         tabelMenuAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -932,7 +955,7 @@ private void updateMenu() {
             tabelMenuAdmin.getColumnModel().getColumn(3).setHeaderValue("Deskripsi");
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 300, 690, 300));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 300, 690, 420));
 
         ubahDeskripsi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahDeskripsi.setBorder(null);
@@ -975,15 +998,6 @@ private void updateMenu() {
         });
         getContentPane().add(ubahHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1600, 400, 180, 40));
 
-        tombolTambahMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambahadmin.png"))); // NOI18N
-        tombolTambahMenu.setContentAreaFilled(false);
-        tombolTambahMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolTambahMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(tombolTambahMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 900, -1, -1));
-
         usernameAdmin.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
         usernameAdmin.setForeground(new java.awt.Color(255, 255, 255));
         usernameAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1019,7 +1033,7 @@ private void updateMenu() {
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
-        this.jPanel1.setVisible(true);
+        this.panelDataUser.setVisible(true);
         this.jScrollPane2.setVisible(true);
         showUser();
         showAdmin();
@@ -1037,7 +1051,7 @@ private void updateMenu() {
         pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang w.png")));
         editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.jScrollPane2.setVisible(false);
-        this.jPanel1.setVisible(false);
+        this.panelDataUser.setVisible(false);
         this.panelPesanandanRiwayat.setVisible(true);
         showPesanan();
         showRiwayat();
@@ -1060,7 +1074,7 @@ private void updateMenu() {
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
-        this.jPanel1.setVisible(false);
+        this.panelDataUser.setVisible(false);
         this.panelPesanandanRiwayat.setVisible(false);
     }//GEN-LAST:event_menuCamilanActionPerformed
 
@@ -1081,7 +1095,7 @@ private void updateMenu() {
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
-        this.jPanel1.setVisible(false);
+        this.panelDataUser.setVisible(false);
         this.panelPesanandanRiwayat.setVisible(false);
     }//GEN-LAST:event_menuMinumanActionPerformed
 
@@ -1100,7 +1114,7 @@ private void updateMenu() {
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
-        this.jPanel1.setVisible(false);
+        this.panelDataUser.setVisible(false);
         this.panelPesanandanRiwayat.setVisible(false);
     }//GEN-LAST:event_menuMakananActionPerformed
 
@@ -1427,6 +1441,7 @@ class CustomTableModel extends AbstractTableModel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1435,7 +1450,6 @@ class CustomTableModel extends AbstractTableModel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1448,6 +1462,7 @@ class CustomTableModel extends AbstractTableModel {
     private javax.swing.JTextField namaAkun;
     private javax.swing.JTextField namaFile;
     private javax.swing.JTextField namaFileTidakTersedia;
+    private javax.swing.JPanel panelDataUser;
     private javax.swing.JPanel panelPesanandanRiwayat;
     private javax.swing.JTextField passwordAkun;
     private javax.swing.JButton pesananDanRiwayat;
