@@ -7,14 +7,16 @@ package GUI;
 import ConnectionMySQL.ConnectionDB;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -77,6 +79,17 @@ public class HomeAdmin extends javax.swing.JFrame {
             return null;
         }
     }
+    
+    void updateMenu(){
+        try {
+            this.st = this.koneksi.createStatement();
+            String query = String.format("select * from menu where jenis = \"%s\"");
+            System.out.println("query : " + query);
+            this.rs = st.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,6 +100,7 @@ public class HomeAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tombolUbahGambar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -103,7 +117,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         ubahDeskripsi = new javax.swing.JTextField();
         ubahStatus = new javax.swing.JTextField();
         ubahNama = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        namaFile = new javax.swing.JTextField();
         ubahHarga = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         nomorKamar = new javax.swing.JLabel();
@@ -112,12 +126,20 @@ public class HomeAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tombolUbahGambar.setText("Pilih File");
+        tombolUbahGambar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolUbahGambarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolUbahGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1730, 663, 80, 30));
+
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel5.setText("Deskripsi  :");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 570, 80, 40));
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        jLabel4.setText("Status     :");
+        jLabel4.setText("Status   :");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 490, 70, 40));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
@@ -262,8 +284,10 @@ public class HomeAdmin extends javax.swing.JFrame {
         ubahNama.setBorder(null);
         getContentPane().add(ubahNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(1570, 310, 210, 50));
 
-        jTextField4.setText("jTextField1");
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 670, 310, -1));
+        namaFile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        namaFile.setToolTipText("");
+        namaFile.setBorder(null);
+        getContentPane().add(namaFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 660, 210, 40));
 
         ubahHarga.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahHarga.setBorder(null);
@@ -380,6 +404,7 @@ public class HomeAdmin extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tabelMenuAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMenuAdminMouseClicked
@@ -390,6 +415,25 @@ public class HomeAdmin extends javax.swing.JFrame {
         this.ubahStatus.setText((String) this.tabelMenuAdmin.getValueAt(row, 2));
         this.ubahDeskripsi.setText((String) this.tabelMenuAdmin.getValueAt(row, 3));
     }//GEN-LAST:event_tabelMenuAdminMouseClicked
+
+    private void tombolUbahGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolUbahGambarActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setPreferredSize(new java.awt.Dimension(750, 700)); // Set preferred size
+        int returnValue = chooser.showOpenDialog(chooser);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            if (f != null) {
+                String pathFile = f.getAbsolutePath();
+                this.namaFile.setText(pathFile);
+            } else {
+                this.namaFile.setText("No file selected");
+            }
+        } else {
+            this.namaFile.setText("No file selected");
+        }
+    }//GEN-LAST:event_tombolUbahGambarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -436,14 +480,15 @@ public class HomeAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JButton keranjang;
     private javax.swing.JButton menuCamilan;
     private javax.swing.JButton menuMakanan;
     private javax.swing.JButton menuMinuman;
+    private javax.swing.JTextField namaFile;
     private javax.swing.JLabel nomorKamar;
     private javax.swing.JButton riwayat;
     private javax.swing.JTable tabelMenuAdmin;
+    private javax.swing.JButton tombolUbahGambar;
     private javax.swing.JTextField ubahDeskripsi;
     private javax.swing.JTextField ubahHarga;
     private javax.swing.JTextField ubahNama;
