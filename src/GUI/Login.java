@@ -134,9 +134,11 @@ public class Login extends javax.swing.JFrame {
                     if(rs10.next() == true && this.inputPassword.getText().equals(rs10.getString("password"))){
                         if(rs.getString("status").equals("admin")){
                             this.hmad.setVisible(true);
+                            this.hmad.setUsernameAdmin(rs.getString("id"));
+                            this.hmad.usernameAdminnya = rs.getString("username");
                         }else if(rs.getString("status").equals("kamar")){
                             this.hmus.setVisible(true);
-                            hmus.setNomorKamar(rs.getString("username").toUpperCase());
+                            hmus.setNomorKamar(rs.getString("id").toUpperCase());
                         }
                         dispose();
                     }else{

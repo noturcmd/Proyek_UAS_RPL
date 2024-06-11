@@ -75,7 +75,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         tabelMenu.setRowCount(0);
         try {
             this.st = this.koneksi.createStatement();
-            String query = String.format("select * from menu where jenis = \"%s\"", param);
+            String query = String.format("select * from menu where jenis = \"%s\" and status =\"tersedia\"", param);
             System.out.println("query : " + query);
             this.rs = st.executeQuery(query);
             while(rs.next()){
@@ -748,7 +748,9 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private void pesanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesanActionPerformed
         // TODO add your handling code here:
         try {
-            for (int i = 0; i < this.tabelUntukKeranjang.getRowCount(); i++) {
+            if(this.tabelUntukKeranjang != null){
+                if(this.tabelUntukKeranjang.getRowCount() != 0){
+                    for (int i = 0; i < this.tabelUntukKeranjang.getRowCount(); i++) {
                 this.daftarKeranjang.add(String.format("%s:%s~", this.tabelUntukKeranjang.getValueAt(i, 2), this.tabelUntukKeranjang.getValueAt(i, 0)));
             }
             
@@ -797,6 +799,15 @@ public class HomeUserMakanan extends javax.swing.JFrame {
                 menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
                 keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
                 riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+                this.addKurang = 1;
+                this.jumlah.setText(String.valueOf(1));
+                this.totalHarga.setText(String.valueOf(0));
+                }else{
+                    JOptionPane.showMessageDialog(this, "Tabel Keranjang kosong!");
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Pilihlah menu dahulu!");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -809,7 +820,8 @@ public class HomeUserMakanan extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        this.tabelUntukKeranjang.removeRow(this.row2);
+        if(this.row2 != null){
+            this.tabelUntukKeranjang.removeRow(this.row2);
         this.jumlah.setText("");
 //        this.row2 = 0;
         int total = 0;
@@ -819,6 +831,9 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         total += jumlah * harga;
     }
     this.totalHarga.setText(String.valueOf(total));
+        }else{
+            JOptionPane.showMessageDialog(this, "Pilih menu dahulu!");
+        }
     
     }//GEN-LAST:event_jButton1ActionPerformed
 

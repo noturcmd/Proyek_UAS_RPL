@@ -5,6 +5,7 @@
 package GUI;
 
 import ConnectionMySQL.ConnectionDB;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -20,6 +21,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.AbstractTableModel;
@@ -33,9 +35,14 @@ public class HomeAdmin extends javax.swing.JFrame {
     Connection koneksi;
     Statement st = null;
     ResultSet rs = null;
+    
+    private String adminnya;
+    String usernameAdminnya;
     DefaultTableModel tabelMenu = null;
     DefaultTableModel tabelEditUser = null;
     DefaultTableModel tabelEditAdmin = null;
+    DefaultTableModel tabelEditPesanan = null;
+    DefaultTableModel tabelEditRiwayat = null;
     ArrayList<ImageIcon> imageList = new ArrayList<>();
     ArrayList<String> daftarKeranjang = new ArrayList<>();
     String panelAktif = "Makanan";
@@ -43,7 +50,13 @@ public class HomeAdmin extends javax.swing.JFrame {
     File f = null;
     File f2 = null;
     
+    Login log1 = null;
+    
+    Integer barisEditAkun = null;
+    
     Integer barisUntukHapus = null;
+    
+    Integer barisEditPesanan = null;
     
     
     public HomeAdmin() {
@@ -51,6 +64,21 @@ public class HomeAdmin extends javax.swing.JFrame {
         initComponents();
         getData("Makanan");
         this.jPanel1.setVisible(false);
+        this.panelPesanandanRiwayat.setVisible(false);
+        this.idAkun.setEditable(false);
+        try {
+                this.st = this.koneksi.createStatement();
+                String query = String.format("select * from transaksi where status = \"dikirim\" or status = \"diproses\";");
+                System.out.println("query : " + query);
+                this.rs = st.executeQuery(query);
+                if(rs.next()){
+                    this.pesananDanRiwayat.setBorder(new LineBorder(Color.GREEN, 2));
+                }
+                
+                this.tabelPesanan.setRowHeight(40);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
     }
     
     void getData(String param){
@@ -91,6 +119,15 @@ public class HomeAdmin extends javax.swing.JFrame {
         }
     }
     
+    String getUsernameAdmin(){
+        return this.adminnya;
+    }
+    
+    void setUsernameAdmin(String adminnya){
+        this.adminnya = adminnya;
+        this.usernameAdmin.setText(this.adminnya);
+    }
+    
     private Image scaleImage(byte[] imageData, int width, int height) {
         try {
             Image image = ImageIO.read(new ByteArrayInputStream(imageData));
@@ -99,6 +136,12 @@ public class HomeAdmin extends javax.swing.JFrame {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    void clear(){
+        this.idAkun.setText("");
+        this.namaAkun.setText("");
+        this.passwordAkun.setText("");
     }
     
 private void updateMenu() {
@@ -154,9 +197,6 @@ private void updateMenu() {
         
         // Menjalankan query
         pstmt.executeUpdate();
-        
-        // Menutup FileInputStream
-        fis.close();
         
         System.out.println("Menu updated successfully.");
         JOptionPane.showMessageDialog(this, "Menu updated successfully.");
@@ -241,6 +281,70 @@ private void updateMenu() {
             }
         }
         
+       private void updateAdmin() {
+    try {
+        // Buat statement dan query untuk memeriksa username yang sudah ada di database
+        this.st = this.koneksi.createStatement();
+        String query = String.format("select * from daftar_akun where status = \"admin\" and username=\"%s\";", namaAkun.getText());
+        this.rs = st.executeQuery(query);
+
+        if(rs.next()) {
+            // Jika username sudah ada, tampilkan pesan kesalahan
+            JOptionPane.showMessageDialog(this, "Username sudah ada! Silakan pilih username lain.");
+        } else {
+            // Jika username belum ada, lakukan pembaruan data admin
+            query = "UPDATE daftar_akun SET username = ?, password = ? WHERE id = ?";
+
+            // Membuat PreparedStatement
+            PreparedStatement pstmt = koneksi.prepareStatement(query);
+
+            // Mengatur nilai parameter
+            pstmt.setString(1, namaAkun.getText());
+            pstmt.setString(2, passwordAkun.getText());
+            pstmt.setString(3, idAkun.getText());
+
+            // Menjalankan query
+            pstmt.executeUpdate();
+
+            System.out.println("Admin account updated successfully.");
+            JOptionPane.showMessageDialog(this, "Sukses memperbarui akun admin.");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat memperbarui akun admin.");
+    }
+}
+
+        
+        void tambahAdmin(){
+            try {
+                String query = "";
+                query = "insert into daftar_akun SET id = ?, username = ?, password = ?, status = \"admin\";";
+
+                // Membuat PreparedStatement
+                PreparedStatement pstmt = koneksi.prepareStatement(query);
+
+                // Mengatur nilai parameter
+                pstmt.setString(1, this.idAkun.getText());
+                pstmt.setString(2, this.namaAkun.getText()); // Pastikan harga adalah numerik
+                pstmt.setString(3, passwordAkun.getText());
+
+                pstmt.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Akun Admin berhasil ditambah.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "An error occurred while updating the menu.");
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
         void showUser(){
             this.tabelEditUser = (DefaultTableModel) this.tabelUser.getModel();
             this.tabelEditUser.setRowCount(0);
@@ -257,6 +361,7 @@ private void updateMenu() {
             }catch(SQLException e){
                 e.printStackTrace();
             }
+            this.tabelUser.setVisible(true);
         }
         
         void showAdmin(){
@@ -265,13 +370,94 @@ private void updateMenu() {
             try {
                 this.st = this.koneksi.createStatement();
                 String query = String.format("select * from daftar_akun where status = \"admin\";");
-                System.out.println("query : " + query);
                 this.rs = st.executeQuery(query);
                 while(rs.next()){
                     this.tabelEditAdmin.addRow(new Object[]{rs.getString("id"), rs.getString("username"), rs.getString("password")});
                 }
                 
                 this.tabelAdmin.setRowHeight(40);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        void showPesanan(){
+            this.tabelEditPesanan = (DefaultTableModel) this.tabelPesanan.getModel();
+            this.tabelEditPesanan.setRowCount(0);
+            try {
+                this.st = this.koneksi.createStatement();
+                String query = String.format("select * from transaksi where status = \"dikirim\" or status = \"diproses\";");
+                System.out.println("query : " + query);
+                this.rs = st.executeQuery(query);
+                while(rs.next()){
+                    this.tabelEditPesanan.addRow(new Object[]{rs.getString("id_transaksi"), rs.getString("admin"), rs.getString("pembeli"),rs.getString("pesanan"),rs.getString("deskripsi"), rs.getString("harga"), rs.getString("status"),rs.getString("tanggalpesan")});
+                }
+                
+                this.st = this.koneksi.createStatement();
+                query = String.format("select * from transaksi where status = \"dikirim\" or status = \"diproses\";");
+                System.out.println("query : " + query);
+                this.rs = st.executeQuery(query);
+                if(!rs.next()){
+                    this.pesananDanRiwayat.setBorder(null);
+                }
+                
+                this.tabelPesanan.setRowHeight(40);
+                
+                this.tabelPesanan.setRowHeight(40);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        private void updatePesanan(){
+    try {
+        this.st = this.koneksi.createStatement();
+        String query = String.format("select * from transaksi where id_transaksi = \"%s\";", idPesanan.getText());
+        this.rs = st.executeQuery(query);
+        if(rs.next()){
+                System.out.println("Ga Sama");
+                query = "UPDATE transaksi SET admin = ?, status = ?, tanggalpesan = current_timestamp() WHERE id_transaksi = ?";
+
+                // Membuat PreparedStatement
+                PreparedStatement pstmt = koneksi.prepareStatement(query);
+
+                // Mengatur nilai parameter
+                pstmt.setString(1, this.usernameAdminnya);
+                pstmt.setString(2, (String) this.editStatusPesanan.getSelectedItem()); // Pastikan harga adalah numerik
+                pstmt.setString(3, idPesanan.getText());
+
+                // Menjalankan query
+                pstmt.executeUpdate();
+
+                System.out.println("Menu updated successfully.");
+                JOptionPane.showMessageDialog(this, "Sukses memperbarui status pesanan");
+        }else{
+            JOptionPane.showMessageDialog(this, "Tidak bisa mengubah data yang tidak ada di dalam database!");
+        }
+        
+        
+        
+        
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Ada eror ketika memperbarui data pesanan!");
+    } 
+}
+        
+        void showRiwayat(){
+            this.tabelEditRiwayat = (DefaultTableModel) this.tabelRiwayat.getModel();
+            this.tabelEditRiwayat.setRowCount(0);
+            try {
+                this.st = this.koneksi.createStatement();
+                String query = String.format("select * from transaksi where status = \"selesai\";");
+                System.out.println("query : " + query);
+                this.rs = st.executeQuery(query);
+                while(rs.next()){
+                    this.tabelEditRiwayat.addRow(new Object[]{rs.getString("id_transaksi"), rs.getString("admin"), rs.getString("pembeli"),rs.getString("pesanan"),rs.getString("deskripsi"), rs.getString("harga"), rs.getString("status"),rs.getString("tanggalpesan")});
+                }
+                
+                this.tabelRiwayat.setRowHeight(40);
             }catch(SQLException e){
                 e.printStackTrace();
             }
@@ -288,11 +474,30 @@ private void updateMenu() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelPesanandanRiwayat = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelPesanan = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabelRiwayat = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        idPesanan = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        tblUbahPesanan = new javax.swing.JButton();
+        editStatusPesanan = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelUser = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelAdmin = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        idAkun = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        namaAkun = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        passwordAkun = new javax.swing.JTextField();
+        tblUbahAdmin = new javax.swing.JButton();
         tombolLogout = new javax.swing.JButton();
         tombolHapusMenu = new javax.swing.JButton();
         ubahJenis = new javax.swing.JTextField();
@@ -305,8 +510,8 @@ private void updateMenu() {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        riwayat = new javax.swing.JButton();
-        keranjang = new javax.swing.JButton();
+        editAkun = new javax.swing.JButton();
+        pesananDanRiwayat = new javax.swing.JButton();
         menuCamilan = new javax.swing.JButton();
         menuMinuman = new javax.swing.JButton();
         menuMakanan = new javax.swing.JButton();
@@ -320,11 +525,127 @@ private void updateMenu() {
         namaFile = new javax.swing.JTextField();
         ubahHarga = new javax.swing.JTextField();
         tombolTambahMenu = new javax.swing.JButton();
-        nomorKamar = new javax.swing.JLabel();
+        usernameAdmin = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelPesanandanRiwayat.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tabelPesanan.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        tabelPesanan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Admin", "Pembeli", "Pesanan", "Deskripsi", "Harga", "Status", "Tanggal Pesan"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelPesanan.setAlignmentX(0.0F);
+        tabelPesanan.setAlignmentY(0.0F);
+        tabelPesanan.setGridColor(new java.awt.Color(204, 0, 204));
+        tabelPesanan.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tabelPesanan.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        tabelPesanan.setShowGrid(true);
+        tabelPesanan.getTableHeader().setReorderingAllowed(false);
+        tabelPesanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelPesananMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tabelPesanan);
+        if (tabelPesanan.getColumnModel().getColumnCount() > 0) {
+            tabelPesanan.getColumnModel().getColumn(0).setResizable(false);
+            tabelPesanan.getColumnModel().getColumn(1).setResizable(false);
+            tabelPesanan.getColumnModel().getColumn(2).setResizable(false);
+            tabelPesanan.getColumnModel().getColumn(3).setResizable(false);
+            tabelPesanan.getColumnModel().getColumn(4).setResizable(false);
+            tabelPesanan.getColumnModel().getColumn(5).setResizable(false);
+            tabelPesanan.getColumnModel().getColumn(6).setResizable(false);
+            tabelPesanan.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        panelPesanandanRiwayat.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 1140, 300));
+
+        tabelRiwayat.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        tabelRiwayat.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Admin", "Pembeli", "Pesanan", "Deskripsi", "Harga", "Status", "Tanggal Pesan"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelRiwayat.setAlignmentX(0.0F);
+        tabelRiwayat.setAlignmentY(0.0F);
+        tabelRiwayat.setGridColor(new java.awt.Color(204, 0, 204));
+        tabelRiwayat.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tabelRiwayat.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        tabelRiwayat.setShowGrid(true);
+        tabelRiwayat.getTableHeader().setReorderingAllowed(false);
+        tabelRiwayat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelRiwayatMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tabelRiwayat);
+        if (tabelRiwayat.getColumnModel().getColumnCount() > 0) {
+            tabelRiwayat.getColumnModel().getColumn(0).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(1).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(2).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(3).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(4).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(5).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(6).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        panelPesanandanRiwayat.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 1140, 300));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Pesanan dan Riwayat");
+        panelPesanandanRiwayat.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
+
+        jLabel12.setText("ID : ");
+        panelPesanandanRiwayat.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, 50, 30));
+        panelPesanandanRiwayat.add(idPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, 140, 30));
+
+        jLabel13.setText("Status :");
+        panelPesanandanRiwayat.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, 50, 30));
+
+        tblUbahPesanan.setBackground(new java.awt.Color(255, 255, 0));
+        tblUbahPesanan.setText("Ubah");
+        tblUbahPesanan.setToolTipText("");
+        tblUbahPesanan.setAlignmentY(0.0F);
+        tblUbahPesanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tblUbahPesananActionPerformed(evt);
+            }
+        });
+        panelPesanandanRiwayat.add(tblUbahPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 530, 170, 30));
+
+        editStatusPesanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "dikirim", "diproses", "selesai" }));
+        panelPesanandanRiwayat.add(editStatusPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 130, -1));
+
+        getContentPane().add(panelPesanandanRiwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 1200, 970));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -363,7 +684,7 @@ private void updateMenu() {
             tabelUser.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 1140, 300));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 1140, 300));
 
         tabelAdmin.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         tabelAdmin.setModel(new javax.swing.table.DefaultTableModel(
@@ -400,9 +721,37 @@ private void updateMenu() {
             tabelAdmin.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 1140, 300));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 1140, 300));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, 1200, 950));
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Data User dan Admin");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
+
+        jLabel8.setText("ID : ");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, 50, 30));
+        jPanel1.add(idAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, 140, 30));
+
+        jLabel9.setText("Nama  :");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, 50, 30));
+        jPanel1.add(namaAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 520, 140, 30));
+
+        jLabel10.setText("Password :");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, 70, 30));
+        jPanel1.add(passwordAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 520, 140, 30));
+
+        tblUbahAdmin.setBackground(new java.awt.Color(255, 255, 0));
+        tblUbahAdmin.setText("Ubah");
+        tblUbahAdmin.setToolTipText("");
+        tblUbahAdmin.setAlignmentY(0.0F);
+        tblUbahAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tblUbahAdminActionPerformed(evt);
+            }
+        });
+        jPanel1.add(tblUbahAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 490, 170, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 1200, 970));
 
         tombolLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tombolLogout.setText("Logout");
@@ -473,27 +822,27 @@ private void updateMenu() {
         jLabel2.setText("Nama     :");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 310, 80, 40));
 
-        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png"))); // NOI18N
-        riwayat.setToolTipText("");
-        riwayat.setAlignmentY(0.0F);
-        riwayat.setContentAreaFilled(false);
-        riwayat.addActionListener(new java.awt.event.ActionListener() {
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png"))); // NOI18N
+        editAkun.setToolTipText("");
+        editAkun.setAlignmentY(0.0F);
+        editAkun.setContentAreaFilled(false);
+        editAkun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                riwayatActionPerformed(evt);
+                editAkunActionPerformed(evt);
             }
         });
-        getContentPane().add(riwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 880, -1, -1));
+        getContentPane().add(editAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 880, -1, -1));
 
-        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png"))); // NOI18N
-        keranjang.setToolTipText("");
-        keranjang.setAlignmentY(0.0F);
-        keranjang.setContentAreaFilled(false);
-        keranjang.addActionListener(new java.awt.event.ActionListener() {
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png"))); // NOI18N
+        pesananDanRiwayat.setToolTipText("");
+        pesananDanRiwayat.setAlignmentY(0.0F);
+        pesananDanRiwayat.setContentAreaFilled(false);
+        pesananDanRiwayat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                keranjangActionPerformed(evt);
+                pesananDanRiwayatActionPerformed(evt);
             }
         });
-        getContentPane().add(keranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 780, -1, -1));
+        getContentPane().add(pesananDanRiwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 780, -1, -1));
 
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
         menuCamilan.setToolTipText("");
@@ -592,7 +941,7 @@ private void updateMenu() {
                 ubahDeskripsiActionPerformed(evt);
             }
         });
-        getContentPane().add(ubahDeskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(1590, 570, 200, 40));
+        getContentPane().add(ubahDeskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(1600, 570, 200, 40));
 
         ubahStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahStatus.setBorder(null);
@@ -601,11 +950,11 @@ private void updateMenu() {
                 ubahStatusActionPerformed(evt);
             }
         });
-        getContentPane().add(ubahStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1570, 490, 210, 40));
+        getContentPane().add(ubahStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1590, 490, 210, 40));
 
         ubahNama.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahNama.setBorder(null);
-        getContentPane().add(ubahNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(1600, 310, 210, 50));
+        getContentPane().add(ubahNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(1600, 310, 210, 40));
 
         namaFile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         namaFile.setToolTipText("");
@@ -624,7 +973,7 @@ private void updateMenu() {
                 ubahHargaActionPerformed(evt);
             }
         });
-        getContentPane().add(ubahHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1690, 400, 90, 40));
+        getContentPane().add(ubahHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1600, 400, 180, 40));
 
         tombolTambahMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambahadmin.png"))); // NOI18N
         tombolTambahMenu.setContentAreaFilled(false);
@@ -635,12 +984,12 @@ private void updateMenu() {
         });
         getContentPane().add(tombolTambahMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 900, -1, -1));
 
-        nomorKamar.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        nomorKamar.setForeground(new java.awt.Color(255, 255, 255));
-        nomorKamar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nomorKamar.setText("ADMIN");
-        nomorKamar.setAlignmentY(0.0F);
-        getContentPane().add(nomorKamar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 320, -1));
+        usernameAdmin.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
+        usernameAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        usernameAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        usernameAdmin.setText("ADMIN");
+        usernameAdmin.setAlignmentY(0.0F);
+        getContentPane().add(usernameAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 420, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg home user admin.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -657,13 +1006,13 @@ private void updateMenu() {
         // TODO add your handling code here:
     }//GEN-LAST:event_ubahHargaActionPerformed
 
-    private void riwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riwayatActionPerformed
+    private void editAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAkunActionPerformed
         // TODO add your handling code here:
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
-        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
-        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan w.png")));
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan w.png")));
         this.jScrollPane1.setVisible(false);
         this.ubahNama.setText("");
         this.ubahHarga.setText("");
@@ -671,29 +1020,37 @@ private void updateMenu() {
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
         this.jPanel1.setVisible(true);
+        this.jScrollPane2.setVisible(true);
         showUser();
         showAdmin();
+        this.panelPesanandanRiwayat.setVisible(false);
         
-    }//GEN-LAST:event_riwayatActionPerformed
+        
+    }//GEN-LAST:event_editAkunActionPerformed
 
-    private void keranjangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keranjangActionPerformed
+    private void pesananDanRiwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesananDanRiwayatActionPerformed
         // TODO add your handling code here:
+        
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
-        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang w.png")));
-        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
-        this.jScrollPane1.setVisible(false);
-
-    }//GEN-LAST:event_keranjangActionPerformed
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang w.png")));
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        this.jScrollPane2.setVisible(false);
+        this.jPanel1.setVisible(false);
+        this.panelPesanandanRiwayat.setVisible(true);
+        showPesanan();
+        showRiwayat();
+        
+    }//GEN-LAST:event_pesananDanRiwayatActionPerformed
 
     private void menuCamilanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCamilanActionPerformed
         // TODO add your handling code here:
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/camil w.png")));
-        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
-        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.panelAktif = "Cemilan";
         this.getData("Cemilan");
         
@@ -704,6 +1061,7 @@ private void updateMenu() {
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
         this.jPanel1.setVisible(false);
+        this.panelPesanandanRiwayat.setVisible(false);
     }//GEN-LAST:event_menuCamilanActionPerformed
 
     private void menuMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMinumanActionPerformed
@@ -711,8 +1069,8 @@ private void updateMenu() {
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum w.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
-        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
-        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.panelAktif = "Minuman";
         this.getData("Minuman");
         this.lihatGambar1.setIcon(null);
@@ -724,6 +1082,7 @@ private void updateMenu() {
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
         this.jPanel1.setVisible(false);
+        this.panelPesanandanRiwayat.setVisible(false);
     }//GEN-LAST:event_menuMinumanActionPerformed
 
     private void menuMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMakananActionPerformed
@@ -731,8 +1090,8 @@ private void updateMenu() {
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
-        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
-        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.panelAktif = "Makanan";
         this.getData("Makanan");
         this.jScrollPane1.setVisible(true);
@@ -742,6 +1101,7 @@ private void updateMenu() {
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
         this.jPanel1.setVisible(false);
+        this.panelPesanandanRiwayat.setVisible(false);
     }//GEN-LAST:event_menuMakananActionPerformed
 
     private void ubahDeskripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahDeskripsiActionPerformed
@@ -930,11 +1290,55 @@ try {
 
     private void tabelUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelUserMouseClicked
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_tabelUserMouseClicked
 
     private void tabelAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelAdminMouseClicked
         // TODO add your handling code here:
+        this.barisEditAkun = this.tabelAdmin.getSelectedRow();
+        this.idAkun.setText((String) this.tabelAdmin.getValueAt(barisEditAkun, 0));
+        this.namaAkun.setText((String) this.tabelAdmin.getValueAt(barisEditAkun, 1));
+        this.passwordAkun.setText((String) this.tabelAdmin.getValueAt(barisEditAkun, 2));
     }//GEN-LAST:event_tabelAdminMouseClicked
+
+    private void tblUbahAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblUbahAdminActionPerformed
+        // TODO add your handling code here:
+        if(!this.namaAkun.getText().isEmpty() && !this.passwordAkun.getText().isEmpty()){
+                    System.out.println("Sini broooo");
+                    this.updateAdmin();
+                    this.showAdmin();
+                    
+                    clear();   
+       }else{
+           JOptionPane.showMessageDialog(this, "Kolom tidak boleh kosong!");
+       }
+    }//GEN-LAST:event_tblUbahAdminActionPerformed
+
+    private void tabelPesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelPesananMouseClicked
+        // TODO add your handling code here:
+        this.barisEditPesanan = this.tabelPesanan.getSelectedRow();
+        this.editStatusPesanan.setSelectedItem((String) this.tabelPesanan.getValueAt(this.barisEditPesanan, 6));
+        this.idPesanan.setText((String) this.tabelPesanan.getValueAt(this.barisEditPesanan, 0));
+    }//GEN-LAST:event_tabelPesananMouseClicked
+
+    private void tabelRiwayatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelRiwayatMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelRiwayatMouseClicked
+
+    private void tblUbahPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tblUbahPesananActionPerformed
+        // TODO add your handling code here:
+        if(!this.idPesanan.getText().isEmpty()){
+                  this.updatePesanan();
+                  this.idPesanan.setText("");
+                    this.showPesanan();
+                    this.showRiwayat();
+                    
+                    this.idPesanan.setText("");
+                    this.editStatusPesanan.setSelectedIndex(0);
+       }else{
+           JOptionPane.showMessageDialog(this, "Kolom tidak boleh kosong!");
+       }
+    }//GEN-LAST:event_tblUbahPesananActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1014,28 +1418,46 @@ class CustomTableModel extends AbstractTableModel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton editAkun;
+    private javax.swing.JComboBox<String> editStatusPesanan;
+    private javax.swing.JTextField idAkun;
+    private javax.swing.JTextField idPesanan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JButton keranjang;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lihatGambar1;
     private javax.swing.JButton menuCamilan;
     private javax.swing.JButton menuMakanan;
     private javax.swing.JButton menuMinuman;
+    private javax.swing.JTextField namaAkun;
     private javax.swing.JTextField namaFile;
     private javax.swing.JTextField namaFileTidakTersedia;
-    private javax.swing.JLabel nomorKamar;
-    private javax.swing.JButton riwayat;
+    private javax.swing.JPanel panelPesanandanRiwayat;
+    private javax.swing.JTextField passwordAkun;
+    private javax.swing.JButton pesananDanRiwayat;
     private javax.swing.JTable tabelAdmin;
     private javax.swing.JTable tabelMenuAdmin;
+    private javax.swing.JTable tabelPesanan;
+    private javax.swing.JTable tabelRiwayat;
     private javax.swing.JTable tabelUser;
+    private javax.swing.JButton tblUbahAdmin;
+    private javax.swing.JButton tblUbahPesanan;
     private javax.swing.JButton tombolHapus;
     private javax.swing.JButton tombolHapusMenu;
     private javax.swing.JButton tombolLogout;
@@ -1048,5 +1470,6 @@ class CustomTableModel extends AbstractTableModel {
     private javax.swing.JTextField ubahJenis;
     private javax.swing.JTextField ubahNama;
     private javax.swing.JTextField ubahStatus;
+    private javax.swing.JLabel usernameAdmin;
     // End of variables declaration//GEN-END:variables
 }
