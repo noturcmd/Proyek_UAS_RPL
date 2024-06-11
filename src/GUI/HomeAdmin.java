@@ -8,6 +8,8 @@ import ConnectionMySQL.ConnectionDB;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,7 +19,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -31,6 +36,8 @@ public class HomeAdmin extends javax.swing.JFrame {
     DefaultTableModel tabelMenu = null;
     ArrayList<ImageIcon> imageList = new ArrayList<>();
     ArrayList<String> daftarKeranjang = new ArrayList<>();
+    String panelAktif;
+    ImageIcon imageIcon = null;
     
     
     public HomeAdmin() {
@@ -50,20 +57,27 @@ public class HomeAdmin extends javax.swing.JFrame {
             this.rs = st.executeQuery(query);
             int count = 0;
             while(rs.next()){
+                byte[] imageData = null;
                 
-                byte[] imageData = rs.getBytes("gambar");
-                if(imageData != null){
-                    ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
-                    this.imageList.add(imageIcon);
-                    tabelMenu.addRow(new Object[]{rs.getString("nama"),rs.getString("harga"),rs.getString("status"),rs.getString("deskripsi"), imageList.get(count)});
+                if(rs.getString("status").equals("Tidak Tersedia")){
+                    imageData = rs.getBytes("gambar_dis");
                 }else{
-                    this.imageList.add(null);
-                    tabelMenu.addRow(new Object[]{rs.getString("nama"),rs.getString("harga"),rs.getString("status"),rs.getString("deskripsi"), ""});
+                    imageData = rs.getBytes("gambar");
+                }
+                
+                if(imageData != null){ 
+                    imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
+                    this.imageList.add(imageIcon);
+                    tabelMenu.addRow(new Object[]{rs.getString("nama"),rs.getString("harga"),rs.getString("status"),rs.getString("deskripsi")});
+                }else{
+                        this.imageList.add(null);
+                        tabelMenu.addRow(new Object[]{rs.getString("nama"),rs.getString("harga"),rs.getString("status"),rs.getString("deskripsi")});
                 }
                 count++;
             }
         
         this.tabelMenuAdmin.setRowHeight(40);
+        
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,16 +94,47 @@ public class HomeAdmin extends javax.swing.JFrame {
         }
     }
     
-    void updateMenu(){
-        try {
-            this.st = this.koneksi.createStatement();
-            String query = String.format("select * from menu where jenis = \"%s\"");
-            System.out.println("query : " + query);
-            this.rs = st.executeQuery(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+private void updateMenu() {
+    try {
+        String query = "UPDATE menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ? WHERE nama = ?";
+        
+        // Membuat PreparedStatement
+        PreparedStatement pstmt = koneksi.prepareStatement(query);
+        
+        // Mengatur nilai parameter
+        pstmt.setString(1, ubahNama.getText());
+        pstmt.setDouble(2, Double.parseDouble(ubahHarga.getText())); // Pastikan harga adalah numerik
+        pstmt.setString(3, ubahStatus.getText().toLowerCase());
+        pstmt.setString(4, ubahDeskripsi.getText());
+        
+        // Membaca gambar sebagai byte array
+        File file = new File(namaFile.getText());
+        FileInputStream fis = new FileInputStream(file);
+        pstmt.setBinaryStream(5, fis, (int) file.length());
+        
+        pstmt.setString(6, ubahNama.getText());
+        
+        // Menjalankan query
+        pstmt.executeUpdate();
+        
+        // Menutup FileInputStream
+        fis.close();
+        
+        System.out.println("Menu updated successfully.");
+        JOptionPane.showMessageDialog(this, "Menu updated successfully.");
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "An error occurred while updating the menu.");
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "File not found.");
+    } catch (IOException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "An error occurred while reading the file.");
     }
+}
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,6 +145,9 @@ public class HomeAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lihatGambar1 = new javax.swing.JLabel();
+        namaFileTidakTersedia = new javax.swing.JTextField();
+        tombolUbahGambarTidakTersedia = new javax.swing.JButton();
         tombolUbahGambar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -125,14 +173,28 @@ public class HomeAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(lihatGambar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 680, 290, 230));
 
-        tombolUbahGambar.setText("Pilih File");
+        namaFileTidakTersedia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        namaFileTidakTersedia.setToolTipText("");
+        namaFileTidakTersedia.setBorder(null);
+        getContentPane().add(namaFileTidakTersedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 730, 210, 40));
+
+        tombolUbahGambarTidakTersedia.setText("Tidak Tersedia");
+        tombolUbahGambarTidakTersedia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolUbahGambarTidakTersediaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolUbahGambarTidakTersedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1690, 740, 120, 30));
+
+        tombolUbahGambar.setText("Tersedia");
         tombolUbahGambar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tombolUbahGambarActionPerformed(evt);
             }
         });
-        getContentPane().add(tombolUbahGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1730, 663, 80, 30));
+        getContentPane().add(tombolUbahGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1690, 660, 130, 30));
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel5.setText("Deskripsi  :");
@@ -229,11 +291,11 @@ public class HomeAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nama", "Harga", "Status", "Deskripsi", "Gambar"
+                "Nama", "Harga", "Status", "Deskripsi"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -257,10 +319,9 @@ public class HomeAdmin extends javax.swing.JFrame {
             tabelMenuAdmin.getColumnModel().getColumn(1).setResizable(false);
             tabelMenuAdmin.getColumnModel().getColumn(2).setResizable(false);
             tabelMenuAdmin.getColumnModel().getColumn(3).setResizable(false);
-            tabelMenuAdmin.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 300, 690, 600));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 300, 690, 300));
 
         ubahDeskripsi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahDeskripsi.setBorder(null);
@@ -287,7 +348,12 @@ public class HomeAdmin extends javax.swing.JFrame {
         namaFile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         namaFile.setToolTipText("");
         namaFile.setBorder(null);
-        getContentPane().add(namaFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 660, 210, 40));
+        namaFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                namaFileActionPerformed(evt);
+            }
+        });
+        getContentPane().add(namaFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 660, 230, 40));
 
         ubahHarga.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahHarga.setBorder(null);
@@ -351,6 +417,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/camil w.png")));
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        this.panelAktif = "Cemilan";
         this.getData("Cemilan");
         
         this.jScrollPane1.setVisible(true);
@@ -367,6 +434,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        this.panelAktif = "Minuman";
         this.getData("Minuman");
         this.jScrollPane1.setVisible(true);
         this.ubahNama.setText("");
@@ -382,6 +450,7 @@ public class HomeAdmin extends javax.swing.JFrame {
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        this.panelAktif = "Makanan";
         this.getData("Makanan");
         this.jScrollPane1.setVisible(true);
         this.ubahNama.setText("");
@@ -404,22 +473,56 @@ public class HomeAdmin extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        
+       if(!this.ubahNama.getText().isEmpty() && !this.ubahHarga.getText().isEmpty() && !this.ubahDeskripsi.getText().isEmpty() && !this.ubahStatus.getText().isEmpty()){
+           this.updateMenu();
+           this.getData(this.panelAktif);
+       }else{
+           JOptionPane.showMessageDialog(this, "Kolom tidak boleh kosong!");
+       }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tabelMenuAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMenuAdminMouseClicked
         // TODO add your handling code here:
         int row = this.tabelMenuAdmin.getSelectedRow();
-        this.ubahNama.setText((String) this.tabelMenuAdmin.getValueAt(row, 0));
-        this.ubahHarga.setText((String) this.tabelMenuAdmin.getValueAt(row, 1));
-        this.ubahStatus.setText((String) this.tabelMenuAdmin.getValueAt(row, 2));
-        this.ubahDeskripsi.setText((String) this.tabelMenuAdmin.getValueAt(row, 3));
+this.ubahNama.setText((String) this.tabelMenuAdmin.getValueAt(row, 0));
+this.ubahHarga.setText((String) this.tabelMenuAdmin.getValueAt(row, 1));
+this.ubahStatus.setText((String) this.tabelMenuAdmin.getValueAt(row, 2));
+this.ubahDeskripsi.setText((String) this.tabelMenuAdmin.getValueAt(row, 3));
+
+try {
+    this.st = this.koneksi.createStatement();
+    String query = String.format("select * from menu where nama = \"%s\"", this.ubahNama.getText());
+    System.out.println("query : " + query);
+    this.rs = st.executeQuery(query);
+    if(rs.next()){
+        byte[] imgIc = null;
+        ImageIcon imgIcon = null;
+        if(rs.getString("status").equals("Tidak Tersedia")){
+                    imgIc = rs.getBytes("gambar_dis");
+                    imgIcon = new ImageIcon(scaleImage(imgIc, 420, 320));
+                    lihatGambar1.setIcon(imgIcon);
+                }else if(rs.getString("status").equals("Tersedia")){
+                    imgIc = rs.getBytes("gambar");
+                    imgIcon = new ImageIcon(scaleImage(imgIc, 420, 320));
+                    lihatGambar1.setIcon(imgIcon);
+                }
+    }
+}catch (SQLException e){
+    e.printStackTrace();
+}
+
+        
     }//GEN-LAST:event_tabelMenuAdminMouseClicked
 
     private void tombolUbahGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolUbahGambarActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
         chooser.setPreferredSize(new java.awt.Dimension(750, 700)); // Set preferred size
+
+        // Menambahkan filter untuk format gambar
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif");
+        chooser.setFileFilter(filter);
+
         int returnValue = chooser.showOpenDialog(chooser);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -433,7 +536,16 @@ public class HomeAdmin extends javax.swing.JFrame {
         } else {
             this.namaFile.setText("No file selected");
         }
+
     }//GEN-LAST:event_tombolUbahGambarActionPerformed
+
+    private void tombolUbahGambarTidakTersediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolUbahGambarTidakTersediaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tombolUbahGambarTidakTersediaActionPerformed
+
+    private void namaFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_namaFileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,6 +581,48 @@ public class HomeAdmin extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+
+class CustomTableModel extends AbstractTableModel {
+    private Object[][] data;
+    private String[] columnNames;
+
+    public CustomTableModel(Object[][] data, String[] columnNames) {
+        this.data = data;
+        this.columnNames = columnNames;
+    }
+
+    @Override
+    public int getRowCount() {
+        return data.length;
+    }
+
+    @Override
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    @Override
+    public Object getValueAt(int row, int col) {
+        return data[row][col];
+    }
+
+    @Override
+    public Class<?> getColumnClass(int col) {
+        if (col == 4) { // Kolom gambar
+            return ImageIcon.class;
+        } else {
+            return super.getColumnClass(col);
+        }
+    }
+
+    @Override
+    public boolean isCellEditable(int row, int col) {
+        return false; // Ubah sesuai kebutuhan Anda
+    }
+}
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -481,14 +635,17 @@ public class HomeAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton keranjang;
+    private javax.swing.JLabel lihatGambar1;
     private javax.swing.JButton menuCamilan;
     private javax.swing.JButton menuMakanan;
     private javax.swing.JButton menuMinuman;
     private javax.swing.JTextField namaFile;
+    private javax.swing.JTextField namaFileTidakTersedia;
     private javax.swing.JLabel nomorKamar;
     private javax.swing.JButton riwayat;
     private javax.swing.JTable tabelMenuAdmin;
     private javax.swing.JButton tombolUbahGambar;
+    private javax.swing.JButton tombolUbahGambarTidakTersedia;
     private javax.swing.JTextField ubahDeskripsi;
     private javax.swing.JTextField ubahHarga;
     private javax.swing.JTextField ubahNama;

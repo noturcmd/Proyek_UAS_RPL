@@ -25,6 +25,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     DefaultTableModel tabelMenu = null;
     ArrayList<ImageIcon> imageList = new ArrayList<>();
     ArrayList<String> daftarKeranjang = new ArrayList<>();
+    int row;
 
     /**
      * Creates new form HomeUserMakanan
@@ -62,8 +63,13 @@ public class HomeUserMakanan extends javax.swing.JFrame {
             System.out.println("query : " + query);
             this.rs = st.executeQuery(query);
             while(rs.next()){
+                byte[] imageData= null;
+                if(rs.getString("status").equals("Tidak Tersedia")){
+                    imageData = rs.getBytes("gambar_dis");
+                }else{
+                    imageData = rs.getBytes("gambar");
+                }
                 tabelMenu.addRow(new Object[]{rs.getString("nama"),rs.getString("harga"),rs.getString("status"),rs.getString("deskripsi")});
-                byte[] imageData = rs.getBytes("gambar");
                 if(imageData != null){
                     ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
                     this.imageList.add(imageIcon);
@@ -194,34 +200,33 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(154, Short.MAX_VALUE)
-                .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
+                .addContainerGap()
+                .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nmMKn1)
+                    .addComponent(hrg1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton9)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton8))
-                    .addComponent(hrg1))
-                .addGap(555, 555, 555))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton8)))
+                .addGap(1121, 1121, 1121))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(nmMKn1)
-                .addGap(18, 18, 18)
-                .addComponent(hrg1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton9)
-                    .addComponent(jButton8))
-                .addGap(65, 65, 65))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(nmMKn1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(hrg1)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton9, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, 1190, 290));
