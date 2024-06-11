@@ -4,17 +4,78 @@
  */
 package GUI;
 
+import ConnectionMySQL.ConnectionDB;
+import java.awt.Image;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ACER
  */
 public class HomeAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form HomeAdmin
-     */
+    Connection koneksi;
+    Statement st = null;
+    ResultSet rs = null;
+    DefaultTableModel tabelMenu = null;
+    ArrayList<ImageIcon> imageList = new ArrayList<>();
+    ArrayList<String> daftarKeranjang = new ArrayList<>();
+    
+    
     public HomeAdmin() {
+        this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
+        getData("Makanan");
+    }
+    
+    void getData(String param){
+        this.imageList.clear();
+        tabelMenu = (DefaultTableModel) this.tabelMenuAdmin.getModel();
+        tabelMenu.setRowCount(0);
+        try {
+            this.st = this.koneksi.createStatement();
+            String query = String.format("select * from menu where jenis = \"%s\"", param);
+            System.out.println("query : " + query);
+            this.rs = st.executeQuery(query);
+            int count = 0;
+            while(rs.next()){
+                
+                byte[] imageData = rs.getBytes("gambar");
+                if(imageData != null){
+                    ImageIcon imageIcon = new ImageIcon(scaleImage(imageData, 420, 320));
+                    this.imageList.add(imageIcon);
+                    tabelMenu.addRow(new Object[]{rs.getString("nama"),rs.getString("harga"),rs.getString("status"),rs.getString("deskripsi"), imageList.get(count)});
+                }else{
+                    this.imageList.add(null);
+                    tabelMenu.addRow(new Object[]{rs.getString("nama"),rs.getString("harga"),rs.getString("status"),rs.getString("deskripsi"), ""});
+                }
+                count++;
+            }
+        
+        this.tabelMenuAdmin.setRowHeight(40);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private Image scaleImage(byte[] imageData, int width, int height) {
+        try {
+            Image image = ImageIO.read(new ByteArrayInputStream(imageData));
+            return image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -26,6 +87,10 @@ public class HomeAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         riwayat = new javax.swing.JButton();
         keranjang = new javax.swing.JButton();
         menuCamilan = new javax.swing.JButton();
@@ -34,18 +99,34 @@ public class HomeAdmin extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        tabelMenuAdmin = new javax.swing.JTable();
+        ubahDeskripsi = new javax.swing.JTextField();
+        ubahStatus = new javax.swing.JTextField();
+        ubahNama = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        ubahHarga = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         nomorKamar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Deskripsi  :");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 570, 80, 40));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Status     :");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 490, 70, 40));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Harga     :");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 400, 70, 40));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Nama     :");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 316, 70, 40));
 
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png"))); // NOI18N
         riwayat.setToolTipText("");
@@ -109,7 +190,7 @@ public class HomeAdmin extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1520, 840, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1520, 940, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ubah.png"))); // NOI18N
         jButton3.setContentAreaFilled(false);
@@ -118,60 +199,80 @@ public class HomeAdmin extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1430, 750, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1430, 850, -1, -1));
 
-        jTable1.setBackground(new java.awt.Color(232, 9, 217));
-        jTable1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelMenuAdmin.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        tabelMenuAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nama", "Harga", "Status", "Deskripsi"
+                "Nama", "Harga", "Status", "Deskripsi", "Gambar"
             }
-        ));
-        jTable1.setAlignmentX(0.0F);
-        jTable1.setAlignmentY(0.0F);
-        jTable1.setGridColor(new java.awt.Color(204, 0, 204));
-        jTable1.setSelectionBackground(new java.awt.Color(0, 0, 0));
-        jTable1.setSelectionForeground(new java.awt.Color(125, 0, 124));
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, true
+            };
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 300, 620, 600));
-
-        jTextField1.setText("Deskripsi");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 590, 300, -1));
-
-        jTextField2.setText("Status");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+        tabelMenuAdmin.setAlignmentX(0.0F);
+        tabelMenuAdmin.setAlignmentY(0.0F);
+        tabelMenuAdmin.setGridColor(new java.awt.Color(204, 0, 204));
+        tabelMenuAdmin.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        tabelMenuAdmin.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        tabelMenuAdmin.setShowGrid(true);
+        tabelMenuAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelMenuAdminMouseClicked(evt);
             }
         });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 500, 310, 20));
+        jScrollPane1.setViewportView(tabelMenuAdmin);
+        if (tabelMenuAdmin.getColumnModel().getColumnCount() > 0) {
+            tabelMenuAdmin.getColumnModel().getColumn(0).setResizable(false);
+            tabelMenuAdmin.getColumnModel().getColumn(1).setResizable(false);
+            tabelMenuAdmin.getColumnModel().getColumn(2).setResizable(false);
+            tabelMenuAdmin.getColumnModel().getColumn(3).setResizable(false);
+            tabelMenuAdmin.getColumnModel().getColumn(4).setResizable(false);
+        }
 
-        jTextField3.setText("Nama");
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 320, 310, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 300, 690, 600));
+
+        ubahDeskripsi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ubahDeskripsi.setBorder(null);
+        ubahDeskripsi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ubahDeskripsiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ubahDeskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(1570, 572, 200, 40));
+
+        ubahStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ubahStatus.setBorder(null);
+        ubahStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ubahStatusActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ubahStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1570, 490, 210, 40));
+
+        ubahNama.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ubahNama.setBorder(null);
+        getContentPane().add(ubahNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(1570, 310, 210, 50));
 
         jTextField4.setText("jTextField1");
         getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 670, 310, -1));
 
-        jTextField5.setText("Harga");
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        ubahHarga.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ubahHarga.setBorder(null);
+        ubahHarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                ubahHargaActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 410, 310, -1));
+        getContentPane().add(ubahHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1570, 400, 210, 40));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambahadmin.png"))); // NOI18N
         jButton2.setContentAreaFilled(false);
@@ -180,7 +281,7 @@ public class HomeAdmin extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1620, 750, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1620, 850, -1, -1));
 
         nomorKamar.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
         nomorKamar.setForeground(new java.awt.Color(255, 255, 255));
@@ -196,13 +297,13 @@ public class HomeAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void ubahStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahStatusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_ubahStatusActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void ubahHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahHargaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_ubahHargaActionPerformed
 
     private void riwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riwayatActionPerformed
         // TODO add your handling code here:
@@ -215,8 +316,6 @@ public class HomeAdmin extends javax.swing.JFrame {
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang w.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
-        this.panelKeranjang.setVisible(true);
-        this.jPanel1.setVisible(false);
         this.jScrollPane1.setVisible(false);
 
     }//GEN-LAST:event_keranjangActionPerformed
@@ -229,32 +328,27 @@ public class HomeAdmin extends javax.swing.JFrame {
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.getData("Cemilan");
-        this.gbr1.setIcon(this.imageList.get(0));
-        this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
-        this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
-        this.panelKeranjang.setVisible(false);
-        this.jPanel1.setVisible(true);
+        
         this.jScrollPane1.setVisible(true);
+        this.ubahNama.setText("");
+        this.ubahHarga.setText("");
+        this.ubahStatus.setText("");
+        this.ubahDeskripsi.setText("");
     }//GEN-LAST:event_menuCamilanActionPerformed
 
     private void menuMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMinumanActionPerformed
         // TODO add your handling code here:
-        //        this.dispose();
-        //        this.hmus = new HomeUserMinuman();
-        //        this.hmus.setVisible(true);
-        //        this.hmus.setNomorKamar(kamar);
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum w.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.getData("Minuman");
-        this.gbr1.setIcon(this.imageList.get(0));
-        this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
-        this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
-        this.panelKeranjang.setVisible(false);
-        this.jPanel1.setVisible(true);
         this.jScrollPane1.setVisible(true);
+        this.ubahNama.setText("");
+        this.ubahHarga.setText("");
+        this.ubahStatus.setText("");
+        this.ubahDeskripsi.setText("");
     }//GEN-LAST:event_menuMinumanActionPerformed
 
     private void menuMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMakananActionPerformed
@@ -265,17 +359,16 @@ public class HomeAdmin extends javax.swing.JFrame {
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.getData("Makanan");
-        this.gbr1.setIcon(this.imageList.get(0));
-        this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
-        this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
-        this.panelKeranjang.setVisible(false);
-        this.jPanel1.setVisible(true);
         this.jScrollPane1.setVisible(true);
+        this.ubahNama.setText("");
+        this.ubahHarga.setText("");
+        this.ubahStatus.setText("");
+        this.ubahDeskripsi.setText("");
     }//GEN-LAST:event_menuMakananActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void ubahDeskripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahDeskripsiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_ubahDeskripsiActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -288,6 +381,15 @@ public class HomeAdmin extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tabelMenuAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMenuAdminMouseClicked
+        // TODO add your handling code here:
+        int row = this.tabelMenuAdmin.getSelectedRow();
+        this.ubahNama.setText((String) this.tabelMenuAdmin.getValueAt(row, 0));
+        this.ubahHarga.setText((String) this.tabelMenuAdmin.getValueAt(row, 1));
+        this.ubahStatus.setText((String) this.tabelMenuAdmin.getValueAt(row, 2));
+        this.ubahDeskripsi.setText((String) this.tabelMenuAdmin.getValueAt(row, 3));
+    }//GEN-LAST:event_tabelMenuAdminMouseClicked
 
     /**
      * @param args the command line arguments
@@ -329,18 +431,22 @@ public class HomeAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JButton keranjang;
     private javax.swing.JButton menuCamilan;
     private javax.swing.JButton menuMakanan;
     private javax.swing.JButton menuMinuman;
     private javax.swing.JLabel nomorKamar;
     private javax.swing.JButton riwayat;
+    private javax.swing.JTable tabelMenuAdmin;
+    private javax.swing.JTextField ubahDeskripsi;
+    private javax.swing.JTextField ubahHarga;
+    private javax.swing.JTextField ubahNama;
+    private javax.swing.JTextField ubahStatus;
     // End of variables declaration//GEN-END:variables
 }

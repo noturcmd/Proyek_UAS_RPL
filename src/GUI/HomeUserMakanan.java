@@ -24,8 +24,6 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     ResultSet rs = null;
     DefaultTableModel tabelMenu = null;
     ArrayList<ImageIcon> imageList = new ArrayList<>();
-    HomeUserMinuman hmus = null;
-    HomeUserCamilan hmus2 = null;
     ArrayList<String> daftarKeranjang = new ArrayList<>();
 
     /**
@@ -376,7 +374,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        this.
+        
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**

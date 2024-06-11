@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class Login extends javax.swing.JFrame {
     Connection koneksi;
     HomeUserMakanan hmus = new HomeUserMakanan();
-    MenuAdmin hmad = new MenuAdmin();
+    HomeAdmin hmad = new HomeAdmin();
     Statement st = null;
     ResultSet rs = null;
 
