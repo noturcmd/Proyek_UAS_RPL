@@ -168,6 +168,75 @@ private void updateMenu() {
 }
 
 
+        void tambahMenu(){
+            try {
+                String query = "";
+                if(this.f == null && this.f2 != null){
+                    query = "insert into menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar_dis = ?, jenis = ?";
+                }else if(this.f == null && this.f2 == null){
+                    query = "insert into menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, jenis = ?";
+                }else if(this.f != null && this.f2 != null){
+                    query = "insert into menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ?, gambar_dis = ?,, jenis = ?";
+                }else if(this.f != null && this.f2 == null){
+                    query = "insert into menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ? WHERE nama = ?,, jenis = ?";
+                }
+
+                // Membuat PreparedStatement
+                PreparedStatement pstmt = koneksi.prepareStatement(query);
+
+                // Mengatur nilai parameter
+                pstmt.setString(1, ubahNama.getText());
+                pstmt.setDouble(2, Double.parseDouble(ubahHarga.getText())); // Pastikan harga adalah numerik
+                pstmt.setString(3, ubahStatus.getText().toLowerCase());
+                pstmt.setString(4, ubahDeskripsi.getText());
+
+                // Membaca gambar sebagai byte array
+                FileInputStream fis = null;
+                if(this.f == null && this.f2 != null){
+                    System.out.println("Gambar 2");
+                    this.f2 = new File(namaFileTidakTersedia.getText());
+                    fis = new FileInputStream(this.f2);
+                    pstmt.setBinaryStream(5, fis, (int) f2.length());
+                    pstmt.setString(5, this.panelAktif);
+                }else if(this.f != null && this.f2 != null){
+                    System.out.println("Tidak ada");
+                    this.f = new File(namaFile.getText());
+                    fis = new FileInputStream(this.f);
+                    pstmt.setBinaryStream(5, fis, (int) f.length());
+
+                    this.f2 = new File(namaFileTidakTersedia.getText());
+                    fis = new FileInputStream(this.f2);
+                    pstmt.setBinaryStream(6, fis, (int) f2.length());
+                    pstmt.setString(7, this.panelAktif);
+                }else if(this.f != null && this.f2 == null){
+                    System.out.println("Gambar 1");
+                    this.f = new File(namaFile.getText());
+                    fis = new FileInputStream(this.f);
+                    pstmt.setBinaryStream(5, fis, (int) f.length());
+                    pstmt.setString(6, this.panelAktif);
+                }else if(this.f == null && this.f2 == null){
+                    System.out.println("Gambar kosong");
+                    pstmt.setString(5, this.panelAktif);
+                }
+
+                // Menjalankan query
+                pstmt.executeUpdate();
+
+                System.out.println("Menu updated successfully.");
+                JOptionPane.showMessageDialog(this, "Menu updated successfully.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "An error occurred while updating the menu.");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "File not found.");
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "An error occurred while reading the file.");
+            }
+        }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -178,6 +247,9 @@ private void updateMenu() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tombolHapusMenu = new javax.swing.JButton();
+        ubahJenis = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         lihatGambar1 = new javax.swing.JLabel();
         namaFileTidakTersedia = new javax.swing.JTextField();
         tombolUbahGambarTidakTersedia = new javax.swing.JButton();
@@ -192,7 +264,7 @@ private void updateMenu() {
         menuMinuman = new javax.swing.JButton();
         menuMakanan = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        tombolUbahMenu = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelMenuAdmin = new javax.swing.JTable();
         ubahDeskripsi = new javax.swing.JTextField();
@@ -200,18 +272,40 @@ private void updateMenu() {
         ubahNama = new javax.swing.JTextField();
         namaFile = new javax.swing.JTextField();
         ubahHarga = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        tombolTambahMenu = new javax.swing.JButton();
         nomorKamar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(lihatGambar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 680, 290, 230));
+
+        tombolHapusMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh.png"))); // NOI18N
+        tombolHapusMenu.setContentAreaFilled(false);
+        tombolHapusMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolHapusMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolHapusMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 990, -1, -1));
+
+        ubahJenis.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ubahJenis.setBorder(null);
+        ubahJenis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ubahJenisActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ubahJenis, new org.netbeans.lib.awtextra.AbsoluteConstraints(1590, 660, 200, 40));
+
+        jLabel6.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        jLabel6.setText("Jenis : ");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 660, 80, 40));
+        getContentPane().add(lihatGambar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 660, 430, 310));
 
         namaFileTidakTersedia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         namaFileTidakTersedia.setToolTipText("");
         namaFileTidakTersedia.setBorder(null);
-        getContentPane().add(namaFileTidakTersedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 730, 210, 40));
+        getContentPane().add(namaFileTidakTersedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 830, 210, 40));
 
         tombolUbahGambarTidakTersedia.setText("Tidak Tersedia");
         tombolUbahGambarTidakTersedia.addActionListener(new java.awt.event.ActionListener() {
@@ -219,7 +313,7 @@ private void updateMenu() {
                 tombolUbahGambarTidakTersediaActionPerformed(evt);
             }
         });
-        getContentPane().add(tombolUbahGambarTidakTersedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1690, 740, 120, 30));
+        getContentPane().add(tombolUbahGambarTidakTersedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1670, 840, 120, 30));
 
         tombolUbahGambar.setText("Tersedia");
         tombolUbahGambar.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +321,7 @@ private void updateMenu() {
                 tombolUbahGambarActionPerformed(evt);
             }
         });
-        getContentPane().add(tombolUbahGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1690, 660, 130, 30));
+        getContentPane().add(tombolUbahGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1670, 770, 130, 30));
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel5.setText("Deskripsi  :");
@@ -239,11 +333,11 @@ private void updateMenu() {
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel3.setText("Harga     :");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 400, 300, 40));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 400, 80, 40));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel2.setText("Nama     :");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 310, 300, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 310, 80, 40));
 
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png"))); // NOI18N
         riwayat.setToolTipText("");
@@ -307,16 +401,16 @@ private void updateMenu() {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1520, 940, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 990, -1, -1));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ubah.png"))); // NOI18N
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        tombolUbahMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ubah.png"))); // NOI18N
+        tombolUbahMenu.setContentAreaFilled(false);
+        tombolUbahMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                tombolUbahMenuActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1430, 850, -1, -1));
+        getContentPane().add(tombolUbahMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 900, -1, -1));
 
         tabelMenuAdmin.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         tabelMenuAdmin.setModel(new javax.swing.table.DefaultTableModel(
@@ -363,7 +457,7 @@ private void updateMenu() {
                 ubahDeskripsiActionPerformed(evt);
             }
         });
-        getContentPane().add(ubahDeskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(1570, 572, 200, 40));
+        getContentPane().add(ubahDeskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(1590, 570, 200, 40));
 
         ubahStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahStatus.setBorder(null);
@@ -376,7 +470,7 @@ private void updateMenu() {
 
         ubahNama.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahNama.setBorder(null);
-        getContentPane().add(ubahNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(1570, 310, 210, 50));
+        getContentPane().add(ubahNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(1600, 310, 210, 50));
 
         namaFile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         namaFile.setToolTipText("");
@@ -386,7 +480,7 @@ private void updateMenu() {
                 namaFileActionPerformed(evt);
             }
         });
-        getContentPane().add(namaFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 660, 230, 40));
+        getContentPane().add(namaFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(1430, 770, 230, 40));
 
         ubahHarga.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahHarga.setBorder(null);
@@ -395,16 +489,16 @@ private void updateMenu() {
                 ubahHargaActionPerformed(evt);
             }
         });
-        getContentPane().add(ubahHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1570, 400, 210, 40));
+        getContentPane().add(ubahHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1690, 400, 90, 40));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambahadmin.png"))); // NOI18N
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        tombolTambahMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambahadmin.png"))); // NOI18N
+        tombolTambahMenu.setContentAreaFilled(false);
+        tombolTambahMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                tombolTambahMenuActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1620, 850, -1, -1));
+        getContentPane().add(tombolTambahMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 900, -1, -1));
 
         nomorKamar.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
         nomorKamar.setForeground(new java.awt.Color(255, 255, 255));
@@ -458,6 +552,7 @@ private void updateMenu() {
         this.ubahHarga.setText("");
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
+        this.ubahJenis.setText("");
     }//GEN-LAST:event_menuCamilanActionPerformed
 
     private void menuMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMinumanActionPerformed
@@ -469,11 +564,14 @@ private void updateMenu() {
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.panelAktif = "Minuman";
         this.getData("Minuman");
+        this.lihatGambar1.setIcon(null);
+        this.lihatGambar1.setIcon(null);
         this.jScrollPane1.setVisible(true);
         this.ubahNama.setText("");
         this.ubahHarga.setText("");
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
+        this.ubahJenis.setText("");
     }//GEN-LAST:event_menuMinumanActionPerformed
 
     private void menuMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMakananActionPerformed
@@ -490,6 +588,7 @@ private void updateMenu() {
         this.ubahHarga.setText("");
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
+        this.ubahJenis.setText("");
     }//GEN-LAST:event_menuMakananActionPerformed
 
     private void ubahDeskripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahDeskripsiActionPerformed
@@ -500,11 +599,30 @@ private void updateMenu() {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void tombolTambahMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahMenuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        
+        try {
+            if(!this.ubahNama.getText().isEmpty() && !this.ubahHarga.getText().isEmpty() && !this.ubahDeskripsi.getText().isEmpty() && !this.ubahStatus.getText().isEmpty()){
+            this.st = this.koneksi.createStatement();
+              String query = String.format("select * from menu where nama = \"%s\";", this.ubahNama.getText());
+              System.out.println("query : " + query);
+              this.rs = st.executeQuery(query);
+              if(rs.next()){
+                  JOptionPane.showMessageDialog(this, "Menu dengan nama yang sama telah tersedia!");
+              }else{
+                  this.tambahMenu();
+                  this.getData(this.panelAktif);
+              }
+          }   
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_tombolTambahMenuActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void tombolUbahMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolUbahMenuActionPerformed
         // TODO add your handling code here:
        if(!this.ubahNama.getText().isEmpty() && !this.ubahHarga.getText().isEmpty() && !this.ubahDeskripsi.getText().isEmpty() && !this.ubahStatus.getText().isEmpty()){
            this.updateMenu();
@@ -513,7 +631,7 @@ private void updateMenu() {
        }else{
            JOptionPane.showMessageDialog(this, "Kolom dan gambar tidak boleh kosong!");
        }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_tombolUbahMenuActionPerformed
 
     private void tabelMenuAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMenuAdminMouseClicked
         // TODO add your handling code here:
@@ -522,6 +640,7 @@ this.ubahNama.setText((String) this.tabelMenuAdmin.getValueAt(row, 0));
 this.ubahHarga.setText((String) this.tabelMenuAdmin.getValueAt(row, 1));
 this.ubahStatus.setText((String) this.tabelMenuAdmin.getValueAt(row, 2));
 this.ubahDeskripsi.setText((String) this.tabelMenuAdmin.getValueAt(row, 3));
+this.ubahJenis.setText(this.panelAktif);
 
 try {
     this.st = this.koneksi.createStatement();
@@ -533,12 +652,21 @@ try {
         ImageIcon imgIcon = null;
         if(rs.getString("status").equals("Tidak Tersedia".toLowerCase())){
                     imgIc = rs.getBytes("gambar_dis");
-                    imgIcon = new ImageIcon(scaleImage(imgIc, 420, 320));
-                    lihatGambar1.setIcon(imgIcon);
+                    if(imgIc != null){
+                       imgIcon = new ImageIcon(scaleImage(imgIc, 420, 320)); 
+                       lihatGambar1.setIcon(imgIcon);
+                    }else{
+                        lihatGambar1.setIcon(null);
+                    }
+                    
                 }else if(rs.getString("status").equals("Tersedia".toLowerCase())){
                     imgIc = rs.getBytes("gambar");
-                    imgIcon = new ImageIcon(scaleImage(imgIc, 420, 320));
-                    lihatGambar1.setIcon(imgIcon);
+                    if(imgIc != null){
+                       imgIcon = new ImageIcon(scaleImage(imgIc, 420, 320)); 
+                       lihatGambar1.setIcon(imgIcon);
+                    }else{
+                        lihatGambar1.setIcon(imgIcon);
+                    }
                 }
     }
 }catch (SQLException e){
@@ -600,6 +728,14 @@ try {
     private void namaFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaFileActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_namaFileActionPerformed
+
+    private void ubahJenisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahJenisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ubahJenisActionPerformed
+
+    private void tombolHapusMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHapusMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tombolHapusMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -680,13 +816,12 @@ class CustomTableModel extends AbstractTableModel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton keranjang;
     private javax.swing.JLabel lihatGambar1;
@@ -698,10 +833,14 @@ class CustomTableModel extends AbstractTableModel {
     private javax.swing.JLabel nomorKamar;
     private javax.swing.JButton riwayat;
     private javax.swing.JTable tabelMenuAdmin;
+    private javax.swing.JButton tombolHapusMenu;
+    private javax.swing.JButton tombolTambahMenu;
     private javax.swing.JButton tombolUbahGambar;
     private javax.swing.JButton tombolUbahGambarTidakTersedia;
+    private javax.swing.JButton tombolUbahMenu;
     private javax.swing.JTextField ubahDeskripsi;
     private javax.swing.JTextField ubahHarga;
+    private javax.swing.JTextField ubahJenis;
     private javax.swing.JTextField ubahNama;
     private javax.swing.JTextField ubahStatus;
     // End of variables declaration//GEN-END:variables
