@@ -33,7 +33,11 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg home user admin.png"))); // NOI18N
         jLabel1.setText("jLabel1");
+<<<<<<< Updated upstream
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
+=======
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+>>>>>>> Stashed changes
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
