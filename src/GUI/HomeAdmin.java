@@ -38,6 +38,8 @@ public class HomeAdmin extends javax.swing.JFrame {
     ArrayList<String> daftarKeranjang = new ArrayList<>();
     String panelAktif;
     ImageIcon imageIcon = null;
+    File f = null;
+    File f2 = null;
     
     
     public HomeAdmin() {
@@ -96,7 +98,16 @@ public class HomeAdmin extends javax.swing.JFrame {
     
 private void updateMenu() {
     try {
-        String query = "UPDATE menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ? WHERE nama = ?";
+        String query = "";
+        if(this.f == null && this.f2 != null){
+            query = "UPDATE menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar_dis = ? WHERE nama = ?";
+        }else if(this.f == null && this.f2 == null){
+            query = "UPDATE menu SET nama = ?, harga = ?, status = ?, deskripsi = ? WHERE nama = ?";
+        }else if(this.f != null && this.f2 != null){
+            query = "UPDATE menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ?, gambar_dis = ? WHERE nama = ?";
+        }else if(this.f != null && this.f2 == null){
+            query = "UPDATE menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ? WHERE nama = ?";
+        }
         
         // Membuat PreparedStatement
         PreparedStatement pstmt = koneksi.prepareStatement(query);
@@ -108,11 +119,31 @@ private void updateMenu() {
         pstmt.setString(4, ubahDeskripsi.getText());
         
         // Membaca gambar sebagai byte array
-        File file = new File(namaFile.getText());
-        FileInputStream fis = new FileInputStream(file);
-        pstmt.setBinaryStream(5, fis, (int) file.length());
-        
-        pstmt.setString(6, ubahNama.getText());
+        FileInputStream fis = null;
+        if(this.f == null && this.f2 != null){
+            System.out.println("Gambar 2");
+            this.f2 = new File(namaFileTidakTersedia.getText());
+            fis = new FileInputStream(this.f2);
+            pstmt.setBinaryStream(5, fis, (int) f2.length());
+            pstmt.setString(6, ubahNama.getText());
+        }else if(this.f != null && this.f2 != null){
+            System.out.println("Tidak ada");
+            this.f = new File(namaFile.getText());
+            fis = new FileInputStream(this.f);
+            pstmt.setBinaryStream(5, fis, (int) f.length());
+            
+            this.f2 = new File(namaFileTidakTersedia.getText());
+            fis = new FileInputStream(this.f2);
+            pstmt.setBinaryStream(6, fis, (int) f2.length());
+        }else if(this.f != null && this.f2 == null){
+            System.out.println("Gambar 1");
+            this.f = new File(namaFile.getText());
+            fis = new FileInputStream(this.f);
+            pstmt.setBinaryStream(5, fis, (int) f.length());
+            pstmt.setString(6, ubahNama.getText());
+        }else if(this.f == null && this.f2 == null){
+            pstmt.setString(5, ubahNama.getText());
+        }
         
         // Menjalankan query
         pstmt.executeUpdate();
@@ -477,7 +508,7 @@ private void updateMenu() {
            this.updateMenu();
            this.getData(this.panelAktif);
        }else{
-           JOptionPane.showMessageDialog(this, "Kolom tidak boleh kosong!");
+           JOptionPane.showMessageDialog(this, "Kolom dan gambar tidak boleh kosong!");
        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -526,7 +557,7 @@ try {
         int returnValue = chooser.showOpenDialog(chooser);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File f = chooser.getSelectedFile();
+            this.f = chooser.getSelectedFile();
             if (f != null) {
                 String pathFile = f.getAbsolutePath();
                 this.namaFile.setText(pathFile);
@@ -541,6 +572,26 @@ try {
 
     private void tombolUbahGambarTidakTersediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolUbahGambarTidakTersediaActionPerformed
         // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setPreferredSize(new java.awt.Dimension(750, 700)); // Set preferred size
+
+        // Menambahkan filter untuk format gambar
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif");
+        chooser.setFileFilter(filter);
+
+        int returnValue = chooser.showOpenDialog(chooser);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            this.f2 = chooser.getSelectedFile();
+            if (f != null) {
+                String pathFile = f.getAbsolutePath();
+                this.namaFileTidakTersedia.setText(pathFile);
+            } else {
+                this.namaFileTidakTersedia.setText("No file selected");
+            }
+        } else {
+            this.namaFileTidakTersedia.setText("No file selected");
+        }
     }//GEN-LAST:event_tombolUbahGambarTidakTersediaActionPerformed
 
     private void namaFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaFileActionPerformed
