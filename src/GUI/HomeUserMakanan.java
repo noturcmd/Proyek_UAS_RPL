@@ -49,14 +49,18 @@ public class HomeUserMakanan extends javax.swing.JFrame {
      * Creates new form HomeUserMakanan
      */
     public HomeUserMakanan() {
+        
         this.koneksi = ConnectionDB.getInstance().getConnection();
         initComponents();
         this.jenisPesanan = "Makanan";
         getData(jenisPesanan);
-        this.gbr1.setIcon(this.imageList.get(0));
-        this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
-        this.deskripsiMenu.setText((String) tabelTabel.getValueAt(0, 3));
-        this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
+        
+        if(this.imageList.size() > 0){
+            this.gbr1.setIcon(this.imageList.get(0));
+            this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
+            this.deskripsiMenu.setText((String) tabelTabel.getValueAt(0, 3));
+            this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
+        }
         this.tabelTabel.setBackground(new Color(255, 255, 255));
         this.setVisible(false);
         this.panelKeranjang.setVisible(false);
