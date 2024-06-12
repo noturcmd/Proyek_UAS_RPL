@@ -140,7 +140,7 @@ public class Login extends javax.swing.JFrame {
                             
                             hmus.setNomorKamar(rs.getString("id").toUpperCase());
                             query = String.format("SELECT (HOUR(CONVERT_TZ(NOW(), @@session.time_zone, '+07:00')) >= 22 OR \n" +
-"        HOUR(CONVERT_TZ(NOW(), @@session.time_zone, '+07:00')) < 1) AS TimeCheck;");
+"        HOUR(CONVERT_TZ(NOW(), @@session.time_zone, '+07:00')) < 8) AS TimeCheck;");
                             
                             rs = st.executeQuery(query);
                             if(rs.next()){
