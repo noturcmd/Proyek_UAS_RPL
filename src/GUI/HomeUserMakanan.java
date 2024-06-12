@@ -33,7 +33,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     DefaultTableModel tabelPesanan = null;
     DefaultTableModel tabelRiwayatPesanan = null;
     int row;
-    String statusWarung = null;
+    private String statusWarung = null;
     
     int total = 0;
     
@@ -58,6 +58,17 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         this.panelKeranjang.setVisible(false);
         this.panelProsesdanPesanan.setVisible(false);
         
+    }
+    
+    String getStatusWarung(){
+        return this.statusWarung;
+    }
+    
+    void setStatusWarung(String statusWarung){
+        this.statusWarung = statusWarung;
+        if(this.statusWarung == "tutup"){
+            this.tombolTambahPesanan.setEnabled(false);
+        }
     }
     
     String getNomorKamar(){
@@ -663,10 +674,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
 
     private void tombolTambahPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahPesananActionPerformed
         // TODO add your handling code here:
-        if(this.statusWarung == "tutup"){
-            JOptionPane.showMessageDialog(this, "Warung sudah tutup, tidak bisa memesan!");
-            this.tombolTambahPesanan.setEnabled(false);
-        }else{
+        
             this.tabelUntukKeranjang = (DefaultTableModel) this.tabelKeranjang.getModel();
     
     boolean itemExists = false;
@@ -691,7 +699,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         }
         this.totalHarga.setText(String.valueOf(total));
     }
-        }
+        
         
     }//GEN-LAST:event_tombolTambahPesananActionPerformed
 
@@ -866,37 +874,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeUserMakanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeUserMakanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeUserMakanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeUserMakanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HomeUserMakanan().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea deskripsi;

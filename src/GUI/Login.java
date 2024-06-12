@@ -137,19 +137,19 @@ public class Login extends javax.swing.JFrame {
                             this.hmad.setUsernameAdmin(rs.getString("id"));
                             this.hmad.usernameAdminnya = rs.getString("username");
                         }else if(rs.getString("status").equals("kamar")){
-                            this.hmus.setVisible(true);
+                            
                             hmus.setNomorKamar(rs.getString("id").toUpperCase());
-                            query = String.format("SELECT \n" +
-                            "    CASE \n" +
-                            "        WHEN HOUR(CONVERT_TZ(FROM_UNIXTIME(UNIX_TIMESTAMP()), '+00:00', '+07:00')) = 22 THEN true\n" +
-                            "        ELSE false\n" +
-                            "    END as TimeCheck;");
+                            query = String.format("select HOUR(CONVERT_TZ(NOW(), @@session.time_zone, '+07:00')) = 22 as TimeCheck");
                             
                             rs = st.executeQuery(query);
-                            if(!rs.next() && rs.getString("TimeCheck").equals("0")){
-                                this.hmus.statusWarung = "tutup";
-                                JOptionPane.showMessageDialog(this, "Waktu menunjukkan pukul 10 malam atau lebih, warung sudah tutup!");
+                            if(rs.next()){
+                                if(!rs.getString("TimeCheck").equals("0")){
+                                    this.hmus.setStatusWarung("tutup");
+                                    JOptionPane.showMessageDialog(this, "Waktu menunjukkan pukul 10 malam atau lebih, warung sudah tutup!");
+                                }
+                                
                             }
+                            this.hmus.setVisible(true);
                             
                         }
                         dispose();
