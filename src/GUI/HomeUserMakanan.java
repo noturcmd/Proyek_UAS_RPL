@@ -149,7 +149,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         defTabelRiwayatUser.setRowCount(0);
         try {
             this.st = this.koneksi.createStatement();
-            String query = String.format("select * from transaksi where status = \"selesai\" and pembeli = \"%s\";", this.getNomorKamar());
+            String query = String.format("select * from transaksi where status = \"selesai\" and pembeli = \"%s\";", this.nomorKamar.getText());
             System.out.println("query : " + query);
             this.rs = st.executeQuery(query);
             while(rs.next()){
@@ -592,7 +592,6 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         getContentPane().add(nomorKamar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 320, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg home user.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, 1080));
 
         pack();
@@ -640,6 +639,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan w.png")));
         showPesanan();
+        showRiwayatUser();
         this.panelKeranjang.setVisible(false);
         this.jPanel1.setVisible(false);
         this.jScrollPane1.setVisible(false);
