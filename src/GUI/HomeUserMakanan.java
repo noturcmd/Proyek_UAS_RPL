@@ -130,7 +130,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         tabelPesanan.setRowCount(0);
         try {
             this.st = this.koneksi.createStatement();
-            String query = String.format("select * from transaksi where (status = \"dikirim\" or status = \"proses\") and pembeli = \"%s\";", this.getNomorKamar());
+            String query = String.format("select * from transaksi where (status = \"dikirim\" or status = \"diproses\") and pembeli = \"%s\";", this.getNomorKamar());
             System.out.println("query : " + query);
             this.rs = st.executeQuery(query);
             while(rs.next()){
