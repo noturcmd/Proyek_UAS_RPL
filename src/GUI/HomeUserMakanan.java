@@ -33,7 +33,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     DefaultTableModel tabelPesanan = null;
     DefaultTableModel tabelRiwayatPesanan = null;
     int row;
-    
+    String statusWarung = null;
     
     int total = 0;
     
@@ -51,11 +51,13 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         getData(jenisPesanan);
         this.gbr1.setIcon(this.imageList.get(0));
         this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
+        this.deskripsiMenu.setText((String) tabelTabel.getValueAt(0, 3));
         this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
         this.tabelTabel.setBackground(new Color(255, 255, 255));
         this.setVisible(false);
         this.panelKeranjang.setVisible(false);
         this.panelProsesdanPesanan.setVisible(false);
+        
     }
     
     String getNomorKamar(){
@@ -161,6 +163,26 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelProsesdanPesanan = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelRiwayat = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabelProsesPesan = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        panelKeranjang = new javax.swing.JPanel();
+        jumlah = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelKeranjang = new javax.swing.JTable();
+        tombolKurangiMakanan = new javax.swing.JButton();
+        tombolAddMakanan = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        totalHarga = new javax.swing.JLabel();
+        pesan = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        deskripsi = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         tombolLogout = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelTabel = new javax.swing.JTable();
@@ -178,29 +200,188 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         menuMinuman = new javax.swing.JButton();
         nomorKamar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        panelProsesdanPesanan = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tabelRiwayat = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tabelProsesPesan = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        panelKeranjang = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabelKeranjang = new javax.swing.JTable();
-        tombolKurangiMakanan = new javax.swing.JButton();
-        tombolAddMakanan = new javax.swing.JButton();
-        jumlah = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        totalHarga = new javax.swing.JLabel();
-        pesan = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        deskripsi = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelProsesdanPesanan.setBackground(new java.awt.Color(255, 255, 255));
+        panelProsesdanPesanan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tabelRiwayat.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Pesanan/Riwayat", "Admin", "Pembeli", "Pesanan", "Deskripsi", "Harga", "Status", "Tanggal Pesan"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tabelRiwayat);
+        if (tabelRiwayat.getColumnModel().getColumnCount() > 0) {
+            tabelRiwayat.getColumnModel().getColumn(0).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(1).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(2).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(3).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(4).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(5).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(6).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        panelProsesdanPesanan.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 590, 1040, 370));
+
+        tabelProsesPesan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Pesanan/Riwayat", "Admin", "Pembeli", "Pesanan", "Deskripsi", "Harga", "Status", "Tanggal Pesan"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tabelProsesPesan);
+        if (tabelProsesPesan.getColumnModel().getColumnCount() > 0) {
+            tabelProsesPesan.getColumnModel().getColumn(0).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(1).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(2).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(3).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(4).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(5).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(6).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        panelProsesdanPesanan.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 1040, 370));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Riwayat Pesanan");
+        panelProsesdanPesanan.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
+
+        getContentPane().add(panelProsesdanPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 1240, 990));
+
+        panelKeranjang.setBackground(new java.awt.Color(255, 255, 255));
+        panelKeranjang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jumlah.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jumlah.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelKeranjang.add(jumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 630, 70, 30));
+
+        tabelKeranjang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nama", "Harga", "Jumlah", "Kamar"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelKeranjang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelKeranjangMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tabelKeranjangMouseEntered(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelKeranjang);
+        if (tabelKeranjang.getColumnModel().getColumnCount() > 0) {
+            tabelKeranjang.getColumnModel().getColumn(0).setResizable(false);
+            tabelKeranjang.getColumnModel().getColumn(1).setResizable(false);
+            tabelKeranjang.getColumnModel().getColumn(2).setResizable(false);
+            tabelKeranjang.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        panelKeranjang.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 760, 420));
+
+        tombolKurangiMakanan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tombolKurangiMakanan.setText("<");
+        tombolKurangiMakanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolKurangiMakananActionPerformed(evt);
+            }
+        });
+        panelKeranjang.add(tombolKurangiMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 630, 40, -1));
+
+        tombolAddMakanan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tombolAddMakanan.setText(">");
+        tombolAddMakanan.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tombolAddMakananItemStateChanged(evt);
+            }
+        });
+        tombolAddMakanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolAddMakananActionPerformed(evt);
+            }
+        });
+        panelKeranjang.add(tombolAddMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 630, 40, -1));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Total Harga : Rp");
+        panelKeranjang.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 160, 150, -1));
+
+        totalHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        panelKeranjang.add(totalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 160, 190, 30));
+
+        pesan.setText("Pesan");
+        pesan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesanActionPerformed(evt);
+            }
+        });
+        panelKeranjang.add(pesan, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 250, 90, 30));
+
+        jLabel3.setText("Deskripsi  :");
+        panelKeranjang.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 310, 70, 50));
+
+        deskripsi.setColumns(20);
+        deskripsi.setLineWrap(true);
+        deskripsi.setRows(5);
+        jScrollPane3.setViewportView(deskripsi);
+
+        panelKeranjang.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 330, -1, 280));
+
+        jButton1.setText("Hapus");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panelKeranjang.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 380, 80, 40));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Keranjang");
+        panelKeranjang.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
+
+        getContentPane().add(panelKeranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 1220, 780));
 
         tombolLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tombolLogout.setText("Logout");
@@ -383,184 +564,6 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, 1080));
 
-        panelProsesdanPesanan.setBackground(new java.awt.Color(255, 255, 255));
-        panelProsesdanPesanan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tabelRiwayat.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Pesanan/Riwayat", "Admin", "Pembeli", "Pesanan", "Deskripsi", "Harga", "Status", "Tanggal Pesan"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(tabelRiwayat);
-        if (tabelRiwayat.getColumnModel().getColumnCount() > 0) {
-            tabelRiwayat.getColumnModel().getColumn(0).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(1).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(2).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(3).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(4).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(5).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(6).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(7).setResizable(false);
-        }
-
-        panelProsesdanPesanan.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 590, 1040, 370));
-
-        tabelProsesPesan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Pesanan/Riwayat", "Admin", "Pembeli", "Pesanan", "Deskripsi", "Harga", "Status", "Tanggal Pesan"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane5.setViewportView(tabelProsesPesan);
-        if (tabelProsesPesan.getColumnModel().getColumnCount() > 0) {
-            tabelProsesPesan.getColumnModel().getColumn(0).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(1).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(2).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(3).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(4).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(5).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(6).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(7).setResizable(false);
-        }
-
-        panelProsesdanPesanan.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 1040, 370));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Riwayat Pesanan");
-        panelProsesdanPesanan.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
-
-        getContentPane().add(panelProsesdanPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 1240, 990));
-
-        panelKeranjang.setBackground(new java.awt.Color(255, 255, 255));
-        panelKeranjang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tabelKeranjang.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nama", "Harga", "Jumlah", "Kamar"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelKeranjang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelKeranjangMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                tabelKeranjangMouseEntered(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tabelKeranjang);
-        if (tabelKeranjang.getColumnModel().getColumnCount() > 0) {
-            tabelKeranjang.getColumnModel().getColumn(0).setResizable(false);
-            tabelKeranjang.getColumnModel().getColumn(1).setResizable(false);
-            tabelKeranjang.getColumnModel().getColumn(2).setResizable(false);
-            tabelKeranjang.getColumnModel().getColumn(3).setResizable(false);
-        }
-
-        panelKeranjang.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 760, 420));
-
-        tombolKurangiMakanan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        tombolKurangiMakanan.setText("<");
-        tombolKurangiMakanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolKurangiMakananActionPerformed(evt);
-            }
-        });
-        panelKeranjang.add(tombolKurangiMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 630, 40, -1));
-
-        tombolAddMakanan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        tombolAddMakanan.setText(">");
-        tombolAddMakanan.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                tombolAddMakananItemStateChanged(evt);
-            }
-        });
-        tombolAddMakanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolAddMakananActionPerformed(evt);
-            }
-        });
-        panelKeranjang.add(tombolAddMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 630, 40, -1));
-
-        jumlah.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jumlah.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panelKeranjang.add(jumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 70, 30));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Total Harga :");
-        panelKeranjang.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 200, 120, -1));
-
-        totalHarga.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        panelKeranjang.add(totalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 190, 30));
-
-        pesan.setText("Pesan");
-        pesan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pesanActionPerformed(evt);
-            }
-        });
-        panelKeranjang.add(pesan, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 250, 90, 30));
-
-        jLabel3.setText("Deskripsi  :");
-        panelKeranjang.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 310, 70, 50));
-
-        deskripsi.setColumns(20);
-        deskripsi.setRows(5);
-        jScrollPane3.setViewportView(deskripsi);
-
-        panelKeranjang.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 330, -1, 280));
-
-        jButton1.setText("Hapus");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        panelKeranjang.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 380, 80, 40));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Keranjang");
-        panelKeranjang.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
-
-        getContentPane().add(panelKeranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 1220, 780));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -660,7 +663,11 @@ public class HomeUserMakanan extends javax.swing.JFrame {
 
     private void tombolTambahPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahPesananActionPerformed
         // TODO add your handling code here:
-        this.tabelUntukKeranjang = (DefaultTableModel) this.tabelKeranjang.getModel();
+        if(this.statusWarung == "tutup"){
+            JOptionPane.showMessageDialog(this, "Warung sudah tutup, tidak bisa memesan!");
+            this.tombolTambahPesanan.setEnabled(false);
+        }else{
+            this.tabelUntukKeranjang = (DefaultTableModel) this.tabelKeranjang.getModel();
     
     boolean itemExists = false;
 
@@ -684,6 +691,8 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         }
         this.totalHarga.setText(String.valueOf(total));
     }
+        }
+        
     }//GEN-LAST:event_tombolTambahPesananActionPerformed
 
     private void tombolLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolLogoutActionPerformed
@@ -818,6 +827,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
                 this.addKurang = 1;
                 this.jumlah.setText(String.valueOf(1));
                 this.totalHarga.setText(String.valueOf(0));
+                this.deskripsi.setText("");
                 }else{
                     JOptionPane.showMessageDialog(this, "Tabel Keranjang kosong!");
                 }

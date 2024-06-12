@@ -485,6 +485,10 @@ private void updateMenu() {
         jLabel13 = new javax.swing.JLabel();
         tblUbahPesanan = new javax.swing.JButton();
         editStatusPesanan = new javax.swing.JComboBox<>();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        kolomDeskripsi = new javax.swing.JTextArea();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        kolomPesanan = new javax.swing.JTextArea();
         panelDataUser = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelUser = new javax.swing.JTable();
@@ -643,10 +647,24 @@ private void updateMenu() {
                 tblUbahPesananActionPerformed(evt);
             }
         });
-        panelPesanandanRiwayat.add(tblUbahPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 520, 170, 30));
+        panelPesanandanRiwayat.add(tblUbahPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 520, 120, 30));
 
         editStatusPesanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "dikirim", "diproses", "selesai" }));
         panelPesanandanRiwayat.add(editStatusPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 130, -1));
+
+        kolomDeskripsi.setColumns(20);
+        kolomDeskripsi.setLineWrap(true);
+        kolomDeskripsi.setRows(5);
+        jScrollPane6.setViewportView(kolomDeskripsi);
+
+        panelPesanandanRiwayat.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 480, 230, 120));
+
+        kolomPesanan.setColumns(20);
+        kolomPesanan.setLineWrap(true);
+        kolomPesanan.setRows(5);
+        jScrollPane7.setViewportView(kolomPesanan);
+
+        panelPesanandanRiwayat.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 480, 240, 120));
 
         getContentPane().add(panelPesanandanRiwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 1920, 1080));
 
@@ -1332,6 +1350,17 @@ try {
         this.barisEditPesanan = this.tabelPesanan.getSelectedRow();
         this.editStatusPesanan.setSelectedItem((String) this.tabelPesanan.getValueAt(this.barisEditPesanan, 6));
         this.idPesanan.setText((String) this.tabelPesanan.getValueAt(this.barisEditPesanan, 0));
+        this.kolomDeskripsi.setText((String) this.tabelPesanan.getValueAt(this.barisEditPesanan, 4));
+        String pesanannya = "";
+        String[] teksPerMakanan = String.valueOf(this.tabelPesanan.getValueAt(this.barisEditPesanan, 3)).split("~");
+        for (String nama : teksPerMakanan) {
+            String[] jumlahPesananDanMenunya = nama.split(":");
+            if(jumlahPesananDanMenunya.length > 1){
+                pesanannya += String.format("Pesanan %s, jumlah %s\n", jumlahPesananDanMenunya[1], jumlahPesananDanMenunya[0]);
+            }
+        }
+        
+        this.kolomPesanan.setText(pesanannya);
     }//GEN-LAST:event_tabelPesananMouseClicked
 
     private void tabelRiwayatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelRiwayatMouseClicked
@@ -1345,9 +1374,13 @@ try {
                   this.idPesanan.setText("");
                     this.showPesanan();
                     this.showRiwayat();
-                    
+                    if(this.editStatusPesanan.getSelectedItem().toString().equals("selesai")){
+                        this.kolomDeskripsi.setText("");
+                        this.kolomPesanan.setText("");
+                    }
                     this.idPesanan.setText("");
                     this.editStatusPesanan.setSelectedIndex(0);
+                    
        }else{
            JOptionPane.showMessageDialog(this, "Kolom tidak boleh kosong!");
        }
@@ -1454,6 +1487,10 @@ class CustomTableModel extends AbstractTableModel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JTextArea kolomDeskripsi;
+    private javax.swing.JTextArea kolomPesanan;
     private javax.swing.JLabel lihatGambar1;
     private javax.swing.JButton menuCamilan;
     private javax.swing.JButton menuMakanan;

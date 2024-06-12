@@ -139,6 +139,18 @@ public class Login extends javax.swing.JFrame {
                         }else if(rs.getString("status").equals("kamar")){
                             this.hmus.setVisible(true);
                             hmus.setNomorKamar(rs.getString("id").toUpperCase());
+                            query = String.format("SELECT \n" +
+                                "    CASE \n" +
+                                "        WHEN HOUR(CURTIME()) = 22 THEN true\n" +
+                                "        ELSE false\n" +
+                                "    END as TimeCheck;");
+                            
+                            rs = st.executeQuery(query);
+                            if(!rs.next() && rs.getString("TimeCheck").equals("0")){
+                                this.hmus.statusWarung = "tutup";
+                                JOptionPane.showMessageDialog(this, "Waktu menunjukkan pukul 10 malam atau lebih, warung sudah tutup!");
+                            }
+                            
                         }
                         dispose();
                     }else{
