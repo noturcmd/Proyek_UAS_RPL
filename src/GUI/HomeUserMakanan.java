@@ -609,9 +609,11 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.getData("Cemilan");
-        this.gbr1.setIcon(this.imageList.get(0));
+        if(this.imageList.size() > 0){
+            this.gbr1.setIcon(this.imageList.get(0));
         this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
         this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
+        }
         this.panelKeranjang.setVisible(false);
         this.jPanel1.setVisible(true);
         this.jScrollPane1.setVisible(true);
@@ -626,9 +628,11 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.getData("Makanan");
-        this.gbr1.setIcon(this.imageList.get(0));
+        if(this.imageList.size() > 0){
+            this.gbr1.setIcon(this.imageList.get(0));
         this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
         this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
+        }
         this.panelKeranjang.setVisible(false);
         this.jPanel1.setVisible(true);
         this.panelProsesdanPesanan.setVisible(false);
@@ -674,9 +678,12 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
         riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
         this.getData("Minuman");
-        this.gbr1.setIcon(this.imageList.get(0));
+        if(this.imageList.size() > 0){
+            this.gbr1.setIcon(this.imageList.get(0));
         this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
         this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
+        }
+        
         this.panelKeranjang.setVisible(false);
         this.jPanel1.setVisible(true);
         this.jScrollPane1.setVisible(true);
