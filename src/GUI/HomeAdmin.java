@@ -197,18 +197,16 @@ private void updateMenu() {
         
         // Menjalankan query
         pstmt.executeUpdate();
-        
-        System.out.println("Menu updated successfully.");
-        JOptionPane.showMessageDialog(this, "Menu updated successfully.");
+        JOptionPane.showMessageDialog(this, "Menu berhasil diperbarui!");
     } catch (SQLException e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "An error occurred while updating the menu.");
+        JOptionPane.showMessageDialog(this, "Terjadi eror saat mencoba mengubah menu!");
     } catch (FileNotFoundException e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "File not found.");
+        JOptionPane.showMessageDialog(this, "File tidak tersedia!");
     } catch (IOException e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "An error occurred while reading the file.");
+        JOptionPane.showMessageDialog(this, "Terjadi eror saat mencoba membaca file!");
     }
 }
 
@@ -221,9 +219,9 @@ private void updateMenu() {
                 }else if(this.f == null && this.f2 == null){
                     query = "insert into menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, jenis = ?";
                 }else if(this.f != null && this.f2 != null){
-                    query = "insert into menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ?, gambar_dis = ?,, jenis = ?";
+                    query = "insert into menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ?, gambar_dis = ?, jenis = ?";
                 }else if(this.f != null && this.f2 == null){
-                    query = "insert into menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ? WHERE nama = ?,, jenis = ?";
+                    query = "insert into menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ?,jenis = ?";
                 }
 
                 // Membuat PreparedStatement
@@ -242,7 +240,7 @@ private void updateMenu() {
                     this.f2 = new File(namaFileTidakTersedia.getText());
                     fis = new FileInputStream(this.f2);
                     pstmt.setBinaryStream(5, fis, (int) f2.length());
-                    pstmt.setString(5, this.panelAktif);
+                    pstmt.setString(6, this.panelAktif);
                 }else if(this.f != null && this.f2 != null){
                     System.out.println("Tidak ada");
                     this.f = new File(namaFile.getText());
@@ -266,18 +264,16 @@ private void updateMenu() {
 
                 // Menjalankan query
                 pstmt.executeUpdate();
-
-                System.out.println("Menu updated successfully.");
-                JOptionPane.showMessageDialog(this, "Menu updated successfully.");
+                JOptionPane.showMessageDialog(this, "Menu berhasil ditambahkan!");
             } catch (SQLException e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "An error occurred while updating the menu.");
+                JOptionPane.showMessageDialog(this, "Terjadi eror saat menambahkan menu!");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "File not found.");
+                JOptionPane.showMessageDialog(this, "File tidak tersedia!");
             } catch (IOException e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "An error occurred while reading the file.");
+                JOptionPane.showMessageDialog(this, "Terjadi eror saat membaca file!");
             }
         }
         
