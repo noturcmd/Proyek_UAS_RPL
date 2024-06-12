@@ -31,6 +31,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     ArrayList<String> daftarKeranjang = new ArrayList<>();
     String jenisPesanan = null;
     DefaultTableModel tabelPesanan = null;
+    DefaultTableModel defTabelRiwayatUser = null;
     DefaultTableModel tabelRiwayatPesanan = null;
     int row;
     private String statusWarung = null;
@@ -143,8 +144,27 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         }
     }
     
+    void showRiwayatUser(){
+        this.defTabelRiwayatUser = (DefaultTableModel) this.tabelRiwayatUser.getModel();
+        defTabelRiwayatUser.setRowCount(0);
+        try {
+            this.st = this.koneksi.createStatement();
+            String query = String.format("select * from transaksi where status = \"selesai\" and pembeli = \"%s\";", this.getNomorKamar());
+            System.out.println("query : " + query);
+            this.rs = st.executeQuery(query);
+            while(rs.next()){
+                defTabelRiwayatUser.addRow(new Object[]{rs.getString("id_transaksi"),rs.getString("admin"),rs.getString("pembeli"),rs.getString("pesanan"),rs.getString("deskripsi"), rs.getString("harga"),rs.getString("status"), rs.getString("tanggalpesan")});
+            }
+        
+        this.tabelRiwayatUser.setRowHeight(40);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     void showRiwayat(){
-        tabelRiwayatPesanan = (DefaultTableModel) this.tabelRiwayat.getModel();
+        tabelRiwayatPesanan = (DefaultTableModel) this.tabelRiwayatUser.getModel();
         tabelRiwayatPesanan.setRowCount(0);
         try {
             this.st = this.koneksi.createStatement();
@@ -155,7 +175,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
                 tabelRiwayatPesanan.addRow(new Object[]{rs.getString("id_transaksi"),rs.getString("admin"),rs.getString("pembeli"),rs.getString("pesanan"),rs.getString("deskripsi"), rs.getString("harga"),rs.getString("status"), rs.getString("tanggalpesan")});
             }
         
-        this.tabelRiwayat.setRowHeight(40);
+        this.tabelRiwayatUser.setRowHeight(40);
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,7 +196,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
 
         panelProsesdanPesanan = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tabelRiwayat = new javax.swing.JTable();
+        tabelRiwayatUser = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabelProsesPesan = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
@@ -218,7 +238,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         panelProsesdanPesanan.setBackground(new java.awt.Color(255, 255, 255));
         panelProsesdanPesanan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tabelRiwayat.setModel(new javax.swing.table.DefaultTableModel(
+        tabelRiwayatUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -234,16 +254,16 @@ public class HomeUserMakanan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(tabelRiwayat);
-        if (tabelRiwayat.getColumnModel().getColumnCount() > 0) {
-            tabelRiwayat.getColumnModel().getColumn(0).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(1).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(2).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(3).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(4).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(5).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(6).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(7).setResizable(false);
+        jScrollPane4.setViewportView(tabelRiwayatUser);
+        if (tabelRiwayatUser.getColumnModel().getColumnCount() > 0) {
+            tabelRiwayatUser.getColumnModel().getColumn(0).setResizable(false);
+            tabelRiwayatUser.getColumnModel().getColumn(1).setResizable(false);
+            tabelRiwayatUser.getColumnModel().getColumn(2).setResizable(false);
+            tabelRiwayatUser.getColumnModel().getColumn(3).setResizable(false);
+            tabelRiwayatUser.getColumnModel().getColumn(4).setResizable(false);
+            tabelRiwayatUser.getColumnModel().getColumn(5).setResizable(false);
+            tabelRiwayatUser.getColumnModel().getColumn(6).setResizable(false);
+            tabelRiwayatUser.getColumnModel().getColumn(7).setResizable(false);
         }
 
         panelProsesdanPesanan.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 590, 1040, 370));
@@ -907,7 +927,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private javax.swing.JButton riwayat;
     private javax.swing.JTable tabelKeranjang;
     private javax.swing.JTable tabelProsesPesan;
-    private javax.swing.JTable tabelRiwayat;
+    private javax.swing.JTable tabelRiwayatUser;
     private javax.swing.JTable tabelTabel;
     private javax.swing.JButton tombolAddMakanan;
     private javax.swing.JButton tombolKurangiMakanan;
