@@ -449,13 +449,9 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelTabel);
         if (tabelTabel.getColumnModel().getColumnCount() > 0) {
             tabelTabel.getColumnModel().getColumn(0).setResizable(false);
-            tabelTabel.getColumnModel().getColumn(0).setHeaderValue("Nama");
             tabelTabel.getColumnModel().getColumn(1).setResizable(false);
-            tabelTabel.getColumnModel().getColumn(1).setHeaderValue("Harga");
             tabelTabel.getColumnModel().getColumn(2).setResizable(false);
-            tabelTabel.getColumnModel().getColumn(2).setHeaderValue("Status");
             tabelTabel.getColumnModel().getColumn(3).setResizable(false);
-            tabelTabel.getColumnModel().getColumn(3).setHeaderValue("Deskripsi");
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 600, 1190, 420));
@@ -649,6 +645,7 @@ public class HomeUserMakanan extends javax.swing.JFrame {
 
     private void keranjangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keranjangActionPerformed
         // TODO add your handling code here:
+//        this.tabelUntukKeranjang.setRowCount(0);
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
