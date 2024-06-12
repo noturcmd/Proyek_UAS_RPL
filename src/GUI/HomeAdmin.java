@@ -146,55 +146,71 @@ public class HomeAdmin extends javax.swing.JFrame {
     
 private void updateMenu() {
     try {
+        // Periksa apakah nama menu yang baru sudah ada di database, kecuali nama menu yang sedang diubah
+        String oldMenuName = (String) tabelMenuAdmin.getValueAt(tabelMenuAdmin.getSelectedRow(), 0);
+        String newMenuName = ubahNama.getText();
+
+        if (!oldMenuName.equals(newMenuName)) {
+            // Nama menu diubah, periksa apakah nama menu yang baru sudah ada
+            this.st = this.koneksi.createStatement();
+            String checkQuery = String.format("SELECT * FROM menu WHERE nama = \"%s\";", newMenuName);
+            this.rs = st.executeQuery(checkQuery);
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(this, "Nama menu sudah ada! Silakan pilih nama lain.");
+                return;
+            }
+        }
+
+        // Tentukan query update berdasarkan kondisi file gambar
         String query = "";
-        if(this.f == null && this.f2 != null){
+        if (this.f == null && this.f2 != null) {
             query = "UPDATE menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar_dis = ? WHERE nama = ?";
-        }else if(this.f == null && this.f2 == null){
+        } else if (this.f == null && this.f2 == null) {
             query = "UPDATE menu SET nama = ?, harga = ?, status = ?, deskripsi = ? WHERE nama = ?";
-        }else if(this.f != null && this.f2 != null){
+        } else if (this.f != null && this.f2 != null) {
             query = "UPDATE menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ?, gambar_dis = ? WHERE nama = ?";
-        }else if(this.f != null && this.f2 == null){
+        } else if (this.f != null && this.f2 == null) {
             query = "UPDATE menu SET nama = ?, harga = ?, status = ?, deskripsi = ?, gambar = ? WHERE nama = ?";
         }
-        
-        // Membuat PreparedStatement
+
+        // Buat PreparedStatement
         PreparedStatement pstmt = koneksi.prepareStatement(query);
-        
+
         // Mengatur nilai parameter
-        pstmt.setString(1, ubahNama.getText());
+        pstmt.setString(1, newMenuName);
         pstmt.setDouble(2, Double.parseDouble(ubahHarga.getText())); // Pastikan harga adalah numerik
         pstmt.setString(3, ubahStatus.getText().toLowerCase());
         pstmt.setString(4, ubahDeskripsi.getText());
-        
+
         // Membaca gambar sebagai byte array
         FileInputStream fis = null;
-        if(this.f == null && this.f2 != null){
+        if (this.f == null && this.f2 != null) {
             System.out.println("Gambar 2");
             this.f2 = new File(namaFileTidakTersedia.getText());
             fis = new FileInputStream(this.f2);
             pstmt.setBinaryStream(5, fis, (int) f2.length());
-            pstmt.setString(6, ubahNama.getText());
-        }else if(this.f != null && this.f2 != null){
+            pstmt.setString(6, oldMenuName);
+        } else if (this.f != null && this.f2 != null) {
             System.out.println("Tidak ada");
             this.f = new File(namaFile.getText());
             fis = new FileInputStream(this.f);
             pstmt.setBinaryStream(5, fis, (int) f.length());
-            
+
             this.f2 = new File(namaFileTidakTersedia.getText());
             fis = new FileInputStream(this.f2);
             pstmt.setBinaryStream(6, fis, (int) f2.length());
-            pstmt.setString(7, ubahNama.getText());
-        }else if(this.f != null && this.f2 == null){
+            pstmt.setString(7, oldMenuName);
+        } else if (this.f != null && this.f2 == null) {
             System.out.println("Gambar 1");
             this.f = new File(namaFile.getText());
             fis = new FileInputStream(this.f);
             pstmt.setBinaryStream(5, fis, (int) f.length());
-            pstmt.setString(6, ubahNama.getText());
-        }else if(this.f == null && this.f2 == null){
+            pstmt.setString(6, oldMenuName);
+        } else if (this.f == null && this.f2 == null) {
             System.out.println("Gambar kosong");
-            pstmt.setString(5, ubahNama.getText());
+            pstmt.setString(5, oldMenuName);
         }
-        
+
         // Menjalankan query
         pstmt.executeUpdate();
         JOptionPane.showMessageDialog(this, "Menu berhasil diperbarui!");
@@ -209,6 +225,7 @@ private void updateMenu() {
         JOptionPane.showMessageDialog(this, "Terjadi eror saat mencoba membaca file!");
     }
 }
+
 
 
         void tambahMenu(){
