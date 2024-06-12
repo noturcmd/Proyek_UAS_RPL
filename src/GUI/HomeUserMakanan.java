@@ -89,12 +89,12 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         tabelMenu.setRowCount(0);
         try {
             this.st = this.koneksi.createStatement();
-            String query = String.format("select * from menu where jenis = \"%s\" and status =\"tersedia\"", param);
+            String query = String.format("select * from menu where jenis = \"%s\"", param);
             System.out.println("query : " + query);
             this.rs = st.executeQuery(query);
             while(rs.next()){
                 byte[] imageData= null;
-                if(rs.getString("status").equals("Tidak Tersedia")){
+                if(rs.getString("status").equals("tidak tersedia")){
                     imageData = rs.getBytes("gambar_dis");
                 }else{
                     imageData = rs.getBytes("gambar");
@@ -678,22 +678,46 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private void tabelTabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelTabelMouseClicked
         // TODO add your handling code here:
         int row = tabelTabel.getSelectedRow();
-        this.gbr1.setIcon(this.imageList.get(row));
-        this.hrg1.setText(tabelTabel.getValueAt(row, 1).toString());
-        this.nmMKn1.setText(tabelTabel.getValueAt(row, 0).toString());
-        if(!String.valueOf(tabelTabel.getValueAt(row, 3)).equals("null")){
-            this.deskripsiMenu.setText(tabelTabel.getValueAt(row, 3).toString());
-        }else{
-            this.deskripsiMenu.setText("");
-        }
+    this.gbr1.setIcon(this.imageList.get(row));
+    this.hrg1.setText(tabelTabel.getValueAt(row, 1).toString());
+    this.nmMKn1.setText(tabelTabel.getValueAt(row, 0).toString());
+    if(!String.valueOf(tabelTabel.getValueAt(row, 3)).equals("null")){
+        this.deskripsiMenu.setText(tabelTabel.getValueAt(row, 3).toString());
+    } else {
+        this.deskripsiMenu.setText("");
+    }
+    
+    // Periksa status menu dan aktifkan/nonaktifkan tombol tambah pesanan
+    String statusMenu = tabelTabel.getValueAt(row, 2).toString();
+    if ("tidak tersedia".equals(statusMenu)) {
+        this.tombolTambahPesanan.setEnabled(false);
+    } else {
+        this.tombolTambahPesanan.setEnabled(true);
+    }
         
     }//GEN-LAST:event_tabelTabelMouseClicked
 
     private void tombolTambahPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahPesananActionPerformed
         // TODO add your handling code here:
         
-            this.tabelUntukKeranjang = (DefaultTableModel) this.tabelKeranjang.getModel();
-    
+            int selectedRow = tabelTabel.getSelectedRow();
+    if (selectedRow == -1) {
+        // Jika tidak ada baris yang dipilih, tampilkan pesan popup
+        JOptionPane.showMessageDialog(this, "Pilihlah menu terlebih dahulu!");
+        return;
+    }
+
+    // Periksa apakah status menu adalah "Tidak Tersedia"
+    String statusMenu = tabelTabel.getValueAt(selectedRow, 2).toString();
+    if ("tidak tersedia".equals(statusMenu)) {
+        // Jika status menu adalah "Tidak Tersedia", tampilkan pesan popup
+        JOptionPane.showMessageDialog(this, "Menu ini tidak tersedia, silakan pilih menu lain!");
+        return;
+    }
+
+    // Lanjutkan dengan menambahkan item ke keranjang jika pemeriksaan lulus
+    this.tabelUntukKeranjang = (DefaultTableModel) this.tabelKeranjang.getModel();
+
     boolean itemExists = false;
 
     for (int i = 0; i < this.tabelKeranjang.getRowCount(); i++) {
