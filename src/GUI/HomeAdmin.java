@@ -474,7 +474,7 @@ private void updateMenu() {
         tombolUbahGambarTidakTersedia = new javax.swing.JButton();
         namaFileTidakTersedia = new javax.swing.JTextField();
         tombolUbahGambar = new javax.swing.JButton();
-        tombolHapusMenu = new javax.swing.JButton();
+        tombolRefresh = new javax.swing.JButton();
         tombolHapus = new javax.swing.JButton();
         tombolUbahMenu = new javax.swing.JButton();
         tombolTambahMenu = new javax.swing.JButton();
@@ -792,14 +792,14 @@ private void updateMenu() {
         });
         getContentPane().add(tombolUbahGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1680, 730, 160, 60));
 
-        tombolHapusMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh.png"))); // NOI18N
-        tombolHapusMenu.setContentAreaFilled(false);
-        tombolHapusMenu.addActionListener(new java.awt.event.ActionListener() {
+        tombolRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Refresh.png"))); // NOI18N
+        tombolRefresh.setContentAreaFilled(false);
+        tombolRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolHapusMenuActionPerformed(evt);
+                tombolRefreshActionPerformed(evt);
             }
         });
-        getContentPane().add(tombolHapusMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 880, -1, 60));
+        getContentPane().add(tombolRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 880, -1, 60));
 
         tombolHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hapus.png"))); // NOI18N
         tombolHapus.setBorder(null);
@@ -1267,7 +1267,7 @@ try {
         // TODO add your handling code here:
     }//GEN-LAST:event_ubahJenisActionPerformed
 
-    private void tombolHapusMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolHapusMenuActionPerformed
+    private void tombolRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolRefreshActionPerformed
         // TODO add your handling code here:
         getData(this.panelAktif);
         this.ubahNama.setText("");
@@ -1275,7 +1275,11 @@ try {
         this.ubahStatus.setText("");
         this.ubahDeskripsi.setText("");
         this.ubahJenis.setText("");
-    }//GEN-LAST:event_tombolHapusMenuActionPerformed
+        this.namaFile.setText("");
+        this.namaFileTidakTersedia.setText("");
+        this.f = null;
+        this.f2 = null;
+    }//GEN-LAST:event_tombolRefreshActionPerformed
 
     private void tombolLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolLogoutActionPerformed
         // TODO add your handling code here:
@@ -1441,8 +1445,8 @@ class CustomTableModel extends AbstractTableModel {
     private javax.swing.JButton tblUbahAdmin;
     private javax.swing.JButton tblUbahPesanan;
     private javax.swing.JButton tombolHapus;
-    private javax.swing.JButton tombolHapusMenu;
     private javax.swing.JButton tombolLogout;
+    private javax.swing.JButton tombolRefresh;
     private javax.swing.JButton tombolTambahMenu;
     private javax.swing.JButton tombolUbahGambar;
     private javax.swing.JButton tombolUbahGambarTidakTersedia;
