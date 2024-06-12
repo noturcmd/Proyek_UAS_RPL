@@ -828,7 +828,7 @@ private void updateMenu() {
             }
         });
         getContentPane().add(tombolTambahMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 880, -1, 60));
-        getContentPane().add(lihatGambar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 660, 430, 310));
+        getContentPane().add(lihatGambar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 740, 180, 120));
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel5.setText("Deskripsi  :");
@@ -1279,6 +1279,7 @@ try {
         this.namaFileTidakTersedia.setText("");
         this.f = null;
         this.f2 = null;
+        this.lihatGambar1.setIcon(null);
     }//GEN-LAST:event_tombolRefreshActionPerformed
 
     private void tombolLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolLogoutActionPerformed
