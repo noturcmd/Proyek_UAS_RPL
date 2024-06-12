@@ -685,14 +685,28 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     this.gbr1.setIcon(this.imageList.get(row));
     this.hrg1.setText(tabelTabel.getValueAt(row, 1).toString());
     this.nmMKn1.setText(tabelTabel.getValueAt(row, 0).toString());
-    if(!String.valueOf(tabelTabel.getValueAt(row, 3)).equals("null")){
+    if (!String.valueOf(tabelTabel.getValueAt(row, 3)).equals("null")) {
         this.deskripsiMenu.setText(tabelTabel.getValueAt(row, 3).toString());
     } else {
         this.deskripsiMenu.setText("");
     }
-    
+
     // Periksa status menu dan aktifkan/nonaktifkan tombol tambah pesanan
     String statusMenu = tabelTabel.getValueAt(row, 2).toString();
+    
+    // Periksa waktu saat ini di zona waktu Indonesia Barat
+    ZoneId zoneId = ZoneId.of("Asia/Jakarta");
+    LocalTime currentTime = ZonedDateTime.now(zoneId).toLocalTime();
+    LocalTime startLimit = LocalTime.of(22, 0);
+    LocalTime endLimit = LocalTime.of(8, 0);
+
+    if (currentTime.isAfter(startLimit) || currentTime.isBefore(endLimit)) {
+        // Jika waktu berada di antara pukul 22:00 hingga 08:00, nonaktifkan tombol tambah
+//        JOptionPane.showMessageDialog(this, "Pesanan tidak dapat dilakukan antara pukul 22:00 hingga 08:00.");
+        this.tombolTambahPesanan.setEnabled(false);
+        return;
+    }
+    
     if ("tidak tersedia".equals(statusMenu)) {
         this.tombolTambahPesanan.setEnabled(false);
     } else {
