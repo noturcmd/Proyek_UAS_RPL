@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -700,46 +703,60 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     private void tombolTambahPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolTambahPesananActionPerformed
         // TODO add your handling code here:
         
-            int selectedRow = tabelTabel.getSelectedRow();
-    if (selectedRow == -1) {
-        // Jika tidak ada baris yang dipilih, tampilkan pesan popup
-        JOptionPane.showMessageDialog(this, "Pilihlah menu terlebih dahulu!");
-        return;
-    }
-
-    // Periksa apakah status menu adalah "Tidak Tersedia"
-    String statusMenu = tabelTabel.getValueAt(selectedRow, 2).toString();
-    if ("tidak tersedia".equals(statusMenu)) {
-        // Jika status menu adalah "Tidak Tersedia", tampilkan pesan popup
-        JOptionPane.showMessageDialog(this, "Menu ini tidak tersedia, silakan pilih menu lain!");
-        return;
-    }
-
-    // Lanjutkan dengan menambahkan item ke keranjang jika pemeriksaan lulus
-    this.tabelUntukKeranjang = (DefaultTableModel) this.tabelKeranjang.getModel();
-
-    boolean itemExists = false;
-
-    for (int i = 0; i < this.tabelKeranjang.getRowCount(); i++) {
-        if(this.tabelUntukKeranjang.getValueAt(i, 0).equals(this.nmMKn1.getText())){
-            itemExists = true;
-            break;
+     // Periksa apakah ada baris yang dipilih di tabelTabel
+        int selectedRow = tabelTabel.getSelectedRow();
+        if (selectedRow == -1) {
+            // Jika tidak ada baris yang dipilih, tampilkan pesan popup
+            JOptionPane.showMessageDialog(this, "Pilihlah menu terlebih dahulu!");
+            return;
         }
-    }
 
-    if(itemExists) {
-        JOptionPane.showMessageDialog(this, "Pesan sekali saja. Untuk menambah atau mengurangi pesanan, silakan ke menu Keranjang!");
-    } else {
-        this.tabelUntukKeranjang.addRow(new Object[]{this.nmMKn1.getText(), this.hrg1.getText(), 1, this.getNomorKamar()});
-        
-        this.total = 0;
-        for (int i = 0; i < tabelUntukKeranjang.getRowCount(); i++) {
-            int jumlah = (Integer) this.tabelUntukKeranjang.getValueAt(i, 2);
-            int harga = Integer.valueOf(this.tabelUntukKeranjang.getValueAt(i, 1).toString());
-            total += jumlah * harga;
+        // Periksa apakah status menu adalah "Tidak Tersedia"
+        String statusMenu = tabelTabel.getValueAt(selectedRow, 2).toString();
+        if ("tidak tersedia".equals(statusMenu)) {
+            // Jika status menu adalah "Tidak Tersedia", tampilkan pesan popup
+            JOptionPane.showMessageDialog(this, "Menu ini tidak tersedia, silakan pilih menu lain!");
+            return;
         }
-        this.totalHarga.setText(String.valueOf(total));
-    }
+
+        // Periksa waktu saat ini di zona waktu Indonesia Barat
+        ZoneId zoneId = ZoneId.of("Asia/Jakarta");
+        LocalTime currentTime = ZonedDateTime.now(zoneId).toLocalTime();
+        LocalTime startLimit = LocalTime.of(22, 0);
+        LocalTime endLimit = LocalTime.of(8, 0);
+
+        if (currentTime.isAfter(startLimit) || currentTime.isBefore(endLimit)) {
+            // Jika waktu berada di antara pukul 22:00 hingga 08:00, nonaktifkan tombol tambah
+            JOptionPane.showMessageDialog(this, "Pesanan tidak dapat dilakukan antara pukul 22:00 hingga 08:00.");
+            this.tombolTambahPesanan.setEnabled(false);
+            return;
+        }
+
+        // Lanjutkan dengan menambahkan item ke keranjang jika pemeriksaan lulus
+        this.tabelUntukKeranjang = (DefaultTableModel) this.tabelKeranjang.getModel();
+
+        boolean itemExists = false;
+
+        for (int i = 0; i < this.tabelKeranjang.getRowCount(); i++) {
+            if (this.tabelUntukKeranjang.getValueAt(i, 0).equals(this.nmMKn1.getText())) {
+                itemExists = true;
+                break;
+            }
+        }
+
+        if (itemExists) {
+            JOptionPane.showMessageDialog(this, "Pesan sekali saja. Untuk menambah atau mengurangi pesanan, silakan ke menu Keranjang!");
+        } else {
+            this.tabelUntukKeranjang.addRow(new Object[]{this.nmMKn1.getText(), this.hrg1.getText(), 1, this.getNomorKamar()});
+
+            this.total = 0;
+            for (int i = 0; i < tabelUntukKeranjang.getRowCount(); i++) {
+                int jumlah = (Integer) this.tabelUntukKeranjang.getValueAt(i, 2);
+                int harga = Integer.valueOf(this.tabelUntukKeranjang.getValueAt(i, 1).toString());
+                total += jumlah * harga;
+            }
+            this.totalHarga.setText(String.valueOf(total));
+        }
         
         
     }//GEN-LAST:event_tombolTambahPesananActionPerformed
