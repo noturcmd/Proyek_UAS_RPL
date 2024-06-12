@@ -140,10 +140,10 @@ public class Login extends javax.swing.JFrame {
                             this.hmus.setVisible(true);
                             hmus.setNomorKamar(rs.getString("id").toUpperCase());
                             query = String.format("SELECT \n" +
-                                "    CASE \n" +
-                                "        WHEN HOUR(CURTIME()) = 22 THEN true\n" +
-                                "        ELSE false\n" +
-                                "    END as TimeCheck;");
+                            "    CASE \n" +
+                            "        WHEN HOUR(CONVERT_TZ(FROM_UNIXTIME(UNIX_TIMESTAMP()), '+00:00', '+07:00')) = 22 THEN true\n" +
+                            "        ELSE false\n" +
+                            "    END as TimeCheck;");
                             
                             rs = st.executeQuery(query);
                             if(!rs.next() && rs.getString("TimeCheck").equals("0")){
