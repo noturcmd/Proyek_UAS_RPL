@@ -161,26 +161,6 @@ public class HomeUserMakanan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelKeranjang = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabelKeranjang = new javax.swing.JTable();
-        tombolKurangiMakanan = new javax.swing.JButton();
-        tombolAddMakanan = new javax.swing.JButton();
-        jumlah = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        totalHarga = new javax.swing.JLabel();
-        pesan = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        deskripsi = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        panelProsesdanPesanan = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tabelRiwayat = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tabelProsesPesan = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
         tombolLogout = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelTabel = new javax.swing.JTable();
@@ -198,14 +178,284 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         menuMinuman = new javax.swing.JButton();
         nomorKamar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        panelProsesdanPesanan = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelRiwayat = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabelProsesPesan = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        panelKeranjang = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelKeranjang = new javax.swing.JTable();
+        tombolKurangiMakanan = new javax.swing.JButton();
+        tombolAddMakanan = new javax.swing.JButton();
+        jumlah = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        totalHarga = new javax.swing.JLabel();
+        pesan = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        deskripsi = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tombolLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tombolLogout.setText("Logout");
+        tombolLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolLogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tombolLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1010, 100, 40));
+
+        tabelTabel.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nama", "Harga", "Status", "Deskripsi"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelTabel.setGridColor(new java.awt.Color(255, 255, 255));
+        tabelTabel.getTableHeader().setReorderingAllowed(false);
+        tabelTabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelTabelMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelTabel);
+        if (tabelTabel.getColumnModel().getColumnCount() > 0) {
+            tabelTabel.getColumnModel().getColumn(0).setResizable(false);
+            tabelTabel.getColumnModel().getColumn(0).setHeaderValue("Nama");
+            tabelTabel.getColumnModel().getColumn(1).setResizable(false);
+            tabelTabel.getColumnModel().getColumn(1).setHeaderValue("Harga");
+            tabelTabel.getColumnModel().getColumn(2).setResizable(false);
+            tabelTabel.getColumnModel().getColumn(2).setHeaderValue("Status");
+            tabelTabel.getColumnModel().getColumn(3).setResizable(false);
+            tabelTabel.getColumnModel().getColumn(3).setHeaderValue("Deskripsi");
+        }
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 600, 1190, 420));
+
+        jPanel1.setBackground(new java.awt.Color(204, 0, 204));
+
+        nmMKn1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        nmMKn1.setForeground(new java.awt.Color(255, 255, 255));
+        nmMKn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        nmMKn1.setText("MAKANAN");
+        nmMKn1.setAlignmentY(0.0F);
+
+        tombolTambahPesanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
+        tombolTambahPesanan.setContentAreaFilled(false);
+        tombolTambahPesanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tombolTambahPesananActionPerformed(evt);
+            }
+        });
+
+        hrg1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        hrg1.setForeground(new java.awt.Color(255, 255, 255));
+        hrg1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        hrg1.setText("HARGA");
+        hrg1.setAlignmentY(0.0F);
+
+        deskripsiMenu.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        deskripsiMenu.setForeground(new java.awt.Color(255, 255, 255));
+        deskripsiMenu.setText("DESKRIPSI");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(jumlahPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nmMKn1)
+                            .addComponent(hrg1)
+                            .addComponent(deskripsiMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(tombolTambahPesanan)))
+                .addGap(857, 857, 857))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(nmMKn1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(hrg1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deskripsiMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(tombolTambahPesanan)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jumlahPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 260, 820, 290));
+
+        menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
+        menuCamilan.setToolTipText("");
+        menuCamilan.setAlignmentY(0.0F);
+        menuCamilan.setContentAreaFilled(false);
+        menuCamilan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCamilanActionPerformed(evt);
+            }
+        });
+        getContentPane().add(menuCamilan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 680, -1, -1));
+
+        menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png"))); // NOI18N
+        menuMakanan.setToolTipText("");
+        menuMakanan.setAlignmentY(0.0F);
+        menuMakanan.setContentAreaFilled(false);
+        menuMakanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMakananActionPerformed(evt);
+            }
+        });
+        getContentPane().add(menuMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, -1, -1));
+
+        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png"))); // NOI18N
+        riwayat.setToolTipText("");
+        riwayat.setAlignmentY(0.0F);
+        riwayat.setContentAreaFilled(false);
+        riwayat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                riwayatActionPerformed(evt);
+            }
+        });
+        getContentPane().add(riwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 880, -1, -1));
+
+        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png"))); // NOI18N
+        keranjang.setToolTipText("");
+        keranjang.setAlignmentY(0.0F);
+        keranjang.setContentAreaFilled(false);
+        keranjang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                keranjangActionPerformed(evt);
+            }
+        });
+        getContentPane().add(keranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 780, -1, -1));
+
+        menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png"))); // NOI18N
+        menuMinuman.setToolTipText("");
+        menuMinuman.setAlignmentY(0.0F);
+        menuMinuman.setContentAreaFilled(false);
+        menuMinuman.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMinumanActionPerformed(evt);
+            }
+        });
+        getContentPane().add(menuMinuman, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 580, -1, -1));
+
+        nomorKamar.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
+        nomorKamar.setForeground(new java.awt.Color(255, 255, 255));
+        nomorKamar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nomorKamar.setText("KAMAR");
+        nomorKamar.setAlignmentY(0.0F);
+        getContentPane().add(nomorKamar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 320, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg home user.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, 1080));
+
+        panelProsesdanPesanan.setBackground(new java.awt.Color(255, 255, 255));
+        panelProsesdanPesanan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tabelRiwayat.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Pesanan/Riwayat", "Admin", "Pembeli", "Pesanan", "Deskripsi", "Harga", "Status", "Tanggal Pesan"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tabelRiwayat);
+        if (tabelRiwayat.getColumnModel().getColumnCount() > 0) {
+            tabelRiwayat.getColumnModel().getColumn(0).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(1).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(2).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(3).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(4).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(5).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(6).setResizable(false);
+            tabelRiwayat.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        panelProsesdanPesanan.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 590, 1040, 370));
+
+        tabelProsesPesan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Pesanan/Riwayat", "Admin", "Pembeli", "Pesanan", "Deskripsi", "Harga", "Status", "Tanggal Pesan"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tabelProsesPesan);
+        if (tabelProsesPesan.getColumnModel().getColumnCount() > 0) {
+            tabelProsesPesan.getColumnModel().getColumn(0).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(1).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(2).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(3).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(4).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(5).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(6).setResizable(false);
+            tabelProsesPesan.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        panelProsesdanPesanan.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 1040, 370));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Riwayat Pesanan");
+        panelProsesdanPesanan.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
+
+        getContentPane().add(panelProsesdanPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 1240, 990));
+
         panelKeranjang.setBackground(new java.awt.Color(255, 255, 255));
         panelKeranjang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tabelKeranjang.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         tabelKeranjang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -310,262 +560,6 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         panelKeranjang.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
 
         getContentPane().add(panelKeranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 1220, 780));
-
-        panelProsesdanPesanan.setBackground(new java.awt.Color(255, 255, 255));
-        panelProsesdanPesanan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tabelRiwayat.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        tabelRiwayat.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Pesanan/Riwayat", "Admin", "Pembeli", "Pesanan", "Deskripsi", "Harga", "Status", "Tanggal Pesan"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(tabelRiwayat);
-        if (tabelRiwayat.getColumnModel().getColumnCount() > 0) {
-            tabelRiwayat.getColumnModel().getColumn(0).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(1).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(2).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(3).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(4).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(5).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(6).setResizable(false);
-            tabelRiwayat.getColumnModel().getColumn(7).setResizable(false);
-        }
-
-        panelProsesdanPesanan.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 590, 1040, 370));
-
-        tabelProsesPesan.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        tabelProsesPesan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Pesanan/Riwayat", "Admin", "Pembeli", "Pesanan", "Deskripsi", "Harga", "Status", "Tanggal Pesan"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane5.setViewportView(tabelProsesPesan);
-        if (tabelProsesPesan.getColumnModel().getColumnCount() > 0) {
-            tabelProsesPesan.getColumnModel().getColumn(0).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(1).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(2).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(3).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(4).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(5).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(6).setResizable(false);
-            tabelProsesPesan.getColumnModel().getColumn(7).setResizable(false);
-        }
-
-        panelProsesdanPesanan.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 1040, 370));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Riwayat Pesanan");
-        panelProsesdanPesanan.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 540, 90));
-
-        getContentPane().add(panelProsesdanPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 1240, 990));
-
-        tombolLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tombolLogout.setText("Logout");
-        tombolLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolLogoutActionPerformed(evt);
-            }
-        });
-        getContentPane().add(tombolLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1010, 100, 40));
-
-        tabelTabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        tabelTabel.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nama", "Harga", "Status", "Deskripsi"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelTabel.setGridColor(new java.awt.Color(255, 255, 255));
-        tabelTabel.getTableHeader().setReorderingAllowed(false);
-        tabelTabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelTabelMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tabelTabel);
-        if (tabelTabel.getColumnModel().getColumnCount() > 0) {
-            tabelTabel.getColumnModel().getColumn(0).setResizable(false);
-            tabelTabel.getColumnModel().getColumn(0).setHeaderValue("Nama");
-            tabelTabel.getColumnModel().getColumn(1).setResizable(false);
-            tabelTabel.getColumnModel().getColumn(1).setHeaderValue("Harga");
-            tabelTabel.getColumnModel().getColumn(2).setResizable(false);
-            tabelTabel.getColumnModel().getColumn(2).setHeaderValue("Status");
-            tabelTabel.getColumnModel().getColumn(3).setResizable(false);
-            tabelTabel.getColumnModel().getColumn(3).setHeaderValue("Deskripsi");
-        }
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 600, 1190, 420));
-
-        jPanel1.setBackground(new java.awt.Color(204, 0, 204));
-
-        nmMKn1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
-        nmMKn1.setForeground(new java.awt.Color(255, 255, 255));
-        nmMKn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        nmMKn1.setText("MAKANAN");
-        nmMKn1.setAlignmentY(0.0F);
-
-        tombolTambahPesanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tambah.png"))); // NOI18N
-        tombolTambahPesanan.setContentAreaFilled(false);
-        tombolTambahPesanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tombolTambahPesananActionPerformed(evt);
-            }
-        });
-
-        hrg1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
-        hrg1.setForeground(new java.awt.Color(255, 255, 255));
-        hrg1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        hrg1.setText("HARGA");
-        hrg1.setAlignmentY(0.0F);
-
-        deskripsiMenu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(jumlahPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nmMKn1)
-                            .addComponent(hrg1))
-                        .addGap(64, 64, 64)
-                        .addComponent(deskripsiMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(tombolTambahPesanan)))
-                .addGap(611, 611, 611))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(nmMKn1)
-                                .addGap(65, 65, 65)
-                                .addComponent(hrg1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(deskripsiMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tombolTambahPesanan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jumlahPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(gbr1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, 1190, 290));
-
-        menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png"))); // NOI18N
-        menuCamilan.setToolTipText("");
-        menuCamilan.setAlignmentY(0.0F);
-        menuCamilan.setContentAreaFilled(false);
-        menuCamilan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuCamilanActionPerformed(evt);
-            }
-        });
-        getContentPane().add(menuCamilan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 680, -1, -1));
-
-        menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png"))); // NOI18N
-        menuMakanan.setToolTipText("");
-        menuMakanan.setAlignmentY(0.0F);
-        menuMakanan.setContentAreaFilled(false);
-        menuMakanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuMakananActionPerformed(evt);
-            }
-        });
-        getContentPane().add(menuMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, -1, -1));
-
-        riwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png"))); // NOI18N
-        riwayat.setToolTipText("");
-        riwayat.setAlignmentY(0.0F);
-        riwayat.setContentAreaFilled(false);
-        riwayat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                riwayatActionPerformed(evt);
-            }
-        });
-        getContentPane().add(riwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 880, -1, -1));
-
-        keranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png"))); // NOI18N
-        keranjang.setToolTipText("");
-        keranjang.setAlignmentY(0.0F);
-        keranjang.setContentAreaFilled(false);
-        keranjang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                keranjangActionPerformed(evt);
-            }
-        });
-        getContentPane().add(keranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 780, -1, -1));
-
-        menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png"))); // NOI18N
-        menuMinuman.setToolTipText("");
-        menuMinuman.setAlignmentY(0.0F);
-        menuMinuman.setContentAreaFilled(false);
-        menuMinuman.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuMinumanActionPerformed(evt);
-            }
-        });
-        getContentPane().add(menuMinuman, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 580, -1, -1));
-
-        nomorKamar.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
-        nomorKamar.setForeground(new java.awt.Color(255, 255, 255));
-        nomorKamar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nomorKamar.setText("KAMAR");
-        nomorKamar.setAlignmentY(0.0F);
-        getContentPane().add(nomorKamar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 320, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bg home user.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, 1080));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
