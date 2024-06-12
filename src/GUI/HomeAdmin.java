@@ -489,13 +489,13 @@ private void updateMenu() {
         jLabel6 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         tombolUbahGambarTidakTersedia = new javax.swing.JButton();
+        lihatGambar1 = new javax.swing.JLabel();
         namaFileTidakTersedia = new javax.swing.JTextField();
         tombolUbahGambar = new javax.swing.JButton();
         tombolRefresh = new javax.swing.JButton();
         tombolHapus = new javax.swing.JButton();
         tombolUbahMenu = new javax.swing.JButton();
         tombolTambahMenu = new javax.swing.JButton();
-        lihatGambar1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -759,13 +759,14 @@ private void updateMenu() {
         getContentPane().add(panelDataUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 1200, 950));
 
         tombolLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tombolLogout.setText("Logout");
+        tombolLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Log Out.png"))); // NOI18N
+        tombolLogout.setContentAreaFilled(false);
         tombolLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tombolLogoutActionPerformed(evt);
             }
         });
-        getContentPane().add(tombolLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1010, 100, 40));
+        getContentPane().add(tombolLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 130, 120));
 
         ubahJenis.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ubahJenis.setBorder(null);
@@ -793,6 +794,7 @@ private void updateMenu() {
             }
         });
         getContentPane().add(tombolUbahGambarTidakTersedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1590, 810, -1, 60));
+        getContentPane().add(lihatGambar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 710, 180, 120));
 
         namaFileTidakTersedia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         namaFileTidakTersedia.setToolTipText("");
@@ -845,7 +847,6 @@ private void updateMenu() {
             }
         });
         getContentPane().add(tombolTambahMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 880, -1, 60));
-        getContentPane().add(lihatGambar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 740, 180, 120));
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel5.setText("Deskripsi  :");

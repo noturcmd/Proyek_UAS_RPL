@@ -418,13 +418,14 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         getContentPane().add(panelKeranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 1220, 780));
 
         tombolLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tombolLogout.setText("Logout");
+        tombolLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Log Out.png"))); // NOI18N
+        tombolLogout.setContentAreaFilled(false);
         tombolLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tombolLogoutActionPerformed(evt);
             }
         });
-        getContentPane().add(tombolLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 1010, 100, 40));
+        getContentPane().add(tombolLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 120, 110));
 
         tabelTabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
