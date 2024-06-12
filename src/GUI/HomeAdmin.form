@@ -33,7 +33,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="660" y="30" width="1200" height="950"/>
+          <AbsoluteConstraints x="660" y="30" width="1920" height="1080"/>
         </Constraint>
       </Constraints>
 
@@ -791,7 +791,7 @@
     <Component class="javax.swing.JButton" name="editAkun">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/Riwayat Pesanan b.png"/>
+          <Image iconType="3" name="/img/editakun b.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="alignmentY" type="float" value="0.0"/>
@@ -802,14 +802,14 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="130" y="880" width="-1" height="-1"/>
+          <AbsoluteConstraints x="130" y="890" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JButton" name="pesananDanRiwayat">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/keranjang b.png"/>
+          <Image iconType="3" name="/img/Riwayat Pesanan b.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="alignmentY" type="float" value="0.0"/>

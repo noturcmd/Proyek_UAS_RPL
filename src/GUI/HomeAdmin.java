@@ -648,7 +648,7 @@ private void updateMenu() {
         editStatusPesanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "dikirim", "diproses", "selesai" }));
         panelPesanandanRiwayat.add(editStatusPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 130, -1));
 
-        getContentPane().add(panelPesanandanRiwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 1200, 950));
+        getContentPane().add(panelPesanandanRiwayat, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 1920, 1080));
 
         panelDataUser.setBackground(new java.awt.Color(255, 255, 255));
         panelDataUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -863,7 +863,7 @@ private void updateMenu() {
         jLabel2.setText("Nama     :");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 310, 80, 40));
 
-        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png"))); // NOI18N
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/editakun b.png"))); // NOI18N
         editAkun.setToolTipText("");
         editAkun.setAlignmentY(0.0F);
         editAkun.setContentAreaFilled(false);
@@ -872,9 +872,9 @@ private void updateMenu() {
                 editAkunActionPerformed(evt);
             }
         });
-        getContentPane().add(editAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 880, -1, -1));
+        getContentPane().add(editAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 890, -1, -1));
 
-        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png"))); // NOI18N
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png"))); // NOI18N
         pesananDanRiwayat.setToolTipText("");
         pesananDanRiwayat.setAlignmentY(0.0F);
         pesananDanRiwayat.setContentAreaFilled(false);
@@ -1024,8 +1024,8 @@ private void updateMenu() {
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
-        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
-        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan w.png")));
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/editakun w.png")));
         this.jScrollPane1.setVisible(false);
         this.ubahNama.setText("");
         this.ubahHarga.setText("");
@@ -1047,8 +1047,8 @@ private void updateMenu() {
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
-        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang w.png")));
-        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan w.png")));
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/editakun b.png")));
         this.jScrollPane2.setVisible(false);
         this.panelDataUser.setVisible(false);
         this.panelPesanandanRiwayat.setVisible(true);
@@ -1062,8 +1062,8 @@ private void updateMenu() {
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/camil w.png")));
-        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
-        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/editakun b.png")));
         this.panelAktif = "Cemilan";
         this.getData("Cemilan");
         
@@ -1082,8 +1082,8 @@ private void updateMenu() {
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan b.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum w.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
-        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
-        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/editakun b.png")));
         this.panelAktif = "Minuman";
         this.getData("Minuman");
         this.lihatGambar1.setIcon(null);
@@ -1103,8 +1103,8 @@ private void updateMenu() {
         menuMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/makan w.png")));
         menuMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minum b.png")));
         menuCamilan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cemil b.png")));
-        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/keranjang b.png")));
-        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        pesananDanRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Riwayat Pesanan b.png")));
+        editAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/editakun b.png")));
         this.panelAktif = "Makanan";
         this.getData("Makanan");
         this.jScrollPane1.setVisible(true);
