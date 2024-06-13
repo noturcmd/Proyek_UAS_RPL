@@ -611,8 +611,8 @@ public class HomeUserMakanan extends javax.swing.JFrame {
         this.getData("Cemilan");
         if(this.imageList.size() > 0){
             this.gbr1.setIcon(this.imageList.get(0));
-        this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
-        this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
+            this.hrg1.setText(tabelTabel.getValueAt(0, 1).toString());
+            this.nmMKn1.setText(tabelTabel.getValueAt(0, 0).toString());
         }
         this.panelKeranjang.setVisible(false);
         this.jPanel1.setVisible(true);

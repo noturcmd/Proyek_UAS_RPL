@@ -147,7 +147,8 @@ public class HomeAdmin extends javax.swing.JFrame {
 private void updateMenu() {
     try {
         // Periksa apakah nama menu yang baru sudah ada di database, kecuali nama menu yang sedang diubah
-        String oldMenuName = (String) tabelMenuAdmin.getValueAt(tabelMenuAdmin.getSelectedRow(), 0);
+        if(tabelMenuAdmin.getValueAt(tabelMenuAdmin.getSelectedRow(), 0) != -1){
+            String oldMenuName = (String) tabelMenuAdmin.getValueAt(tabelMenuAdmin.getSelectedRow(), 0);
         String newMenuName = ubahNama.getText();
 
         if (!oldMenuName.equals(newMenuName)) {
@@ -214,6 +215,8 @@ private void updateMenu() {
         // Menjalankan query
         pstmt.executeUpdate();
         JOptionPane.showMessageDialog(this, "Menu berhasil diperbarui!");
+        }
+        
     } catch (SQLException e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Terjadi eror saat mencoba mengubah menu!");
